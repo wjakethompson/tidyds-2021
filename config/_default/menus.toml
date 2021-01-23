@@ -31,5 +31,5 @@
 [[main]]
   pre = "<i class=\"fab fa-github fa-lg\"></i>"
   name = ""
-  url = "https://github.com/wjakethompson/"
+  url = "https://github.com/wjakethompson/tidyds-2021"
   weight = 50
