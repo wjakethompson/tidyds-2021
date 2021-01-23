@@ -1,6 +1,6 @@
 theme: starter-academic
 title: Tidy Data Science
-baseurl: ''
+baseurl: 'https://tidy-ds.wjakethompson.com'
 copyright: ''
 enableGitInfo: no
 defaultContentLanguage: en

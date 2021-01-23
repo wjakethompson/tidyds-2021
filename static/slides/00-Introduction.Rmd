@@ -22,7 +22,7 @@ output:
       in_header: [assets/header.html]
 params:
   site_link: "https://github.com/wjakethompson/tidyds-2021"
-  class_link: "https://tidyds-21.wjakethompson.com/"
+  class_link: "https://tidyds-2021.wjakethompson.com/"
 editor_options: 
   chunk_output_type: console
 ---
