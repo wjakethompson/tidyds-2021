@@ -1,0 +1,23 @@
+# Theme metadata
+name = "tidyds_2021"
+
+# Is theme light or dark?
+light = true
+
+# Primary
+primary = "#009FB7"
+
+# Links
+link = "#009FB7"
+link_hover = "#FED766"
+
+# Menu
+menu_primary = "#272727"
+menu_text = "#009FB7"
+menu_text_active = "#FFFFFF"
+menu_title = "#009FB7"
+
+# Backgrounds
+background = "#F0F0F0"
+home_section_odd = "#F0F0F0"
+home_section_even = "#F0F0F0"

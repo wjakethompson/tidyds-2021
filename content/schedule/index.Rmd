@@ -1,0 +1,146 @@
+---
+title: "Schedule"  # Add a page title.
+summary: "Tentative schedule of topics to be covered"  # Add a page description.
+date: "2021-01-01T00:00:00Z"  # Add today's date.
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(gt)
+library(glue)
+library(emo)
+xaringanExtra::use_panelset()
+xaringanExtra::style_panelset_tabs(font_family = "inherit")
+```
+
+## {.panelset}
+
+### Day 1
+
+```{r day-1, echo = FALSE}
+tribble(
+  ~When, ~What,
+  "09:00-09:30", "Preliminaries",
+  "09:30-10:15", "Introduction to R and RStudio",
+  "10:15-10:30", glue("<em>Break</em> {emo::ji('coffee')}"),
+  "10:30-12:00", "Data Visualization with <a href='https://ggplot2.tidyverse.org'>ggplot2</a>",
+  "12:00-01:30", glue("<em>Lunch</em> {emo::ji('bento')}"),
+  "01:30-02:30", "Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a>",
+  "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
+  "02:45-03:30", "Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a>",
+  "03:30-04:30", "<em>Office Hours</em> (sign-up required)"
+) %>%
+  mutate(What = map(What, html)) %>%
+  gt() %>%
+  cols_align(align = "center", columns = vars(When)) %>%
+  cols_align(align = "left", columns = vars(What)) %>%
+  cols_width(vars(When) ~ px(150),
+             vars(What) ~ px(300)) %>%
+  wjake::gt_theme_wjake() %>%
+  tab_style(style = list(cell_text(font = "Source Code Pro")),
+            locations = cells_body(columns = vars(When)))
+```
+
+
+### Day 2
+
+```{r day-2, echo = FALSE}
+tribble(
+  ~When, ~What,
+  "09:00-10:15", "Data Types",
+  "10:15-10:30", glue("<em>Break</em> {emo::ji('coffee')}"),
+  "10:30-12:00", "Import Data with <a href='https://readr.tidyverse.org'>readr</a>",
+  "12:00-01:30", glue("<em>Lunch</em> {emo::ji('pizza')}"),
+  "01:30-02:30", "Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a>",
+  "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
+  "02:45-03:30", "Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a>",
+  "03:30-04:30", "<em>Office Hours</em> (sign-up required)"
+) %>%
+  mutate(What = map(What, html)) %>%
+  gt() %>%
+  cols_align(align = "center", columns = vars(When)) %>%
+  cols_align(align = "left", columns = vars(What)) %>%
+  cols_width(vars(When) ~ px(150),
+             vars(What) ~ px(300)) %>%
+  wjake::gt_theme_wjake() %>%
+  tab_style(style = list(cell_text(font = "Source Code Pro")),
+            locations = cells_body(columns = vars(When)))
+```
+
+
+### Day 3
+
+```{r day-3, echo = FALSE}
+tribble(
+  ~When, ~What,
+  "09:00-10:00", "Case Study",
+  "10:00-10:15", glue("<em>Break</em> {emo::ji('coffee')}"),
+  "10:15-12:00", "Prediction with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
+  "12:00-01:30", glue("<em>Lunch</em> {emo::ji('burrito')}"),
+  "01:30-02:30", "Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
+  "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
+  "02:45-03:30", "Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
+  "03:30-04:30", "<em>Office Hours</em> (sign-up required)"
+) %>%
+  mutate(What = map(What, html)) %>%
+  gt() %>%
+  cols_align(align = "center", columns = vars(When)) %>%
+  cols_align(align = "left", columns = vars(What)) %>%
+  cols_width(vars(When) ~ px(150),
+             vars(What) ~ px(300)) %>%
+  wjake::gt_theme_wjake() %>%
+  tab_style(style = list(cell_text(font = "Source Code Pro")),
+            locations = cells_body(columns = vars(When)))
+```
+
+
+### Day 4
+
+```{r day-4, echo = FALSE}
+tribble(
+  ~When, ~What,
+  "09:00-10:00", "Resampling with <a href='https://rsample.tidymodels.org'>rsample</a>",
+  "10:00-10:15", glue("<em>Break</em> {emo::ji('coffee')}"),
+  "10:15-12:00", "Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
+  "12:00-01:30", glue("<em>Lunch</em> {emo::ji('salad')}"),
+  "01:30-02:30", "Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a>",
+  "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
+  "02:45-03:30", "Modeling Pipelines with <a href='https://workflows.tidymodels.org'>workflows</a>",
+  "03:30-04:30", "<em>Office Hours</em> (sign-up required)"
+) %>%
+  mutate(What = map(What, html)) %>%
+  gt() %>%
+  cols_align(align = "center", columns = vars(When)) %>%
+  cols_align(align = "left", columns = vars(What)) %>%
+  cols_width(vars(When) ~ px(150),
+             vars(What) ~ px(300)) %>%
+  wjake::gt_theme_wjake() %>%
+  tab_style(style = list(cell_text(font = "Source Code Pro")),
+            locations = cells_body(columns = vars(When)))
+```
+
+
+### Day 5
+
+```{r day-5, echo = FALSE}
+tribble(
+  ~When, ~What,
+  "09:00-10:00", "Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a>",
+  "10:00-10:15", glue("<em>Break</em> {emo::ji('coffee')}"),
+  "10:15-12:00", "Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a>",
+  "12:00-01:30", glue("<em>Lunch</em> {emo::ji('burger')}"),
+  "01:30-02:30", "Case Study",
+  "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
+  "02:45-03:30", "Getting Help with <a href='https://reprex.tidyverse.org'>reprex</a>",
+  "03:30-04:30", "<em>Office Hours</em> (sign-up required)"
+) %>%
+  mutate(What = map(What, html)) %>%
+  gt() %>%
+  cols_align(align = "center", columns = vars(When)) %>%
+  cols_align(align = "left", columns = vars(What)) %>%
+  cols_width(vars(When) ~ px(150),
+             vars(What) ~ px(300)) %>%
+  wjake::gt_theme_wjake() %>%
+  tab_style(style = list(cell_text(font = "Source Code Pro")),
+            locations = cells_body(columns = vars(When)))
+```
