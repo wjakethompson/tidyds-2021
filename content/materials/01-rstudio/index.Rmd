@@ -1,0 +1,19 @@
+---
+title: 'Session 01: R and RStudio'
+draft: false
+slug: 01-rstudio
+categories: []
+tags: []
+featured: no
+projects: []
+weight: 1
+links:
+- icon: images
+  icon_pack: fas
+  name: slides
+  url: /slides/01-RStudio.html
+---
+
+```{r echo=FALSE}
+knitr::include_url("/slides/01-RStudio.html")
+```
