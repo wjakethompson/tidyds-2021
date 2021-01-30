@@ -1,0 +1,353 @@
+---
+title: "R and RStudio"
+subtitle: "Tidy Data Science with the Tidyverse and Tidymodels"
+session: 01
+author: W. Jake Thompson
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      # autoplay: 5000
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      slideNumberFormat: "" 
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "https://platform.twitter.com/widgets.js"
+    includes:
+      in_header: [assets/header.html]
+params:
+  site_link: "https://bit.ly/tidyds-2021"
+  class_link: "https://tidyds-2021.wjakethompson.com"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 3,
+                      fig.path = "images/r-rstudio/")
+
+# xaringanExtra::use_share_again()
+
+yt_counter <- 0
+library(countdown)
+library(tidyverse)
+```
+
+class: title-slide, center
+
+<span class="fa-stack fa-4x">
+  <i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"></i>
+  <strong class="fa-stack-1x" style="color:#009FB7;">`r rmarkdown::metadata$session`</strong>
+</span> 
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+---
+background-image: url(images/r-rstudio/ds-flow-truncated.png)
+background-position: 50% 70%
+background-size: 60%
+
+# Data Science
+
+
+
+---
+background-image: url(images/r-rstudio/ds-flow-full.png)
+background-position: middle center
+background-size: 95%
+
+---
+background-image: url(images/r-rstudio/ds-flow-full-r.png)
+background-position: middle center
+background-size: 95%
+
+---
+background-image: url(images/r-rstudio/mountain-struggle.jpg)
+background-position: center middle
+background-size: 100%
+class: bottom left
+
+.footnote[Picture from Joshua Earle on [Unsplash](https://unsplash.com/photos/-87JyMb9ZfU)]
+
+---
+background-image: url(images/r-rstudio/brain-to-machine.png)
+background-position: 50% 60%
+background-size: 90%
+
+# R: A computer language for scientists
+
+---
+background-image: url(images/r-rstudio/pit-success.jpg)
+background-position: center middle
+background-size: 100%
+class: bottom left
+
+.footnote[Picture from Eric Muhr on [Unsplash](https://unsplash.com/photos/8HyrGTYPQ68)]
+
+---
+background-image: url(images/r-rstudio/base.png)
+background-position: 75px 140px
+background-size: 20%
+
+## R packages
+
+---
+background-image: url(images/r-rstudio/base-r.png)
+background-position: 75px 140px
+background-size: 20%
+
+## R packages
+
+---
+background-image: url(images/r-rstudio/r-pkgs.png)
+background-position: 75px 140px
+background-size: 93%
+
+## R packages
+
+---
+background-image: url(images/r-rstudio/tidy-brain-machine.png)
+background-position: 50% 60%
+background-size: 90%
+
+# tidyverse: Ecosystem to unify data science tasks
+
+---
+background-image: url(images/r-rstudio/hill-striving.jpg)
+background-position: center middle
+background-size: 100%
+class: bottom left
+
+.footnote[From [Data Rectangling, by Jenny Bryan](https://rstudio.com/resources/rstudioconf-2018/data-rectangling/)]
+
+---
+class: center
+
+# Using packages
+
+.pull-left[
+### Step 1
+```{r install-pkg, eval = FALSE}
+install.packages("foo")
+```
+Downloads files to computer
+## 1 x per computer
+]
+
+.pull-right[
+### Step 2
+```{r load-pkg, eval = FALSE}
+library("foo")
+```
+Loads package
+## 1 x per R session
+]
+
+---
+.pull-left[
+```r
+install.packages("tidyverse")
+```
+
+does the equivalent of
+
+.small[
+```r 
+install.packages("ggplot2")
+install.packages("tibble")
+install.packages("tidyr")
+install.packages("readr")
+install.packages("purrr")
+install.packages("dplyr")
+install.packages("stringr")
+install.packages("forcats")
+install.packages("dbplyr")
+install.packages("haven")
+install.packages("hms")
+install.packages("httr")
+install.packages("jsonlite")
+install.packages("lubridate")
+install.packages("magrittr")
+install.packages("modelr")
+install.packages("readxl")
+install.packages("reprex")
+install.packages("rlang")
+...
+```
+]
+]
+
+.pull-right[
+```{r tidyverse-network, echo = FALSE, message = FALSE, warning = FALSE, cache = TRUE}
+library(tidyverse)
+library(tidygraph)
+library(ggraph)
+library(pkggraph)
+library(graphlayouts)
+library(here)
+
+tidy_deps <- pull(tidyverse_deps(recursive = FALSE), package)
+tidy_core <- tidyverse:::core
+
+init(local = FALSE)
+pdb <- get_neighborhood(tidy_deps, relation = c("Depends", "Imports"),
+                        level = 100L, strict = TRUE) %>%
+  mutate(relation = as.character(relation))
+
+keep_pkgs <- pdb %>%
+  filter(pkg_2 %in% tidy_deps) %>%
+  pull(pkg_1) %>%
+  unique()
+
+pdb <- filter(pdb, pkg_1 %in% keep_pkgs)
+
+node_info <- pdb %>%
+  select(pkg = pkg_1) %>%
+  distinct() %>%
+  left_join(rename(count(pdb, pkg_1), deps = n), by = c("pkg" = "pkg_1")) %>%
+  left_join(rename(count(pdb, pkg_2), rev_deps = n), by = c("pkg" = "pkg_2"))
+
+pdb <- pdb %>%
+  semi_join(filter(node_info, !is.na(deps), !is.na(rev_deps)),
+            by = c("pkg_1" = "pkg")) %>%
+  semi_join(filter(node_info, !is.na(deps), !is.na(rev_deps)),
+            by = c("pkg_2" = "pkg"))
+
+weights <- tribble(
+  ~relation,   ~weight,
+  "Depends",   2L,
+  "Imports",   1L
+)
+
+while (min(table(c(pdb$pkg_1, pdb$pkg_2))) <= 1) {
+  rm_pkg <- tibble(pkg = c(pdb$pkg_1, pdb$pkg_2)) %>%
+    count(pkg) %>%
+    filter(n <= 1) %>%
+    pull(pkg)
+  
+  pdb <- filter(pdb, !(pkg_1 %in% rm_pkg), !(pkg_2 %in% rm_pkg))
+}
+
+nodes <- tibble(pkg = unique(c(pdb$pkg_1, pdb$pkg_2))) %>%
+  mutate(tidyverse = pkg %in% tidy_deps,
+         tidycore = pkg %in% tidy_core,
+         pkg_type = case_when(tidycore ~ "Core tidyverse",
+                              tidyverse ~ "Extended tidyverse",
+                              TRUE ~ "Friends"),
+         pkg_type = factor(pkg_type, levels = c("Core tidyverse",
+                                                "Extended tidyverse",
+                                                "Friends"))) %>%
+  left_join(rename(count(pdb, pkg_1), deps = n), by = c("pkg" = "pkg_1")) %>%
+  left_join(rename(count(pdb, pkg_2), rev_deps = n), by = c("pkg" = "pkg_2")) %>%
+  rowid_to_column(var = "id") %>%
+  replace_na(list(deps = 0, rev_deps = 0))
+
+edges <- pdb %>%
+  left_join(select(nodes, id, pkg), by = c("pkg_1" = "pkg")) %>%
+  rename(from = id) %>%
+  left_join(select(nodes, id, pkg), by = c("pkg_2" = "pkg")) %>%
+  rename(to = id) %>%
+  select(from, to, from_pkg = pkg_1, to_pkg = pkg_2, relation) %>%
+  left_join(weights, by = "relation")
+  
+
+network <- tbl_graph(nodes = nodes, edges = edges, directed = TRUE) %>%
+  activate(nodes) %>%
+  mutate(pagerank = centrality_pagerank(weights = weight, directed = TRUE),
+         betweenness = centrality_betweenness(weights = weight,directed = TRUE),
+         label = case_when(tidycore ~ pkg,
+                           TRUE ~ NA_character_))
+
+ggraph(network, layout = "stress") +
+  geom_edge_link(alpha = 0.7, color = "lightgrey") +
+  geom_node_point(aes(color = pkg_type, size = betweenness)) +
+  geom_node_text(aes(label = label), repel = TRUE, family = "Source Sans Pro") +
+  scale_size(range = c(1, 8)) +
+  scale_color_manual(values = c("#009FB7", "#FED766", "#696773")) +
+  labs(color = NULL) +
+  theme_graph() +
+  theme(legend.position = "bottom",
+        rect = element_rect(fill = "transparent")) +
+  guides(size = FALSE, color = FALSE)
+```
+]
+
+---
+.pull-left[
+```r
+install.packages("tidyverse")
+```
+
+does the equivalent of
+
+.small[
+```r
+* install.packages("ggplot2")
+* install.packages("tibble")
+* install.packages("tidyr")
+* install.packages("readr")
+* install.packages("purrr")
+* install.packages("dplyr")
+* install.packages("stringr")
+* install.packages("forcats")
+install.packages("dbplyr")
+install.packages("haven")
+install.packages("hms")
+install.packages("httr")
+install.packages("jsonlite")
+install.packages("lubridate")
+install.packages("magrittr")
+install.packages("modelr")
+install.packages("readxl")
+install.packages("reprex")
+install.packages("rlang")
+...
+```
+]
+]
+
+.pull-right[
+```r
+library("tidyverse")
+```
+
+does the equivalent of
+
+.small[
+```r
+library("ggplot2")
+library("tibble")
+library("tidyr")
+library("readr")
+library("purrr")
+library("dplyr")
+library("stringr")
+library("forcats")
+```
+]
+]
+
+---
+background-image: url(images/r-rstudio/applied-ds.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/hex/RStudio.png)
+background-position: center middle
+background-size: 45%
