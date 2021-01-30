@@ -1,0 +1,70 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/11c04494-287b-41f7-8be4-9a30e1da0e9b/deploy-status)](https://app.netlify.com/sites/tidyds-2021/deploys)
+
+Tidy Data Science with the tidyverse and tidymodels
+================
+
+### Summer Stats Camp
+
+by Jake Thompson
+
+-----
+
+:spiral_calendar: June 14-18, 2021  
+:alarm_clock:     09:00 - 16:30  
+:writing_hand:    [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com)  
+
+-----
+
+## Overview
+
+Summary of workshop...
+
+## Learning objectives
+
+Students will learn to train, assess, and generate predictions from several common machine learning methods with the tidymodels suite of packages.
+
+## Is this course for me?
+
+This workshop is appropriate for attendees who answer yes to the questions below:
+
+- Are you new and R and want to learn how to explore, visualize, and model data?
+
+- Are you familiar with R, but want to learn how the tidyverse and tidymodels can take you to the next level?
+
+If you answered yes to either question, you are in the right place! If you are already familiar with the tidyverse and/or tidymodels and want more than an introduction, this course might not be for you.
+
+## Prework
+
+Please bring a laptop to class that has the following installed:
+
+  - A recent version of R (\>=4.0.0), which is available for free at
+    cran.r-project.org
+
+  - A recent version of RStudio Desktop (\>=1.4), available for
+    free at www.rstudio.com/download (RStudio Desktop Open Source
+    License)
+
+  - The R packages we will use, which you can install by connecting to
+    the internet, opening RStudio, and running at the command line:
+    
+        install.packages(c("tidyverse", "tidymodels"))
+        
+And don’t forget your power cord\!
+
+## Schedule
+
+| Time          | Activity         |
+| :------------ | :--------------- |
+| 09:00 - 10:00 | Session 1        |
+| 10:00 - 10:15 | *Coffee break*   |
+| 10:15 - 12:00 | Session 2        |
+| 12:00 - 13:30 | *Lunch break*    |
+| 13:30 - 14:30 | Session 3        |
+| 14:30 - 14:45 | *Coffee break*   |
+| 14:45 - 15:30 | Session 4        |
+
+-----
+
+![](https://i.creativecommons.org/l/by/4.0/88x31.png) This work is
+licensed under a [Creative Commons Attribution 4.0 International
+License](https://creativecommons.org/licenses/by/4.0/).
