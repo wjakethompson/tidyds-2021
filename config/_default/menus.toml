@@ -18,10 +18,10 @@
   url = "prework"
   weight = 20
 
-# [[main]]
-#   name = "MATERIALS"
-#   url = "materials"
-#   weight = 30
+[[main]]
+  name = "MATERIALS"
+  url = "materials"
+  weight = 30
 
 [[main]]
   name = "PEOPLE"
