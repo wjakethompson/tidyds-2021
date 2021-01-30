@@ -8,11 +8,29 @@
 
 .remark-slide-content h1 {
 	margin-bottom: 1.0em !important;
+	color: #272727;
+	font-weight: bold;
+}
+
+.nobold {
+  font-weight: normal;
 }
 
 .footnote {
 	bottom: 1em;
 	font-size: 75%;
+}
+
+.footnote :any-link {
+  color: #272727;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 50% !important;
+}
+
+.small .remark-code { /*Change made here*/
+  font-size: 70% !important;
 }
 
 img {
