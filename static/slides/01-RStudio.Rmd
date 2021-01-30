@@ -33,7 +33,7 @@ knitr::opts_chunk$set(collapse = TRUE,
                       fig.retina = 3,
                       fig.path = "images/r-rstudio/")
 
-# xaringanExtra::use_share_again()
+xaringanExtra::use_share_again()
 
 yt_counter <- 0
 library(countdown)
