@@ -33,6 +33,10 @@
   font-size: 70% !important;
 }
 
+.smallish .remark-code { /*Change made here*/
+  font-size: 85% !important;
+}
+
 img {
 	margin-bottom: 1.5rem;
 	overflow: hidden;
@@ -282,22 +286,22 @@ div.my-footer span {
 /* your turns */
 
 .your-turn {
-  background-color: #447099;
-  color: #fff;
+  background-color: #009FB7;
+  color: #F0F0F0;
 }
 
 .your-turn a {
-  color: #fff!important;
+  color: #fff !important;
 }
 
 .your-turn a:hover,
 .your-turn a:active {
-  color: #f1fa8c!important;
+  color: #FED766 !important;
 }
 
 
 .your-turn h1 {
-  color: #fff;
+  color: #F0F0F0;
   font-size: 3.5em;
 }
 
