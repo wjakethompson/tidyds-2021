@@ -3,6 +3,6 @@ header:
   caption: ""
   image: ""
 title: "Workshop materials"
-view: 2
+view: 1
 layout: post
 ---
