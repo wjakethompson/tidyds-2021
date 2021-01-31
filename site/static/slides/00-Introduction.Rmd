@@ -54,6 +54,8 @@ class: title-slide, center
 
 #### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
 
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
 ---
 background-image: url(images/background/hello-banner2.png)
 background-position: top center
