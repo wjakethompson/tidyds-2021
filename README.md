@@ -5,7 +5,7 @@ Tidy Data Science with the tidyverse and tidymodels
 
 ### Summer Stats Camp
 
-by Jake Thompson
+by [Jake Thompson](https://wjakethompson.com)
 
 -----
 
