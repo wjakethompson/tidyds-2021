@@ -55,6 +55,8 @@ class: title-slide, center
 
 #### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
 
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
 ---
 background-image: url(images/r-rstudio/ds-flow-truncated.png)
 background-position: 50% 70%
@@ -388,4 +390,89 @@ Green "Code" button -> Download ZIP
 
 Open `tidyds-2021.Rproj`
 
-Navigate to `materials/`
+Navigate to `materials/exercises/00-getting-started.Rmd`
+
+```{r echo = FALSE}
+countdown(minutes = 5, seconds = 0,
+          font_size = "2em",
+          color_border = "#272727",
+          color_background = "#009FB7",
+          color_text = "#FED766",
+          color_running_background = "#F0F0F0",
+          color_running_text = "#009FB7",
+          color_finished_background = "#FED766",
+          color_finished_text = "#009FB7")
+```
+
+---
+background-image: url(images/r-rstudio/rstudio-01.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-02.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-03.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-04.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-05.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-06.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-07.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-08.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-09.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-10.png)
+background-position: center middle
+background-size: 90%
+
+---
+background-image: url(images/r-rstudio/rstudio-11.png)
+background-position: center middle
+background-size: 90%
+
+---
+class: title-slide, center
+
+<span class="fa-stack fa-4x">
+  <i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"></i>
+  <strong class="fa-stack-1x" style="color:#009FB7;">`r rmarkdown::metadata$session`</strong>
+</span> 
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
