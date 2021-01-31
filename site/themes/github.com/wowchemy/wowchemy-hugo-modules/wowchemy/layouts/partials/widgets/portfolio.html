@@ -6,8 +6,6 @@
 {{ $items_type := $st.Params.content.page_type | default "project" }}
 {{ $columns := $st.Params.design.columns | default "2" }}
 
-{{ $columns := $st.Params.design.columns | default "2" }}
-
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
   {{ with $st.Content }}{{ . }}{{ end }}
@@ -47,7 +45,15 @@
   {{ end }}
 
   <div class="{{ if or $st.Params.content.filter_button (eq $st.Params.design.view 3) }}isotope projects-container{{end}} {{if eq $st.Params.design.view 3}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $st.Params.design.view 5 }}project-showcase mt-5{{end}}">
-    {{ range $idx, $item := where site.RegularPages "Type" $items_type }}
+
+    {{ $query := "" }}
+    {{ if $st.Params.content.filters.tags }}
+      {{ $query = where site.Pages "Params.tags" "intersect" $st.Params.content.filters.tags }}
+    {{ else }}
+      {{ $query = where site.RegularPages "Type" $items_type }}
+    {{ end }}
+
+    {{ range $idx, $item := $query }}
 
       {{ $link := $item.RelPermalink }}
       {{ $target := "" }}
