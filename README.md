@@ -17,11 +17,11 @@ by Jake Thompson
 
 ## Overview
 
-Summary of workshop...
+This workshop provides a gentle introduction to data science using the R statistical programming language. In the first part of the workshop, you'll learn how to tidy, transform, and visualize data. We'll focus on best practices and methods that can be applied to wide range of data sets, using a suite of R packages known as the [tidyverse](https://tidyverse.org). Tidyverse packages, like [dplyr](https://dplyr.tidyverse.org), [tidyr](https://tidyr.tidyverse.org), and [ggplot2](https://ggplot2.tidyverse.org) provide a grammar of data manipulation and visualization. In the second half of the workshop, we will focus on using data to make predictions with another suite of packages known as [tidymodels](https://tidymodels.org). Like the tidyverse, tidymodels packages, such as [parsnip](https://parsnip.tidymodels.org), [recipes](https://recipes.tidymodels.org), and [rsample](https://rsample.tidymodels.org) provide a grammar for modeling. Further, the tidymodels packages work seamlessly with the tidyverse packages. Throughout the workshop, students will learn how to combine text and R code in reproducible documents with [rmarkdown](https://rmarkdown.rstudio.com/).
 
 ## Learning objectives
 
-Students will learn to train, assess, and generate predictions from several common machine learning methods with the tidymodels suite of packages.
+Students will learn to manage and visualize data and use model to make predictions from several common statistical models using the tidyverse and tidymodels suites of packages.
 
 ## Is this course for me?
 
@@ -35,7 +35,7 @@ If you answered yes to either question, you are in the right place! If you are a
 
 ## Prework
 
-Please bring a laptop to class that has the following installed:
+The course will be taught over Zoom, so make sure you have stable internet connection. Please make sure you have computer or laptop that has the following installed:
 
   - A recent version of R (\>=4.0.0), which is available for free at
     cran.r-project.org
