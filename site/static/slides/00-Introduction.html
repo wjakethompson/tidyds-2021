@@ -190,83 +190,1913 @@ class: middle, center
 
 # Day 1
 
-| When          | What                                                              |
-|:--------------|:------------------------------------------------------------------|
-| 09:00 - 09:30 | Preliminaries                                                     |
-| 09:30 - 10:15 | Introduction to R and RStudio                                     |
-| 10:15 - 10:30 | *Break* ☕                                     |
-| 10:30 - 12:00 | Data Visualization with [ggplot2](https://ggplot2.tidyverse.org)  |
-| 12:00 - 01:30 | *Lunch* 🍱                                      |
-| 01:30 - 02:30 | Data Manipulation with [dplyr](https://dplyr.tidyverse.org)       |
-| 02:30 - 02:45 | *Break* 🍵                                        |
-| 02:45 - 03:30 | Data Manipulation with [dplyr](https://dplyr.tidyverse.org)       |
-| 03:30 - 04:30 | *Office Hours* (sign up required)                                 |
+.pull-left[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
 
+#qzgworktnq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#qzgworktnq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#qzgworktnq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qzgworktnq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qzgworktnq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qzgworktnq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qzgworktnq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qzgworktnq .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qzgworktnq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qzgworktnq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qzgworktnq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qzgworktnq .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qzgworktnq .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#qzgworktnq .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qzgworktnq .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qzgworktnq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qzgworktnq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qzgworktnq .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#qzgworktnq .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#qzgworktnq .gt_left {
+  text-align: left;
+}
+
+#qzgworktnq .gt_center {
+  text-align: center;
+}
+
+#qzgworktnq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qzgworktnq .gt_font_normal {
+  font-weight: normal;
+}
+
+#qzgworktnq .gt_font_bold {
+  font-weight: bold;
+}
+
+#qzgworktnq .gt_font_italic {
+  font-style: italic;
+}
+
+#qzgworktnq .gt_super {
+  font-size: 65%;
+}
+
+#qzgworktnq .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="qzgworktnq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-09:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Preliminaries</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:30-10:15</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Introduction to R and RStudio</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Visualization with <a href='https://ggplot2.tidyverse.org'>ggplot2</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍱</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td></tr>
+    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+.pull-right[
+&lt;img src="images/intro/hex-day1.png" width="60%" /&gt;
+]
 
 ---
 class: middle, center
 
 # Day 2
 
-| When          | What                                                              |
-|:--------------|:------------------------------------------------------------------|
-| 09:00 - 10:15 | Data Types                                                        |
-| 10:15 - 10:30 | *Break* ☕                                     |
-| 10:30 - 12:00 | Import Data with [readr](https://readr.tidyverse.org)             |
-| 12:00 - 01:30 | *Lunch* 🍕                                      |
-| 01:30 - 02:30 | Tidy Data with [tidyr](https://tidyr.tidyverse.org)               |
-| 02:30 - 02:45 | *Break* 🍵                                        |
-| 02:45 - 03:30 | Tidy Data with [tidyr](https://tidyr.tidyverse.org)               |
-| 03:30 - 04:30 | *Office Hours* (sign up required)                                 |
+.pull-left[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
 
+#qzhmsjdino .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#qzhmsjdino .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#qzhmsjdino .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qzhmsjdino .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qzhmsjdino .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qzhmsjdino .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qzhmsjdino .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qzhmsjdino .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qzhmsjdino .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qzhmsjdino .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qzhmsjdino .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qzhmsjdino .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qzhmsjdino .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#qzhmsjdino .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qzhmsjdino .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qzhmsjdino .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qzhmsjdino .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qzhmsjdino .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#qzhmsjdino .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#qzhmsjdino .gt_left {
+  text-align: left;
+}
+
+#qzhmsjdino .gt_center {
+  text-align: center;
+}
+
+#qzhmsjdino .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qzhmsjdino .gt_font_normal {
+  font-weight: normal;
+}
+
+#qzhmsjdino .gt_font_bold {
+  font-weight: bold;
+}
+
+#qzhmsjdino .gt_font_italic {
+  font-style: italic;
+}
+
+#qzhmsjdino .gt_super {
+  font-size: 65%;
+}
+
+#qzhmsjdino .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="qzhmsjdino" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:15</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Types</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Import Data with <a href='https://readr.tidyverse.org'>readr</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍕</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td></tr>
+    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+.pull-right[
+&lt;img src="images/intro/hex-day2.png" width="90%" /&gt;
+]
 
 ---
 class: middle, center
 
 # Day 3
 
-| When          | What                                                              |
-|:--------------|:------------------------------------------------------------------|
-| 09:00 - 10:00 | Case Study                                                        |
-| 10:00 - 10:15 | *Break* ☕                                     |
-| 10:15 - 12:00 | Prediction with [parsnip](https://parsnip.tidymodels.org)         |
-| 12:00 - 01:30 | *Lunch* 🌯                                    |
-| 01:30 - 02:30 | Classification with [parsnip](https://parsnip.tidymodels.org)     |
-| 02:30 - 02:45 | *Break* 🍵                                        |
-| 02:45 - 03:30 | Classification with [parsnip](https://parsnip.tidymodels.org)     |
-| 03:30 - 04:30 | *Office Hours* (sign up required)                                 |
+.pull-left[
+&lt;img src="images/intro/hex-day3.png" width="60%" /&gt;
+]
+
+.pull-right[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wjzsxjjgxp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#wjzsxjjgxp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#wjzsxjjgxp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wjzsxjjgxp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wjzsxjjgxp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wjzsxjjgxp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wjzsxjjgxp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wjzsxjjgxp .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wjzsxjjgxp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wjzsxjjgxp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wjzsxjjgxp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wjzsxjjgxp .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wjzsxjjgxp .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#wjzsxjjgxp .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wjzsxjjgxp .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wjzsxjjgxp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wjzsxjjgxp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#wjzsxjjgxp .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#wjzsxjjgxp .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#wjzsxjjgxp .gt_left {
+  text-align: left;
+}
+
+#wjzsxjjgxp .gt_center {
+  text-align: center;
+}
+
+#wjzsxjjgxp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wjzsxjjgxp .gt_font_normal {
+  font-weight: normal;
+}
+
+#wjzsxjjgxp .gt_font_bold {
+  font-weight: bold;
+}
+
+#wjzsxjjgxp .gt_font_italic {
+  font-style: italic;
+}
+
+#wjzsxjjgxp .gt_super {
+  font-size: 65%;
+}
+
+#wjzsxjjgxp .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="wjzsxjjgxp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Prediction with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🌯</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
+    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
 
 ---
 class: middle, center
 
 # Day 4
 
-| When          | What                                                                  |
-|:--------------|:----------------------------------------------------------------------|
-| 09:00 - 10:00 | Resampling with [rsample](https://rsample.tidymodels.org)             |
-| 10:00 - 10:15 | *Break* ☕                                         |
-| 10:15 - 12:00 | Ensembling with [parsnip](https://parsnip.tidymodels.org)             |
-| 12:00 - 01:30 | *Lunch* 🥗                                          |
-| 01:30 - 02:30 | Modeling Pipelines with [recipes](https://recipes.tidymodels.org)     |
-| 02:30 - 02:45 | *Break* 🍵                                            |
-| 02:45 - 03:30 | Modeling Pipelines with [workflows](https://workflows.tidymodels.org) |
-| 03:30 - 04:30 | *Office Hours* (sign up required)                                     |
+.pull-left[
+&lt;img src="images/intro/hex-day4.png" width="60%" /&gt;
+]
+
+.pull-right[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#rzvruydetx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#rzvruydetx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#rzvruydetx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rzvruydetx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rzvruydetx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rzvruydetx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rzvruydetx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rzvruydetx .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rzvruydetx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rzvruydetx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rzvruydetx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rzvruydetx .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rzvruydetx .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#rzvruydetx .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rzvruydetx .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rzvruydetx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rzvruydetx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#rzvruydetx .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#rzvruydetx .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#rzvruydetx .gt_left {
+  text-align: left;
+}
+
+#rzvruydetx .gt_center {
+  text-align: center;
+}
+
+#rzvruydetx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rzvruydetx .gt_font_normal {
+  font-weight: normal;
+}
+
+#rzvruydetx .gt_font_bold {
+  font-weight: bold;
+}
+
+#rzvruydetx .gt_font_italic {
+  font-style: italic;
+}
+
+#rzvruydetx .gt_super {
+  font-size: 65%;
+}
+
+#rzvruydetx .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="rzvruydetx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Resampling with <a href='https://rsample.tidymodels.org'>rsample</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🥗</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://workflows.tidymodels.org'>workflows</a></td></tr>
+    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+  </tbody>
+  
+  
+</table></div>
+]
 
 ---
 class: middle, center
 
 # Day 5
 
-| When          | What                                                                  |
-|:--------------|:----------------------------------------------------------------------|
-| 09:00 - 10:00 | Reproducible Writing with [rmarkdown](https://rmarkdown.rstudio.com/) |
-| 10:00 - 10:15 | *Break* ☕                                         |
-| 10:15 - 12:00 | Reproducible Writing with [rmarkdown](https://rmarkdown.rstudio.com/) |
-| 12:00 - 01:30 | *Lunch* 🍔                                          |
-| 01:30 - 02:30 | Case Study                                                            |
-| 02:30 - 02:45 | *Break* 🍵                                            |
-| 02:45 - 03:30 | Getting Help with [reprex](https://reprex.tidyverse.org)              |
-| 03:30 - 04:30 | *Office Hours* (sign up required)                                     |
+.pull-left[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#jykqwxzfea .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#jykqwxzfea .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#jykqwxzfea .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jykqwxzfea .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jykqwxzfea .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jykqwxzfea .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jykqwxzfea .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jykqwxzfea .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jykqwxzfea .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jykqwxzfea .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jykqwxzfea .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jykqwxzfea .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jykqwxzfea .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#jykqwxzfea .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jykqwxzfea .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jykqwxzfea .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jykqwxzfea .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jykqwxzfea .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#jykqwxzfea .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#jykqwxzfea .gt_left {
+  text-align: left;
+}
+
+#jykqwxzfea .gt_center {
+  text-align: center;
+}
+
+#jykqwxzfea .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jykqwxzfea .gt_font_normal {
+  font-weight: normal;
+}
+
+#jykqwxzfea .gt_font_bold {
+  font-weight: bold;
+}
+
+#jykqwxzfea .gt_font_italic {
+  font-style: italic;
+}
+
+#jykqwxzfea .gt_super {
+  font-size: 65%;
+}
+
+#jykqwxzfea .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="jykqwxzfea" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍔</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
+    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+<td class="gt_row gt_left" style="background-color: #F0F0F0;">Getting Help with <a href='https://reprex.tidyverse.org'>reprex</a></td></tr>
+    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+.pull-right[
+&lt;img src="images/intro/hex-day5.png" width="60%" /&gt;
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
