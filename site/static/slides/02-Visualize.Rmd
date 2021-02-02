@@ -57,3 +57,13 @@ class: title-slide, center
 
 .footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
 
+---
+<div class="hex-book">
+  <a href="https://ggplot2.tidyverse.org">
+    <img class="hex" src="images/hex/ggplot2.png">
+  </a>
+  <a href="https://r4ds.had.co.nz/data-visualisation.html">
+    <img class="book" src="images/books/r4ds-data-viz.png">
+  </a>
+</div>
+

@@ -238,6 +238,28 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
   color: #fff;
 }
 
+div.hex-book {
+  position: relative;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+
+.hex {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 525px;
+  vertical-align: middle;
+}
+
+.book {
+  position: absolute;
+  top: 90%;
+  left: 5px;
+  height: 65px;
+}
+
 /* Wider cols */
 
 .right-wide {
