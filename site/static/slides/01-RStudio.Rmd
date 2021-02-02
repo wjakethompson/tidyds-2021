@@ -395,7 +395,7 @@ Navigate to `materials/exercises/00-getting-started.Rmd`
 ```{r echo = FALSE}
 countdown(minutes = 5, seconds = 0,
           font_size = "2em",
-          color_border = "#272727",
+          color_border = "#FED766",
           color_background = "#009FB7",
           color_text = "#FED766",
           color_running_background = "#F0F0F0",
