@@ -207,6 +207,38 @@ knitr::include_graphics("images/hex/tidymodels.png")
 ```
 ]
 
+---
+class: center
+
+.columns[
+
+.left-col[
+
+### R for Data<br>Science
+
+```{r out.width = "70%", echo = FALSE}
+knitr::include_graphics("images/books/r4ds.png")
+```
+]
+
+.middle-col[
+
+### Tidy Modeling<br>with R
+
+```{r out.width = "70%", echo = FALSE, eval = FALSE}
+knitr::include_graphics("images/books/r4ds.png")
+```
+]
+
+.right-col[
+
+### R Markdown: The Definitive Guide
+
+```{r out.width = "70%", echo = FALSE}
+knitr::include_graphics("images/books/rmdg.png")
+```
+]
+]
 
 ---
 class: middle, center

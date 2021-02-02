@@ -467,18 +467,18 @@ h1#pop-quiz:after {
 
 .left-col {
   width: 33%;
-  text-align: left;
+  text-align: center;
 }
 
 .middle-col {
   width: 33%;
-  text-align: left;
+  text-align: center;
   padding-left: 20px;
 }
 
 .right-col {
   width: 33%;
-  text-align: left;
+  text-align: center;
   padding-left: 20px;
 }
 
