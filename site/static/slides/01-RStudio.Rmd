@@ -350,9 +350,11 @@ background-size: 85%
 # .nobold[(Applied)] Data Science
 
 ---
-background-image: url(images/hex/RStudio.png)
-background-position: center middle
-background-size: 45%
+<div class="hex-book">
+  <a href="https://rstudio.com">
+    <img class="hex" src="images/hex/RStudio.png">
+  </a>
+</div>
 
 ---
 # RStudio
