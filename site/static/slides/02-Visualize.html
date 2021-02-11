@@ -4,7 +4,7 @@
     <title>Data Visualization</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-02-02" />
+    <meta name="date" content="2021-02-11" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -12,6 +12,10 @@
     <script src="libs/shareon/shareon.min.js"></script>
     <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
@@ -40,6 +44,26 @@ class: title-slide, center
 .footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
 
 ---
+class: center middle
+
+.pull-left[
+&lt;img style="border-radius: 50%;" src="https://github.com/LucyMcGowan.png" width="300px"/&gt;
+
+[Lucy D'Agostino McGowan](https://www.lucymcgowan.com/)  
+Assistant Professor in Statistics  
+Wake Forest University  
+&lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [@LucyStats](https://twitter.com/LucyStats)  
+&lt;i class="fab fa-github"&gt;&lt;/i&gt; [@LucyMcGowan](https://github.com/LucyMcGowan)
+
+]
+
+.pull-right[
+&lt;a href="https://leanpub.com/ggplot2in2"&gt;
+  &lt;img src="images/books/ggplot2-in-2.png" width="375px"&gt;
+&lt;/a&gt;
+]
+
+---
 &lt;div class="hex-book"&gt;
   &lt;a href="https://ggplot2.tidyverse.org"&gt;
     &lt;img class="hex" src="images/hex/ggplot2.png"&gt;
@@ -49,6 +73,920 @@ class: title-slide, center
   &lt;/a&gt;
 &lt;/div&gt;
 
+---
+background-image: url(images/visualize/applied-ds-viz.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+class: center
+
+.pull-left[
+&lt;img src="images/visualize/bbc-midterm.png" width="500px"&gt;
+
+[BBC News](https://www.bbc.com/news/world-us-canada-46076389)
+]
+
+.pull-right[
+&lt;img src="images/visualize/538-cancer.png" width="460px" style="border:1px solid #272727"&gt;
+
+[FiveThirtyEight](https://fivethirtyeight.com/features/you-cant-trust-what-you-read-about-nutrition/)
+]
+
+---
+class: center
+
+.pull-left[
+&lt;img src="images/visualize/healy-network.png" width="500px" style="border:1px solid #272727;margin-bottom:3.1rem"&gt;
+
+[Kieran Healy](https://kieranhealy.org/blog/archives/2013/06/18/a-co-citation-network-for-philosophy/)
+]
+
+.pull-right[
+&lt;img src="images/visualize/mackintosh-weather.png" width="500px" style="border:1px solid #272727;margin-bottom:7.87rem"&gt;
+
+[John MacKintosh](https://www.r-graph-gallery.com/283-the-hourly-heatmap)
+]
+
+---
+# Grammar of Graphics
+
+.pull-left.center[
+&lt;img src="images/books/grammar-graphics.png" width="275px"&gt;
+]
+
+.pull-right.center[
+&lt;img src="images/books/ggplot2-2nd.png" width="275px"&gt;
+
+[3rd Edition WIP](https://ggplot2-book.org/)
+]
+
+---
+class: center middle
+
+
+.big[**data** maps to]  
+
+--
+.big[**aes**thetics in]  
+
+--
+.big[layers]  
+
+
+
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-1.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-2.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-3.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-4.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/build-comp/build5.png)
+background-position: center
+background-size: 40%
+
+---
+class: center middle
+background-image: url(images/visualize/build-comp/build6.png)
+background-position: center
+background-size: 40%
+
+---
+class: center middle
+background-image: url(images/visualize/build-comp/build7.png)
+background-position: center
+background-size: 40%
+
+---
+# Example: Bechdel Test
+
+.big[
+1. At least 2 names women in the movie,
+2. Women have at least one conversation with each other, and
+3. That conversation isn't about a man
+] 
+
+---
+# Bechdel Test Outcomes
+
+* Binary outcome (Pass/Fail)
+    * Does the movie meet all 3 criteria
+&lt;br&gt;
+&lt;br&gt;
+* 5 outcomes based on severity
+    * &lt;span style="color:#EA594E"&gt;**nowomen**&lt;/span&gt; - Fails first criteria
+    * &lt;span style="color:#EA594E"&gt;**notalk**&lt;/span&gt; - Fails second criteria
+    * &lt;span style="color:#EA594E"&gt;**men**&lt;/span&gt; - Fails third criteria
+    * &lt;span style="color:#589ACF"&gt;**dubious**&lt;/span&gt; - Experts divided on whether third criteria is met
+    * &lt;span style="color:#589ACF"&gt;**ok**&lt;/span&gt; - Meets all criteria
+
+---
+# bechdel
+
+.smallish[
+
+```r
+library(fivethirtyeight)
+bechdel
+## # A tibble: 1,794 x 15
+##     year imdb  title test  clean_test binary budget domgross intgross code 
+##    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;ord&gt;      &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+##  1  2013 tt17… 21 &amp;… nota… notalk     FAIL   1.30e7 25682380   4.22e7 2013…
+##  2  2012 tt13… Dred… ok-d… ok         PASS   4.50e7 13414714   4.09e7 2012…
+##  3  2013 tt20… 12 Y… nota… notalk     FAIL   2.00e7 53107035   1.59e8 2013…
+##  4  2013 tt12… 2 Gu… nota… notalk     FAIL   6.10e7 75612460   1.32e8 2013…
+##  5  2013 tt04… 42    men   men        FAIL   4.00e7 95020213   9.50e7 2013…
+##  6  2013 tt13… 47 R… men   men        FAIL   2.25e8 38362475   1.46e8 2013…
+##  7  2013 tt16… A Go… nota… notalk     FAIL   9.20e7 67349198   3.04e8 2013…
+##  8  2013 tt21… Abou… ok-d… ok         PASS   1.20e7 15323921   8.73e7 2013…
+##  9  2013 tt18… Admi… ok    ok         PASS   1.30e7 18007317   1.80e7 2013…
+## 10  2013 tt18… Afte… nota… notalk     FAIL   1.30e8 60522097   2.44e8 2013…
+## # … with 1,784 more rows, and 5 more variables: budget_2013 &lt;int&gt;,
+## #   domgross_2013 &lt;dbl&gt;, intgross_2013 &lt;dbl&gt;, period_code &lt;int&gt;,
+## #   decade_code &lt;int&gt;
+```
+]
+
+---
+class: your-turn
+
+# Your turn 1
+
+.big[
+* Open the R Notebook **01-Visualize.Rmd**
+* Let's look at the `bechdel` data set
+* Run this code to make a graph
+]
+
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross))
+```
+
+<div class="countdown" id="timer_6025bfbf" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/bechdel-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+class: middle
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross))&lt;/code&gt;
+
+---
+class: middle
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = &lt;span style="background-color:#FED766;color:#009FB7"&gt;bechdel&lt;/span&gt;) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross))&lt;/code&gt;
+
+???
+
+Define the data
+
+---
+class: middle
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) &lt;span style="background-color:#FED766;color:#009FB7"&gt;+&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross))&lt;/code&gt;
+
+???
+
++ before new line; *add* layers together
+
+---
+class: middle
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;geom_point&lt;/span&gt;(mapping = aes(x = budget, y = domgross))&lt;/code&gt;
+
+???
+
+the type of layer
+
+---
+class: middle
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = &lt;span style="background-color:#FED766;color:#009FB7"&gt;aes&lt;/span&gt;(x = budget, y = domgross))&lt;/code&gt;
+
+???
+
+define aesthetics for how data *maps* to layer
+
+---
+class: middle
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(&lt;span style="background-color:#FED766;color:#009FB7"&gt;x = budget&lt;/span&gt;, y = domgross))&lt;/code&gt;
+
+???
+
+x variable
+
+---
+class: middle
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, &lt;span style="background-color:#FED766;color:#009FB7"&gt;y = domgross&lt;/span&gt;))&lt;/code&gt;
+
+???
+
+y variable
+
+---
+class: center
+
+# Aesthetics
+
+&lt;img src="images/visualize/aes-example-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+&lt;img src="images/visualize/bechdel-aes-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+.left[
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross, &lt;span style="background-color:#FED766;color:#009FB7"&gt;color = clean_test&lt;/span&gt;))&lt;/code&gt;
+]
+
+---
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = clean_test))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/bechdel-color-plot-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+???
+Legend is added automatically
+
+---
+class: your-turn
+
+# Your turn 2
+
+.big[
+* Experiment with adding color, size, alpha, and shape aesthetics to your graph
+* How do aesthetics behave differently with mapped to discrete and continuous variables?
+* What happens when you use more than one aesthetic?
+]
+
+<div class="countdown" id="timer_6025bfd3" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+&lt;img src="images/visualize/aes-overview-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+# Set vs. map
+
+&lt;img src="images/visualize/set-map-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+???
+
+How would you do this?
+
+---
+.pull-left[
+![](images/visualize/bechdel-color-plot-1.png)
+]
+
+.pull-right.center[
+**Inside of aes()**: Maps an aesthetic to a variable
+]
+
+
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross, &lt;span style="background-color:#FED766;color:#009FB7"&gt;color = clean_test&lt;/span&gt;))&lt;/code&gt;
+
+---
+.pull-left[
+![](images/visualize/set-map-1.png)
+]
+
+.pull-right.center[
+**Outside of aes()**: Sets an aesthetic to a value
+]
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross, &lt;span style="background-color:#FED766;color:#009FB7"&gt;color = clean_test&lt;/span&gt;))&lt;/code&gt;
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = &lt;span style="background-color:#FED766;color:#009FB7"&gt;aes(x = budget, y = domgross)&lt;/span&gt;, color = "blue")&lt;/code&gt;
+
+---
+.pull-left[
+![](images/visualize/bechdel-color-plot-1.png)
+]
+
+.pull-right.center[
+![](images/visualize/set-map-1.png)
+]
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(x = budget, y = domgross, &lt;span style="background-color:#FED766;color:#009FB7"&gt;color = clean_test&lt;/span&gt;))&lt;/code&gt;
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = &lt;span style="background-color:#FED766;color:#009FB7"&gt;aes(x = budget, y = domgross)&lt;/span&gt;, color = "blue")&lt;/code&gt;
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+What will this code do?
+
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = "blue"))
+```
+
+---
+class: pop-quiz
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = "blue"))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/pop-quiz-solution-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+class: center middle
+
+# .blue[**geom**.nobold[etries]]
+
+---
+class: center middle
+
+.pull-left[
+&lt;img src="images/visualize/point-geom-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="images/visualize/smooth-geom-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+???
+How are these plots similar?
+* x var, y var, data
+
+How different?
+* Geometric object (i.e., visual object used to represent the data)
+
+---
+class: middle
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = &lt;span style="color:#009FB7;background-color:#FED766"&gt;{DATA}&lt;/span&gt;) +&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style="color:#009FB7;background-color:#FED766"&gt;{GEOM_FUNCTION}&lt;/span&gt;(mapping = aes(&lt;span style="color:#009FB7;background-color:#FED766"&gt;{MAPPINGS}&lt;/span&gt;))&lt;/code&gt;
+
+---
+background-image: url(images/visualize/cheatsheet-geom.png)
+background-position: center middle
+background-size: 85%
+
+---
+class: your-turn
+
+# Your turn 3
+
+.big[
+* Replace this scatter plot with one that draws a box plot
+]
+
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = clean_test, y = budget))
+```
+
+&lt;img src="images/visualize/yt-scatter-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_6025c06f" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_boxplot(mapping = aes(x = clean_test, y = budget))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/yt-box-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+class: your-turn
+
+# Your turn 4
+
+.big[
+* Make the histogram of **budget** shown below
+]
+
+&lt;img src="images/visualize/yt-hist-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_6025c03f" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_histogram(mapping = aes(x = budget))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/yt-hist-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+class: your-turn
+
+# Your turn 5
+
+.big[
+* Make the density plot of **budget** colored by **clean_test** shown below
+]
+
+&lt;img src="images/visualize/yt-col-den-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_6025c015" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Density Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget))
+```
+]
+.panel[.panel-name[Density Plot]
+&lt;img src="images/visualize/dcode-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Coloring Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget, color = clean_test))
+```
+]
+
+.panel[.panel-name[Final Plot]
+&lt;img src="images/visualize/col-den-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: your-turn
+
+# Your turn 6
+
+.big[
+* Make the bar chart of **clean_test** colored by **clean_test** shown below
+]
+
+&lt;img src="images/visualize/yt-col-bar-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_6025c237" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Color Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = clean_test, color = clean_test))
+```
+]
+.panel[.panel-name[Color Plot]
+&lt;img src="images/visualize/col-bar-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Fill Code]
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_bar(mapping = aes(x = clean_test, &lt;span style="background-color:#FED766;color:#009FB7"&gt;fill&lt;/span&gt; = clean_test))&lt;/code&gt;
+]
+
+.panel[.panel-name[Final Plot]
+&lt;img src="images/visualize/fill-bar-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: your-turn
+
+# Your turn 7
+
+.big[
+* Predict what this code will do.
+* Then run it.
+]
+
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross)) +
+  geom_smooth(mapping = aes(x = budget, y = domgross))
+```
+
+<div class="countdown" id="timer_6025c10c" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross)) +
+  geom_smooth(mapping = aes(x = budget, y = domgross))
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/yt-mult-layer-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+???
+Each new geom just adds a new layer.
+
+---
+class: center middle
+
+# .blue[global vs. local]
+
+---
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(&lt;span style="background-color:#FED766;color:#009FB7"&gt;mapping = aes(x = budget, y = domgross)&lt;/span&gt;) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_smooth(&lt;span style="background-color:#FED766;color:#009FB7"&gt;mapping = aes(x = budget, y = domgross)&lt;/span&gt;)&lt;/code&gt;
+
+&lt;img src="images/visualize/yt-mult-layer-sol-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+???
+This is really repetitive. What if you want to change one of the variables? Then you have to change every layer. Gross.
+
+---
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, &lt;span style="background-color:#FED766;color:#009FB7"&gt;mapping = aes(x = budget, y = domgross)&lt;/span&gt;) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point() +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_smooth()&lt;/code&gt;
+
+&lt;img src="images/visualize/global-opts-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+???
+Mappings and data that are defined in `ggplot()` will be applied globally, to every layer.
+
+---
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(&lt;span style="background-color:#FED766;color:#009FB7"&gt;mapping = aes(color = clean_test)&lt;/span&gt;) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_smooth()&lt;/code&gt;
+
+&lt;img src="images/visualize/local-opts-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+???
+Mappings (and data) that appear in a geom_*() function will add to or override the global mappings for that layer only
+
+---
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(mapping = aes(color = clean_test)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_smooth(&lt;span style="background-color:#FED766;color:#009FB7"&gt;data = filter(bechdel, clean_test == "ok")&lt;/span&gt;)&lt;/code&gt;
+
+&lt;img src="images/visualize/local-data-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+???
+Data can also be set globally and/or locally
+
+---
+class: center middle
+
+# .blue[stats]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+Where do the values for creating the box and whiskers come from?
+
+&lt;img src="images/visualize/yt-box-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class: pop-quiz
+
+What does `method = "gam"` mean?
+
+
+```r
+ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +
+  geom_point() +
+  geom_smooth()
+## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
+&lt;img src="images/visualize/show-gam-msg-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# Defining Stats
+
+.panelset[
+.panel[.panel-name[`stat_summary`]
+
+```r
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_boxplot() +
+  stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/stat-summary-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[`stat = "summary"`]
+
+```r
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_boxplot() +
+  geom_point(stat = "summary", fun = "mean", color = "blue", size = 3)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/visualize/geom-func-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+# Stats as Layers
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_boxplot() +&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;stat_summary&lt;/span&gt;(&lt;span style="background-color:#FED766;color:#009FB7"&gt;geom = "point"&lt;/span&gt;, fun = "mean", color = "blue", size = 3)&lt;/code&gt;
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_boxplot() +&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;geom_point&lt;/span&gt;(&lt;span style="background-color:#FED766;color:#009FB7"&gt;stat = "summary"&lt;/span&gt;, fun = "mean", color = "blue", size = 3)&lt;/code&gt;
+
+---
+# Distributions
+
+
+```r
+ggplot() + xlim(c(-5, 5)) +
+  geom_function(aes(color = "normal"), fun = dnorm) +
+  geom_function(aes(color = "t, df = 1"), fun = dt, args = list(df = 1))
+```
+
+&lt;img src="images/visualize/dist-example-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center middle
+
+# .blue[positions]
+
+---
+.panelset[
+.panel[.panel-name[Bad]
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point()&lt;/code&gt;
+
+&lt;img src="images/visualize/bad-pos-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Better]
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(&lt;span style="background-color:#FED766;color:#009FB7"&gt;position = "jitter"&lt;/span&gt;)&lt;/code&gt;
+
+&lt;img src="images/visualize/better-pos-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Best]
+
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_point(position = &lt;span style="background-color:#FED766;color:#009FB7"&gt;position_jitter(width = 0.2, height = 0)&lt;/span&gt;)&lt;/code&gt;
+
+&lt;img src="images/visualize/best-pos-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: center middle
+
+`position_identity()`
+
+--
+
+`position_jitter()`
+
+--
+
+`position_dodge()`
+
+--
+
+`position_fill()`
+
+--
+
+more...
+
+---
+
+&lt;img src="images/visualize/need-pos-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+class: your-turn
+
+# Your turn 8
+
+.big[
+* Add a position adjustment to this plot to compare the frequency of test results across decades.
+]
+
+
+&lt;code class ='r hljs remark-code'&gt;ggplot(bechdel, mapping = aes(x = decade_code)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom_bar(mapping = aes(fill = clean_test))&lt;/code&gt;
+
+&lt;img src="images/visualize/need-pos-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_6025c11a" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Dodge]
+
+```r
+ggplot(bechdel, mapping = aes(x = decade_code)) +
+  geom_bar(mapping = aes(fill = clean_test), position = "dodge")
+```
+
+]
+
+.panel[.panel-name[Dodge Plot]
+
+```
+## Warning: Removed 179 rows containing non-finite values (stat_count).
+```
+
+&lt;img src="images/visualize/bar-pos-dodge-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[Fill]
+
+```r
+ggplot(bechdel, mapping = aes(x = decade_code)) +
+  geom_bar(mapping = aes(fill = clean_test), position = "fill")
+```
+
+]
+
+.panel[.panel-name[Fill Plot]
+
+```
+## Warning: Removed 179 rows containing non-finite values (stat_count).
+```
+
+&lt;img src="images/visualize/bar-pos-fill-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

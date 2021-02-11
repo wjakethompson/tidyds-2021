@@ -31,13 +31,18 @@ editor_options:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(collapse = TRUE,
                       fig.retina = 3,
-                      fig.path = "images/visualize/")
+                      fig.path = "images/visualize/",
+                      fig.align = "center",
+                      fig.asp = 0.618)
 
 xaringanExtra::use_share_again()
+xaringanExtra::use_panelset()
 
 yt_counter <- 0
 library(countdown)
 library(tidyverse)
+library(flair)
+library(here)
 ```
 
 class: title-slide, center
@@ -58,6 +63,26 @@ class: title-slide, center
 .footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
 
 ---
+class: center middle
+
+.pull-left[
+<img style="border-radius: 50%;" src="https://github.com/LucyMcGowan.png" width="300px"/>
+
+[Lucy D'Agostino McGowan](https://www.lucymcgowan.com/)  
+Assistant Professor in Statistics  
+Wake Forest University  
+<i class="fab fa-twitter"></i> [@LucyStats](https://twitter.com/LucyStats)  
+<i class="fab fa-github"></i> [@LucyMcGowan](https://github.com/LucyMcGowan)
+
+]
+
+.pull-right[
+<a href="https://leanpub.com/ggplot2in2">
+  <img src="images/books/ggplot2-in-2.png" width="375px">
+</a>
+]
+
+---
 <div class="hex-book">
   <a href="https://ggplot2.tidyverse.org">
     <img class="hex" src="images/hex/ggplot2.png">
@@ -67,3 +92,1180 @@ class: title-slide, center
   </a>
 </div>
 
+---
+background-image: url(images/visualize/applied-ds-viz.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+class: center
+
+.pull-left[
+<img src="images/visualize/bbc-midterm.png" width="500px">
+
+[BBC News](https://www.bbc.com/news/world-us-canada-46076389)
+]
+
+.pull-right[
+<img src="images/visualize/538-cancer.png" width="460px" style="border:1px solid #272727">
+
+[FiveThirtyEight](https://fivethirtyeight.com/features/you-cant-trust-what-you-read-about-nutrition/)
+]
+
+---
+class: center
+
+.pull-left[
+<img src="images/visualize/healy-network.png" width="500px" style="border:1px solid #272727;margin-bottom:3.1rem">
+
+[Kieran Healy](https://kieranhealy.org/blog/archives/2013/06/18/a-co-citation-network-for-philosophy/)
+]
+
+.pull-right[
+<img src="images/visualize/mackintosh-weather.png" width="500px" style="border:1px solid #272727;margin-bottom:7.87rem">
+
+[John MacKintosh](https://www.r-graph-gallery.com/283-the-hourly-heatmap)
+]
+
+---
+# Grammar of Graphics
+
+.pull-left.center[
+<img src="images/books/grammar-graphics.png" width="275px">
+]
+
+.pull-right.center[
+<img src="images/books/ggplot2-2nd.png" width="275px">
+
+[3rd Edition WIP](https://ggplot2-book.org/)
+]
+
+---
+class: center middle
+
+
+.big[**data** maps to]  
+
+--
+.big[**aes**thetics in]  
+
+--
+.big[layers]  
+
+```{r ggbuild-images, include = FALSE}
+library(ratlas)
+library(here)
+
+set.seed(1234)
+dat <- tibble(x = sample(seq(1, 8, length.out = 10), size = 50, replace = TRUE),
+              y = 3 + (0.4 * x) + rnorm(50, mean = 0, sd = 0.7),
+              rand = runif(50),
+              jitter_x = x + runif(50, min = -0.1, max = 0.1),
+              g = case_when(between(x, 2.5, 6.5) & rand < 0.5 ~ "Group 1",
+                            TRUE ~ "Group 2"))
+
+# build 1
+ggplot(dat, aes(x = x, y = y)) +
+  # geom_point(color = "#009FB7") +
+  # geom_smooth(color = "#FED766", method = "lm", formula = y ~ x) +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  labs(x = NULL, y = NULL) +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) -> b1
+
+# build 2
+ggplot(dat, aes(x = x, y = y)) +
+  geom_point(color = "#009FB7") +
+  # geom_smooth(color = "#FED766", method = "lm", formula = y ~ x) +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  labs(x = NULL, y = NULL) +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) -> b2
+
+# build 3
+ggplot(dat, aes(x = x, y = y)) +
+  geom_point(color = "#009FB7") +
+  geom_smooth(color = "#FED766", method = "lm", formula = y ~ x) +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  labs(x = NULL, y = NULL) +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) -> b3
+
+# build 4
+ggplot(dat, aes(x = jitter_x, y = y)) +
+  geom_point(color = "#009FB7") +
+  geom_smooth(color = "#FED766", method = "lm", formula = y ~ x) +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  labs(x = NULL, y = NULL) +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank())  -> b4
+
+# build 5
+ggplot(dat, aes(x = jitter_x, y = y)) +
+  geom_point(aes(color = g)) +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  scale_color_manual(values = c("#FED766", "#009FB7")) +
+  labs(x = NULL, y = NULL, color = "Groups") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) -> b5
+
+# build 6
+ggplot(dat, aes(x = jitter_x, y = y)) +
+  facet_grid(rows = vars(g)) +
+  geom_point(color = "#009FB7") +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  labs(x = NULL, y = NULL, color = "Groups") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) -> b6
+
+# build 7
+ggplot(dat, aes(x = jitter_x, y = y)) +
+  facet_grid(rows = vars(g)) +
+  geom_point(color = "#009FB7") +
+  expand_limits(x = c(1, 8), y = c(2, 10)) +
+  scale_x_continuous(breaks = seq(0, 12, 2)) +
+  scale_y_continuous(breaks = seq(0, 12, 2)) +
+  labs(x = NULL, y = NULL, color = "Groups") +
+  theme_bw() +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) -> b7
+
+ggsave2(b1, "build1.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+ggsave2(b2, "build2.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+ggsave2(b3, "build3.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+ggsave2(b4, "build4.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+ggsave2(b5, "build5.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+ggsave2(b6, "build6.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+ggsave2(b7, "build7.png", type = "cairo", width = 4, height = 3.66,
+        path = here("site/static/slides/images/visualize/build-comp"))
+```
+
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-1.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-2.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-3.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/ggbuild-4.png)
+background-position: center
+background-size: 85%
+
+---
+class: center middle
+background-image: url(images/visualize/build-comp/build5.png)
+background-position: center
+background-size: 40%
+
+---
+class: center middle
+background-image: url(images/visualize/build-comp/build6.png)
+background-position: center
+background-size: 40%
+
+---
+class: center middle
+background-image: url(images/visualize/build-comp/build7.png)
+background-position: center
+background-size: 40%
+
+---
+# Example: Bechdel Test
+
+.big[
+1. At least 2 names women in the movie,
+2. Women have at least one conversation with each other, and
+3. That conversation isn't about a man
+] 
+
+---
+# Bechdel Test Outcomes
+
+* Binary outcome (Pass/Fail)
+    * Does the movie meet all 3 criteria
+<br>
+<br>
+* 5 outcomes based on severity
+    * <span style="color:#EA594E">**nowomen**</span> - Fails first criteria
+    * <span style="color:#EA594E">**notalk**</span> - Fails second criteria
+    * <span style="color:#EA594E">**men**</span> - Fails third criteria
+    * <span style="color:#589ACF">**dubious**</span> - Experts divided on whether third criteria is met
+    * <span style="color:#589ACF">**ok**</span> - Meets all criteria
+
+---
+# bechdel
+
+.smallish[
+```{r bechdel-intro, message = FALSE}
+library(fivethirtyeight)
+bechdel
+```
+]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Open the R Notebook **01-Visualize.Rmd**
+* Let's look at the `bechdel` data set
+* Run this code to make a graph
+]
+
+```{r bechdel-prompt, eval = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 2, seconds = 0,
+          font_size = "2em",
+          color_border = "#FED766",
+          color_background = "#009FB7",
+          color_text = "#FED766",
+          color_running_background = "#F0F0F0",
+          color_running_text = "#009FB7",
+          color_finished_background = "#FED766",
+          color_finished_text = "#009FB7")
+```
+
+---
+class: your-turn
+
+.panelset[
+```{r bechdel-sol, panelset = c(source = "Code", output = "Plot"), warning=FALSE, out.width="80%"}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross))
+```
+]
+
+---
+class: middle
+
+```{r ggplot-template1, eval = FALSE, include = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross))
+```
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE)
+```
+
+---
+class: middle
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE) %>%
+  flair("bechdel", background = "#FED766", color = "#009FB7")
+```
+
+???
+
+Define the data
+
+---
+class: middle
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE) %>%
+  flair("+", background = "#FED766", color = "#009FB7")
+```
+
+???
+
++ before new line; *add* layers together
+
+---
+class: middle
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE) %>%
+  flair("geom_point", background = "#FED766", color = "#009FB7")
+```
+
+???
+
+the type of layer
+
+---
+class: middle
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE) %>%
+  flair("aes", background = "#FED766", color = "#009FB7")
+```
+
+???
+
+define aesthetics for how data *maps* to layer
+
+---
+class: middle
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE) %>%
+  flair("x = budget", background = "#FED766", color = "#009FB7")
+```
+
+???
+
+x variable
+
+---
+class: middle
+
+```{r echo = FALSE}
+decorate("ggplot-template1", eval = FALSE) %>%
+  flair("y = domgross", background = "#FED766", color = "#009FB7")
+```
+
+???
+
+y variable
+
+---
+class: center
+
+# Aesthetics
+
+```{r aes-example, echo = FALSE, fig.asp = 0.265, out.width = "95%"}
+tibble(x = rep(1, 4),
+       y = rep(1, 4),
+       f = 1:4,
+       c = as.character(c(1, 1, 1, 2)),
+       s = as.character(c(1, 1, 2, 1)),
+       z = as.character(c(1, 2, 1, 1))) %>%
+  ggplot(aes(x = x, y = y)) +
+  facet_wrap(~f, nrow = 1) +
+  geom_point(aes(shape = s, color = c, size = z),
+             show.legend = FALSE) +
+  scale_color_manual(values = c("#009FB7", "#FED766")) +
+  scale_size_manual(values = c(30, 15)) +
+  expand_limits(x = c(-100, 100), y = c(-100, 100)) +
+  labs(x = NULL, y = NULL) +
+  coord_equal() +
+  theme(strip.background = element_blank(),
+        strip.text = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+
+---
+class: center
+
+```{r bechdel-aes, echo = FALSE, message = FALSE, out.width="70%", fig.asp = 0.4}
+dat <- tibble(x = c(rep(1, 6), rep(1.2, 6)),
+       y = rep(1:6, 2),
+       label = c("ok", "dubious", "men", "notalk", "nowoman", "clean_test",
+                 "colorblock", "colorblock", "colorblock", "colorblock",
+                 "colorblock", "color"))
+
+ggplot() +
+  geom_text(data = filter(dat, x == 1, y < 6),
+            aes(x = x, y = y, label = label),
+            hjust = 1, color = "#696773", size = 6,
+            family = "Source Sans Pro") +
+  geom_label(data = filter(dat, x == 1.2, y < 6),
+            aes(x = x, y = y, label = label, color = y, fill = y),
+            hjust = 0, show.legend = FALSE, size = 6,
+            family = "Source Sans Pro") +
+  geom_text(data = filter(dat, x == 1, y == 6),
+            aes(x = x, y = y, label = label),
+            hjust = 1, color = "black", fontface = "bold", size = 6,
+            family = "Source Sans Pro") +
+  geom_text(data = filter(dat, x == 1.2, y == 6),
+            aes(x = x, y = y, label = label),
+            hjust = 0, color = "black", fontface = "bold", size = 6,
+            family = "Source Sans Pro") +
+  geom_segment(aes(x = 1.01, xend = 1.19, y = 1:5, yend = 1:5),
+               lineend = "round", linejoin = "bevel",
+               arrow = arrow(length = unit(0.1, "inches"), ends = "both")) +
+  expand_limits(x = c(0.5, 1.8)) +
+  scale_color_viridis_c(begin = 1, end = 0, option = "viridis") +
+  scale_fill_viridis_c(begin = 1, end = 0, option = "viridis") +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.background = element_rect(fill = "#F0F0F0", color = NA))
+```
+<br>
+<br>
+.left[
+```{r bechdel-color-example, eval = FALSE, include = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = clean_test))
+```
+
+```{r bechdel-color-example-flair, echo = FALSE}
+decorate("bechdel-color-example", eval = FALSE) %>%
+  flair("color = clean_test", background = "#FED766", color = "#009FB7")
+```
+]
+
+---
+.panelset[
+```{r bechdel-color-plot, panelset = c(source = "Code", output = "Plot"), warning=FALSE, out.width="80%"}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = clean_test))
+```
+]
+
+???
+Legend is added automatically
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Experiment with adding color, size, alpha, and shape aesthetics to your graph
+* How do aesthetics behave differently with mapped to discrete and continuous variables?
+* What happens when you use more than one aesthetic?
+]
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+
+```{r aes-overview, echo = FALSE, message = FALSE, fig.width = 15, fig.asp = .618, out.width = "90%"}
+library(patchwork)
+
+disc <- tibble(x = c("a", "b", "c"), y = 1)
+
+cont <- tibble(x = 1:5, y = 1)
+
+disc_c <- ggplot(disc, aes(x = x, y = y)) +
+  geom_point(aes(color = x), show.legend = FALSE, size = 30) +
+  labs(x = NULL, y = "Color", title = "Discrete") +
+  theme(plot.title = element_text(size = 50, family = "Source Sans Pro",
+                                  hjust = 0.5),
+        axis.title.y = element_text(angle = 360, vjust = 0.5, size = 50,
+                                    family = "Source Sans Pro"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.border = element_rect(color = "#272727", fill = NA))
+
+disc_z <- ggplot(disc, aes(x = x, y = y)) +
+  geom_point(aes(size = x), show.legend = FALSE) +
+  scale_size_manual(values = c(5, 15, 30)) +
+  labs(x = NULL, y = "Size") +
+  theme(axis.title.y = element_text(angle = 360, vjust = 0.5, size = 50,
+                                    family = "Source Sans Pro"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.border = element_rect(color = "#272727", fill = NA))
+
+disc_s <- ggplot(disc, aes(x = x, y = y)) +
+  geom_point(aes(shape = x), show.legend = FALSE, size = 30) +
+  labs(x = NULL, y = "Shape") +
+  theme(axis.title.y = element_text(angle = 360, vjust = 0.5, size = 50,
+                                    family = "Source Sans Pro"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.border = element_rect(color = "#272727", fill = NA))
+
+cont_c <- ggplot(cont, aes(x = x, y = y)) +
+  geom_point(aes(color = x), show.legend = FALSE, size = 30) +
+  labs(x = NULL, y = NULL, title = "Continuous") +
+  expand_limits(x = c(0.8, 5.2)) +
+  theme(plot.title = element_text(size = 50, family = "Source Sans Pro",
+                                  hjust = 0.5),
+        axis.title.y = element_text(angle = 360, vjust = 0.5, size = 50,
+                                    family = "Source Sans Pro"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.border = element_rect(color = "#272727", fill = NA))
+
+cont_z <- ggplot(cont, aes(x = x, y = y)) +
+  geom_point(aes(size = x), show.legend = FALSE) +
+  scale_size_area(max_size = 30) +
+  labs(x = NULL, y = NULL) +
+  expand_limits(x = c(0.8, 5.2)) +
+  theme(axis.title.y = element_text(angle = 360, vjust = 0.5, size = 50,
+                                    family = "Source Sans Pro"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.border = element_rect(color = "#272727", fill = NA))
+
+cont_s <- ggplot(cont, aes(x = x, y = y)) +
+  geom_point(aes(size = x), show.legend = FALSE, alpha = 0) +
+  scale_size_continuous(range = c(5, 30)) +
+  labs(x = NULL, y = NULL) +
+  expand_limits(x = c(0.8, 5.2)) +
+  theme(axis.title.y = element_text(angle = 360, vjust = 0.5, size = 50,
+                                    family = "Source Sans Pro"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        plot.background = element_rect(fill = "#F0F0F0", color = NA),
+        panel.border = element_rect(color = "#272727", fill = NA))
+
+(disc_c | cont_c) /
+(disc_z | cont_z) /
+(disc_s | cont_s) &
+  plot_annotation(theme = theme(plot.background = element_rect(fill = "#F0F0F0",
+                                                               color = NA)))
+```
+
+---
+# Set vs. map
+
+```{r set-map, echo = FALSE, fig.align = "center", out.width = "75%", warning = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross), color = "blue")
+```
+
+???
+
+How would you do this?
+
+---
+.pull-left[
+![](`r knitr::fig_chunk("bechdel-color-plot", ".png")`)
+]
+
+.pull-right.center[
+**Inside of aes()**: Maps an aesthetic to a variable
+]
+
+```{r inside-aes, eval = FALSE, include = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = clean_test))
+```
+
+```{r outside-aes, eval = FALSE, include = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross), color = "blue")
+```
+
+```{r inside-aes-flair, echo = FALSE}
+decorate("inside-aes", eval = FALSE) %>%
+  flair("color = clean_test", background = "#FED766", color = "#009FB7")
+```
+
+---
+.pull-left[
+![](`r knitr::fig_chunk("set-map", ".png")`)
+]
+
+.pull-right.center[
+**Outside of aes()**: Sets an aesthetic to a value
+]
+
+
+```{r inside-aes-flair-2, echo = FALSE}
+decorate("inside-aes", eval = FALSE) %>%
+  flair("color = clean_test", background = "#FED766", color = "#009FB7")
+```
+
+```{r outside-aes-flair, echo = FALSE}
+decorate("outside-aes", eval = FALSE) %>%
+  flair_rx("aes\\(.*\\)(?!$)", background = "#FED766", color = "#009FB7")
+```
+
+---
+.pull-left[
+![](`r knitr::fig_chunk("bechdel-color-plot", ".png")`)
+]
+
+.pull-right.center[
+![](`r knitr::fig_chunk("set-map", ".png")`)
+]
+
+
+```{r inside-aes-flair-3, echo = FALSE}
+decorate("inside-aes", eval = FALSE) %>%
+  flair("color = clean_test", background = "#FED766", color = "#009FB7")
+```
+
+```{r outside-aes-flair-2, echo = FALSE}
+decorate("outside-aes", eval = FALSE) %>%
+  flair_rx("aes\\(.*\\)(?!$)", background = "#FED766", color = "#009FB7")
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+What will this code do?
+
+```{r quiz-code, eval = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = "blue"))
+```
+
+---
+class: pop-quiz
+
+.panelset[
+```{r pop-quiz-solution, panelset = c(source = "Code", output = "Plot"), warning=FALSE, out.width="80%"}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, color = "blue"))
+```
+]
+
+---
+class: center middle
+
+# .blue[**geom**.nobold[etries]]
+
+---
+class: center middle
+
+.pull-left[
+```{r point-geom, echo = FALSE, warning = FALSE}
+ggplot(bechdel, aes(x = budget, y = domgross)) +
+  geom_point()
+```
+]
+
+.pull-right[
+```{r smooth-geom, echo = FALSE, warning = FALSE, message = FALSE}
+ggplot(bechdel, aes(x = budget, y = domgross)) +
+  geom_smooth()
+```
+]
+
+???
+How are these plots similar?
+* x var, y var, data
+
+How different?
+* Geometric object (i.e., visual object used to represent the data)
+
+---
+class: middle
+
+```{r ggplot-template, eval = FALSE, include = FALSE}
+ggplot(data = {DATA}) +
+  {GEOM_FUNCTION}(mapping = aes({MAPPINGS}))
+```
+
+```{r ggplot-template-flair, echo = FALSE}
+decorate("ggplot-template", eval = FALSE) %>%
+  flair("{DATA}", color = "#009FB7", background = "#FED766") %>%
+  flair("{GEOM_FUNCTION}", color = "#009FB7", background = "#FED766") %>%
+  flair("{MAPPINGS}", color = "#009FB7", background = "#FED766")
+```
+
+---
+background-image: url(images/visualize/cheatsheet-geom.png)
+background-position: center middle
+background-size: 85%
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Replace this scatter plot with one that draws a box plot
+]
+
+```{r yt-scatter, out.width = "40%"}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = clean_test, y = budget))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+```{r yt-box, panelset = c(source = "Code", output = "Plot"), out.width = "80%", warning = FALSE}
+ggplot(data = bechdel) +
+  geom_boxplot(mapping = aes(x = clean_test, y = budget))
+```
+]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Make the histogram of **budget** shown below
+]
+
+```{r yt-hist, echo = FALSE, out.width = "60%", warning = FALSE, message = FALSE}
+ggplot(data = bechdel) +
+  geom_histogram(mapping = aes(x = budget))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+```{r yt-hist-sol, panelset = c(source = "Code", output = "Plot"), out.width = "80%", warning = FALSE, message = FALSE}
+ggplot(data = bechdel) +
+  geom_histogram(mapping = aes(x = budget))
+```
+]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Make the density plot of **budget** colored by **clean_test** shown below
+]
+
+```{r yt-col-den, echo = FALSE, out.width = "60%", warning = FALSE, message = FALSE}
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget, color = clean_test))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Density Code]
+```{r dcode-sol, fig.show='hide'}
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget))
+```
+]
+.panel[.panel-name[Density Plot]
+```{r echo = FALSE, out.width = "80%"}
+knitr::include_graphics(knitr::fig_chunk("dcode-sol", ".png"))
+```
+]
+
+.panel[.panel-name[Coloring Code]
+```{r col-den-sol, fig.show='hide'}
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget, color = clean_test))
+```
+]
+
+.panel[.panel-name[Final Plot]
+```{r echo = FALSE, out.width = "80%"}
+knitr::include_graphics(knitr::fig_chunk("col-den-sol", ".png"))
+```
+]
+]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Make the bar chart of **clean_test** colored by **clean_test** shown below
+]
+
+```{r yt-col-bar, echo = FALSE, out.width = "60%", warning = FALSE, message = FALSE}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = clean_test, fill = clean_test))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Color Code]
+```{r col-bar-sol, fig.show='hide'}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = clean_test, color = clean_test))
+```
+]
+.panel[.panel-name[Color Plot]
+```{r echo = FALSE, out.width = "80%"}
+knitr::include_graphics(knitr::fig_chunk("col-bar-sol", ".png"))
+```
+]
+
+.panel[.panel-name[Fill Code]
+```{r fill-bar-sol, include = FALSE, echo = FALSE}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = clean_test, fill = clean_test))
+```
+
+```{r fill-bar-sol-flair, echo = FALSE}
+decorate("fill-bar-sol", eval = FALSE) %>%
+  flair("fill", background = "#FED766", color = "#009FB7")
+```
+]
+
+.panel[.panel-name[Final Plot]
+```{r echo = FALSE, out.width = "80%"}
+knitr::include_graphics(knitr::fig_chunk("fill-bar-sol", ".png"))
+```
+]
+]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Predict what this code will do.
+* Then run it.
+]
+
+```{r yt-mult-layer, eval = FALSE, warning = FALSE, message = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross)) +
+  geom_smooth(mapping = aes(x = budget, y = domgross))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+```{r yt-mult-layer-sol, panelset = c(source = "Code", output = "Plot"), out.width = "80%", warning = FALSE, message = FALSE}
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross)) +
+  geom_smooth(mapping = aes(x = budget, y = domgross))
+```
+]
+
+???
+Each new geom just adds a new layer.
+
+---
+class: center middle
+
+# .blue[global vs. local]
+
+---
+
+```{r echo = FALSE}
+decorate("yt-mult-layer", eval = FALSE) %>%
+  flair("mapping = aes(x = budget, y = domgross)",
+        background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE, out.width = "70%"}
+knitr::include_graphics(knitr::fig_chunk("yt-mult-layer-sol", ".png"))
+```
+
+???
+This is really repetitive. What if you want to change one of the variables? Then you have to change every layer. Gross.
+
+---
+```{r global-opts, include = FALSE}
+ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +
+  geom_point() +
+  geom_smooth()
+```
+
+```{r echo = FALSE}
+decorate("global-opts", eval = FALSE) %>%
+  flair("mapping = aes(x = budget, y = domgross)",
+        background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE, out.width = "70%"}
+knitr::include_graphics(knitr::fig_chunk("global-opts", ".png"))
+```
+
+???
+Mappings and data that are defined in `ggplot()` will be applied globally, to every layer.
+
+---
+```{r local-opts, include = FALSE}
+ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +
+  geom_point(mapping = aes(color = clean_test)) +
+  geom_smooth()
+```
+
+```{r echo = FALSE}
+decorate("local-opts", eval = FALSE) %>%
+  flair("mapping = aes(color = clean_test)",
+        background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE, out.width = "70%"}
+knitr::include_graphics(knitr::fig_chunk("local-opts", ".png"))
+```
+
+???
+Mappings (and data) that appear in a geom_*() function will add to or override the global mappings for that layer only
+
+---
+```{r local-data, include = FALSE}
+ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +
+  geom_point(mapping = aes(color = clean_test)) +
+  geom_smooth(data = filter(bechdel, clean_test == "ok"))
+```
+
+```{r echo = FALSE}
+decorate("local-data", eval = FALSE) %>%
+  flair("data = filter(bechdel, clean_test == \"ok\")",
+        background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE, out.width = "70%"}
+knitr::include_graphics(knitr::fig_chunk("local-data", ".png"))
+```
+
+???
+Data can also be set globally and/or locally
+
+---
+class: center middle
+
+# .blue[stats]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+Where do the values for creating the box and whiskers come from?
+
+```{r echo = FALSE, out.width = "60%"}
+knitr::include_graphics(knitr::fig_chunk("yt-box", ".png"))
+```
+
+---
+class: pop-quiz
+
+What does `method = "gam"` mean?
+
+```{r show-gam-msg, warning = FALSE, out.width = "60%"}
+ggplot(data = bechdel, mapping = aes(x = budget, y = domgross)) +
+  geom_point() +
+  geom_smooth()
+```
+
+---
+# Defining Stats
+
+.panelset[
+```{r stat-summary, panelset = c(source = "`stat_summary`", output = "Plot"), out.width = "60%"}
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_boxplot() +
+  stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
+```
+
+```{r geom-func, panelset = c(source = "`stat = \"summary\"`", output = "Plot"), out.width = "60%"}
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_boxplot() +
+  geom_point(stat = "summary", fun = "mean", color = "blue", size = 3)
+```
+]
+
+---
+# Stats as Layers
+
+```{r echo = FALSE}
+decorate('
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_boxplot() +
+  stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
+', eval = FALSE) %>%
+  flair("stat_summary", background = "#FED766", color = "#009FB7") %>%
+  flair("geom = \"point\"", background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE}
+decorate('
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_boxplot() +
+  geom_point(stat = "summary", fun = "mean", color = "blue", size = 3)      
+', eval = FALSE) %>%
+  flair("geom_point", background = "#FED766", color = "#009FB7") %>%
+  flair("stat = \"summary\"", background = "#FED766", color = "#009FB7")
+```
+
+---
+# Distributions
+
+```{r dist-example, out.width = "55%"}
+ggplot() + xlim(c(-5, 5)) +
+  geom_function(aes(color = "normal"), fun = dnorm) +
+  geom_function(aes(color = "t, df = 1"), fun = dt, args = list(df = 1))
+```
+
+---
+class: center middle
+
+# .blue[positions]
+
+---
+.panelset[
+.panel[.panel-name[Bad]
+```{r bad-pos, warning = FALSE, include = FALSE}
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_point()
+```
+
+```{r bad-pos-flair, echo = FALSE}
+decorate("bad-pos", eval = FALSE)
+```
+
+```{r echo = FALSE, out.width = "60%"}
+knitr::include_graphics(knitr::fig_chunk("bad-pos", ".png"))
+```
+]
+
+.panel[.panel-name[Better]
+```{r better-pos, warning = FALSE, include = FALSE}
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_point(position = "jitter")
+```
+
+```{r better-pos-flair, echo = FALSE}
+decorate("better-pos", eval = FALSE) %>%
+  flair("position = \"jitter\"", background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE, out.width = "60%"}
+knitr::include_graphics(knitr::fig_chunk("better-pos", ".png"))
+```
+]
+
+.panel[.panel-name[Best]
+```{r best-pos, warning = FALSE, include = FALSE}
+ggplot(data = bechdel, mapping = aes(x = clean_test, y = budget)) +
+  geom_point(position = position_jitter(width = 0.2, height = 0))
+```
+
+```{r best-pos-flair, echo = FALSE}
+decorate("best-pos", eval = FALSE) %>%
+  flair("position_jitter(width = 0.2, height = 0)",
+        background = "#FED766", color = "#009FB7")
+```
+
+```{r echo = FALSE, out.width = "60%"}
+knitr::include_graphics(knitr::fig_chunk("best-pos", ".png"))
+```
+]
+]
+
+---
+class: center middle
+
+`position_identity()`
+
+--
+
+`position_jitter()`
+
+--
+
+`position_dodge()`
+
+--
+
+`position_fill()`
+
+--
+
+more...
+
+---
+
+```{r need-pos, echo = FALSE, warning = FALSE}
+ggplot(bechdel, mapping = aes(x = decade_code)) +
+  geom_bar(mapping = aes(fill = clean_test))
+```
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+* Add a position adjustment to this plot to compare the frequency of test results across decades.
+]
+
+```{r echo = FALSE}
+decorate("need-pos", eval = FALSE)
+```
+
+```{r echo = FALSE, out.width = "40%"}
+knitr::include_graphics(knitr::fig_chunk("need-pos", ".png"))
+```
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+```{r bar-pos-dodge, panelset = c(source = "Dodge", output = "Dodge Plot"), out.width = "80%", warning = FALSE}
+ggplot(bechdel, mapping = aes(x = decade_code)) +
+  geom_bar(mapping = aes(fill = clean_test), position = "dodge")
+```
+
+```{r bar-pos-fill, panelset = c(source = "Fill", output = "Fill Plot"), out.width = "80%", warning = FALSE}
+ggplot(bechdel, mapping = aes(x = decade_code)) +
+  geom_bar(mapping = aes(fill = clean_test), position = "fill")
+```
+]
+
+---
+class: center middle
+
+# .blue[scales]
+
+---
