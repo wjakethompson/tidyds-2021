@@ -7,13 +7,21 @@
 }
 
 .remark-slide-content h1 {
-	margin-bottom: 1.0em !important;
+	margin-bottom: 0em !important;
 	color: #272727;
 	font-weight: bold;
 }
 
 .nobold {
   font-weight: normal;
+}
+
+.blue {
+  color: #009FB7;
+}
+
+.yellow {
+  color: #FED766;
 }
 
 .footnote {
@@ -37,8 +45,13 @@
   font-size: 85% !important;
 }
 
+.big {
+  font-size: 125%;
+  line-height: 2em;
+}
+
 img {
-	margin-bottom: 1.5rem;
+	margin-bottom: 0;
 	overflow: hidden;
 	/*background: #fff;*/
 	box-shadow: none;
@@ -96,7 +109,11 @@ a:hover, a:active, a:focus {
 
 .remark-code {
   color: #009FB7;
-  font-size: 1.25em;
+  font-size: 1.05em;
+}
+
+.remark-code.remark-inline-code {
+  font-size: 0.83em;
 }
 
 .remark-inline-code {
@@ -338,26 +355,18 @@ div.my-footer span {
 
 /* pop quiz */
 
+.pop-quiz {
+  background-color: #FED766;
+  color: #272727;
+}
+
 .pop-quiz h1, h1#pop-quiz {
-  color: #bd93f9;
+  color: #009FB7;
   font-size: 3.5em;
-  padding-bottom: .5em;
 }
 
 .pop-quiz h2, h2#pop-quiz {
-  color: #bd93f9;
-}
-
-h1#pop-quiz:before,
-h1#pop-quiz:after {
-    content: "";
-    display: inline-block;
-    background: url("../question-box.png") no-repeat;
-    width: 70px;
-    height: 70px;
-    background-size: 100%;
-    background-position: bottom;
-    margin: 0 7px -10px 7px;
+  color: #009FB7;
 }
 
 /* live code */
@@ -386,7 +395,7 @@ h1#pop-quiz:after {
 
 .your-turn .remark-inline-code,
 .live-code .remark-inline-code {
-  color: #f1fa8c;
+  color: #2B3D43;
 }
 
 .codedrop .remark-code {
