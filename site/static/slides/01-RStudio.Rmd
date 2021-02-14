@@ -392,7 +392,7 @@ Green "Code" button -> Download ZIP
 
 Open `tidyds-2021.Rproj`
 
-Navigate to `materials/exercises/00-getting-started.Rmd`
+Navigate to `materials/exercises/01-getting-started.Rmd`
 
 ```{r echo = FALSE}
 countdown(minutes = 5, seconds = 0,

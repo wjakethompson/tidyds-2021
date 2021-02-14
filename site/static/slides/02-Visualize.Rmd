@@ -370,7 +370,7 @@ class: your-turn
 # Your turn `r (yt_counter <- yt_counter + 1)`
 
 .big[
-* Open the R Notebook **01-Visualize.Rmd**
+* Open the R Notebook **materials/exercises/02-visualize.Rmd**
 * Let's look at the `bechdel` data set
 * Run this code to make a graph
 ]
