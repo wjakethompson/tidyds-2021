@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization"
+title: "Data Visualization - Solutions"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
@@ -44,7 +44,8 @@ What relationship do you expect to see between movie budget (budget) and domesti
 Run the code on the slide to make a graph. Pay strict attention to spelling, capitalization, and parentheses!
 
 ```{r}
-
+ggplot(data = bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross))
 ```
 
 
@@ -54,7 +55,14 @@ Add `color`, `size`, `alpha`, and `shape` aesthetics to your graph. Experiment.
 
 ```{r}
 ggplot(data = bechdel) +
-  geom_point(mapping = aes(x = budget, y = domgross))
+  geom_point(mapping = aes(x = budget, y = domgross, color = clean_test))
+
+ggplot(bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, size = clean_test))
+ggplot(bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, shape = clean_test))
+ggplot(bechdel) +
+  geom_point(mapping = aes(x = budget, y = domgross, alpha = clean_test))
 ```
 
 
@@ -62,7 +70,7 @@ ggplot(data = bechdel) +
 
 ```{r}
 ggplot(bechdel) + 
-  geom_point(mapping = aes(x = budget, y = domgross), color = "blue")
+    geom_point(mapping = aes(x = budget, y = domgross), color="blue")
 ```
 
 
@@ -73,6 +81,9 @@ Replace this scatterplot with one that draws boxplots. Use the cheatsheet. Try y
 ```{r}
 ggplot(data = bechdel) +
   geom_point(mapping = aes(x = clean_test, y = budget))
+
+ggplot(data = bechdel) +
+  geom_boxplot(mapping = aes(x = clean_test, y = budget))
 ```
 
 
@@ -81,7 +92,8 @@ ggplot(data = bechdel) +
 Make a histogram of the `budget` variable from `bechdel`.
 
 ```{r}
-
+ggplot(bechdel) + 
+  geom_histogram(mapping = aes(x = budget))
 ```
 
 
@@ -90,7 +102,11 @@ Make a histogram of the `budget` variable from `bechdel`.
 Make a density plot of `budget` colored by `clean_test`.
 
 ```{r}
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget))
 
+ggplot(data = bechdel) +
+  geom_density(mapping = aes(x = budget, color = clean_test))
 ```
 
 
@@ -99,7 +115,11 @@ Make a density plot of `budget` colored by `clean_test`.
 Make a barchart of `clean_test` colored by `clean_test`.
 
 ```{r}
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = clean_test, color = clean_test))
 
+ggplot(data = bechdel) +
+  geom_bar(mapping = aes(x = clean_test, fill = clean_test))
 ```
 
 
@@ -108,9 +128,9 @@ Make a barchart of `clean_test` colored by `clean_test`.
 Predict what this code will do. Then run it.
 
 ```{r}
-ggplot(data = bechdel) +
-  geom_point(mapping = aes(x = budget, y = domgross)) +
-  geom_smooth(mapping = aes(x = budget, y = domgross))
+ggplot(bechdel) + 
+  geom_point(mapping = aes(budget, domgross)) +
+  geom_smooth(mapping = aes(budget, domgross))
 ```
 
 
@@ -135,7 +155,7 @@ Add a position adjustment to this plot to compare the frequency of test results 
 
 ```{r}
 ggplot(data = bechdel, mapping = aes(x = decade_code)) +
-  geom_bar(mapping = aes(fill = clean_test))
+  geom_bar(mapping = aes(fill = clean_test), position = "fill")
 ```
 
 
@@ -148,6 +168,7 @@ ggsave("my-plot.png", width = 8, height = 6, units = "in", dpi = "retina")
 ```
 
 ***
+
 
 # Take aways
 
