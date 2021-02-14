@@ -26,3 +26,8 @@ options(
   # set website root directory
   blogdown.site_root = "site/"
 )
+
+options(
+  scipen = 0,
+  dplyr.summarise.inform = TRUE
+)
