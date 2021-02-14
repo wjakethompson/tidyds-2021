@@ -68,8 +68,8 @@ class: bottom, center
 
 <img style="border-radius: 50%;" src="https://github.com/wjakethompson.png" width="150px"/>
 
-[<i class="fab fa-github"></i> @wjakethompson](https://github.com/wjakethompson)  
-[<i class="fab fa-twitter"></i> @wjakethompson](https://twitter.com/wjakethompson)
+.blue[<i class="fab fa-github"></i>] [@wjakethompson](https://github.com/wjakethompson)  
+.blue[<i class="fab fa-twitter"></i>] [@wjakethompson](https://twitter.com/wjakethompson)
 
 ---
 background-image: url(images/background/hello-banner2.png)
