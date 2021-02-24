@@ -15,20 +15,13 @@ library(skimr)
 ```
 
 
-## Babynames
-
-```{r}
-babynames
-skim(babynames)
-```
-
-
 ## Your Turn 1
 
 Run the `skim_with()` command, and then try skimming babynames again to see how the output is different
 
 ```{r}
-skim_with(integer = list(p25 = NULL, p75=NULL))
+babynames
+skim(babynames)
 ```
 
 
@@ -50,8 +43,7 @@ select(storms, starts_with("w"))
 select(storms, ends_with("e"))
 select(storms, contains("d"))
 select(storms, matches("^.{4}$"))
-select(storms, one_of(c("name", "names", "Name")))
-select(storms, num_range("x", 1:5))
+select(storms, any_of(c("name", "names", "Name")))
 ```
 
 
