@@ -37,6 +37,10 @@
   font-size: 50% !important;
 }
 
+.smaller .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+
 .small .remark-code { /*Change made here*/
   font-size: 70% !important;
 }
@@ -44,6 +48,11 @@
 .smallish .remark-code { /*Change made here*/
   font-size: 85% !important;
 }
+
+.wide {
+  padding: 1em 1em 1em 1em;
+}
+
 
 .big {
   font-size: 125%;
@@ -534,6 +543,16 @@ div.my-footer span {
 .fade {
   opacity: 0.3;
 }
+
+.code-fade {
+  opacity: 0.5;
+  color: #696773;
+}
+
+.code-dark {
+  color: #272727;
+}
+
 
 .frame h1 {
   color: #2f5275;
