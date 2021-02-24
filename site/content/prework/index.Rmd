@@ -16,7 +16,8 @@ Please have a computer or laptop that has the following installed:
 * The R packages we will use, which you can install by connecting to the internet, opening RStudio, and running at the command line:
 
 ```{r eval = FALSE}
-install.packages(c("tidyverse", "tidymodels", "fivethirtyeight", "ggthemes"),
+install.packages(c("tidyverse", "tidymodels", "fivethirtyeight", "ggthemes",
+                   "babynames", "nycflights13", "skimr"),
                  dependencies = TRUE)
 ```
 
