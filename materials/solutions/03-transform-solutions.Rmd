@@ -1,5 +1,5 @@
 ---
-title: "Data Transformation"
+title: "Data Transformation - Solutions"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
@@ -30,7 +30,7 @@ skim(babynames)
 Alter the code to select just the `n` column:
 
 ```{r}
-select(babynames, name, prop)
+select(babynames, n)
 ```
 
 
@@ -43,7 +43,7 @@ select(storms, starts_with("w"))
 select(storms, ends_with("e"))
 select(storms, contains("d"))
 select(storms, matches("^.{4}$"))
-select(storms, any_of(c("name", "names", "Name")))
+select(storms, one_of(c("name", "names", "Name")))
 ```
 
 
@@ -68,7 +68,9 @@ Show:
 * All of the names that have a missing value for `n`  
 
 ```{r}
-
+filter(babynames, prop >= 0.08)
+filter(babynames, name == "Daenerys")
+filter(babynames, is.na(n))
 ```
 
 
@@ -76,12 +78,14 @@ Show:
 
 Use Boolean operators to alter the code below to return only the rows that contain:
 
-* Girls named Sea 
+* Girls named Sea  
 * Names that were used by exactly 5 or 6 children in 1880  
 * Names that are one of Acura, Lexus, or Yugo
 
 ```{r}
-filter(babynames, name == "Sea" | name == "Anemone")
+filter(babynames, name == "Sea", sex == "F")
+filter(babynames, n == 5 | n == 6, year == 1880)
+filter(babynames, name %in% c("Acura", "Lexus", "Yugo"))
 ```
 
 
@@ -90,7 +94,7 @@ filter(babynames, name == "Sea" | name == "Anemone")
 Arrange babynames by `n`. Add `prop` as a second (tie breaking) variable to arrange on. Can you tell what the smallest value of `n` is?
 
 ```{r}
-
+arrange(babynames, n, prop)
 ```
 
 
@@ -100,7 +104,8 @@ Arrange babynames by `n`. Add `prop` as a second (tie breaking) variable to arra
 * Then, use `desc()` to find the names with the highest n.
 
 ```{r}
-
+arrange(babynames, desc(prop))
+arrange(babynames, desc(n))
 ```
 
 
@@ -158,7 +163,10 @@ Use `%>%` to write a sequence of functions that:
 3. Arrange the results so that the most popular names are near the top.
 
 ```{r}
-
+babynames %>% 
+  filter(year == 2015, sex == "F") %>% 
+  select(name, n) %>% 
+  arrange(desc(n))
 ```
 
 
@@ -169,7 +177,11 @@ Use `%>%` to write a sequence of functions that:
 3. Plot the results as a line graph with `year` on the x axis and `prop` on the y axis, colored by `sex`
 
 ```{r}
-
+babynames %>% 
+  filter(name == "Jake") %>% 
+  select(year, prop, sex) %>% 
+  ggplot(mapping = aes(x = year, y = prop)) +
+    geom_line(mapping = aes(color = sex))
 ```
 
 
@@ -182,7 +194,10 @@ Use `summarize()` to compute three statistics about the data:
 3. The total number of unique names in the data set
 
 ```{r}
-
+babynames %>% 
+  summarize(first = min(year), 
+            last = max(year), 
+            num_names = n_distinct(name))
 ```
 
 
@@ -194,7 +209,9 @@ Extract the rows where `name == "Khaleesi"`. Then use `summarize()` to find:
 2. The first year Khaleesi appeared in the data
 
 ```{r}
-
+babynames %>% 
+  filter(name == "Khaleesi") %>% 
+  summarize(total = sum(n), first = min(year))
 ```
 
 
@@ -209,8 +226,25 @@ Bonus:
 
 3. Create a bar plot of the 10 most popular names, with **`name`** on the x-axis and total children on the y-axis.
 
-```{r}
 
+```{r}
+babynames %>%
+  group_by(name, sex) %>% 
+  summarize(total = sum(n)) %>% 
+  arrange(desc(total))
+```
+
+```{r}
+babynames %>%
+  group_by(name, sex) %>% 
+  summarize(total = sum(n)) %>% 
+  arrange(desc(total)) %>%
+  slice_max(total, n = 10) %>%
+  ggplot(mapping = aes(x = fct_reorder(name, desc(total)), y = total)) +
+  geom_col(mapping = aes(fill = sex)) +
+  scale_fill_brewer() +
+  labs(x = "Name", y = "Total Children") +
+  theme_bw()
 ```
 
 
@@ -220,7 +254,11 @@ Bonus:
 * Plot the results as a line graph.
 
 ```{r}
-
+babynames %>%
+  group_by(year) %>% 
+  summarize(n_children = sum(n)) %>% 
+  ggplot(mapping = aes(x = year, y = n_children)) +
+  geom_line()
 ```
 
 
@@ -237,7 +275,8 @@ babynames %>%
 Use `min_rank()` and `mutate()` to rank each row in `babynames` from largest `prop` to lowest `prop`.
 
 ```{r}
-
+babynames %>% 
+  mutate(rank = min_rank(desc(prop)))
 ```
 
 
@@ -247,7 +286,12 @@ Use `min_rank()` and `mutate()` to rank each row in `babynames` from largest `pr
 * Then compute the median rank _for each combination of name and sex_, and arrange the results from highest median rank to lowest.
 
 ```{r}
-
+babynames %>% 
+  group_by(year, sex) %>% 
+  mutate(rank = min_rank(desc(prop))) %>% 
+  group_by(name, sex) %>% 
+  summarize(score = median(rank)) %>% 
+  arrange(score)
 ```
 
 
@@ -305,12 +349,12 @@ Which airlines had the largest arrival delays (**`arr_delay`**)? Complete the co
 2. Compute and order the average arrival delays by airline. Display full names, no codes.
 
 ```{r}
-flights %>%
+flights %>% 
   drop_na(arr_delay) %>%
-  ___ %>%
-  group_by(___) %>%
-  ___ %>%
-  arrange(___) 
+  left_join(airlines, by = "carrier") %>%
+  group_by(name) %>%
+  summarize(delay = mean(arr_delay)) %>%
+  arrange(delay)
 ```
 
 
@@ -319,6 +363,7 @@ flights %>%
 ```{r}
 heroes %>% left_join(enemies, by = c("hero" = "avenger"))
 ```
+
 
 ## Filtering joins
 
@@ -335,9 +380,9 @@ How many airports in `airports` are serviced by flights originating in New York 
 
 
 ```{r}
-___ %>%
-  ___(___, by = ___) %>%
-  distinct(___)
+airports %>%
+  semi_join(flights, by = c("faa" = "dest")) %>%
+  distinct(faa)
 ```
 
 

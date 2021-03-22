@@ -53,10 +53,19 @@
   padding: 1em 1em 1em 1em;
 }
 
+.wide-line{
+  line-height: 57px;
+}
+
 
 .big {
   font-size: 125%;
   line-height: 2em;
+}
+
+.huge {
+  font-size: 150%;
+  line-height: 3em;
 }
 
 img {
@@ -287,6 +296,17 @@ div.hex-book {
   top: 90%;
   left: 5px;
   height: 65px;
+}
+
+.norm-book {
+  position: absolute;
+  top: 85%;
+  left: 3%;
+  height: 65px;
+}
+
+.img-border {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* Wider cols */
