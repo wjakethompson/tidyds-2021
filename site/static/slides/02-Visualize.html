@@ -4,7 +4,7 @@
     <title>Data Visualization</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-02-14" />
+    <meta name="date" content="2021-03-22" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -14,6 +14,11 @@
     <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
     <link href="libs/countdown/countdown.css" rel="stylesheet" />
     <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
@@ -141,10 +146,20 @@ class: center
 ]
 
 .pull-right.center[
+&lt;img class="img-border" src="images/visualize/layered-grammar.png" width="450px"&gt;
+
+https://doi.org/10.1198/jcgs.2009.07098
+]
+
+---
+# ggplot2
+
+.center[
 &lt;img src="images/books/ggplot2-2nd.png" width="275px"&gt;
 
 [3rd Edition WIP](https://ggplot2-book.org/)
 ]
+
 
 ---
 class: center middle
@@ -235,23 +250,32 @@ background-size: 40%
 library(fivethirtyeight)
 bechdel
 ## # A tibble: 1,794 x 15
-##     year imdb  title test  clean_test binary budget domgross intgross code 
-##    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;ord&gt;      &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
-##  1  2013 tt17… 21 &amp;… nota… notalk     FAIL   1.30e7 25682380   4.22e7 2013…
-##  2  2012 tt13… Dred… ok-d… ok         PASS   4.50e7 13414714   4.09e7 2012…
-##  3  2013 tt20… 12 Y… nota… notalk     FAIL   2.00e7 53107035   1.59e8 2013…
-##  4  2013 tt12… 2 Gu… nota… notalk     FAIL   6.10e7 75612460   1.32e8 2013…
-##  5  2013 tt04… 42    men   men        FAIL   4.00e7 95020213   9.50e7 2013…
-##  6  2013 tt13… 47 R… men   men        FAIL   2.25e8 38362475   1.46e8 2013…
-##  7  2013 tt16… A Go… nota… notalk     FAIL   9.20e7 67349198   3.04e8 2013…
-##  8  2013 tt21… Abou… ok-d… ok         PASS   1.20e7 15323921   8.73e7 2013…
-##  9  2013 tt18… Admi… ok    ok         PASS   1.30e7 18007317   1.80e7 2013…
-## 10  2013 tt18… Afte… nota… notalk     FAIL   1.30e8 60522097   2.44e8 2013…
+##     year imdb   title    test   clean_test binary budget domgross intgross code 
+##    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;  &lt;ord&gt;      &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+##  1  2013 tt171… 21 &amp; Ov… notalk notalk     FAIL   1.30e7 25682380   4.22e7 2013…
+##  2  2012 tt134… Dredd 3D ok-di… ok         PASS   4.50e7 13414714   4.09e7 2012…
+##  3  2013 tt202… 12 Year… notal… notalk     FAIL   2.00e7 53107035   1.59e8 2013…
+##  4  2013 tt127… 2 Guns   notalk notalk     FAIL   6.10e7 75612460   1.32e8 2013…
+##  5  2013 tt045… 42       men    men        FAIL   4.00e7 95020213   9.50e7 2013…
+##  6  2013 tt133… 47 Ronin men    men        FAIL   2.25e8 38362475   1.46e8 2013…
+##  7  2013 tt160… A Good … notalk notalk     FAIL   9.20e7 67349198   3.04e8 2013…
+##  8  2013 tt219… About T… ok-di… ok         PASS   1.20e7 15323921   8.73e7 2013…
+##  9  2013 tt181… Admissi… ok     ok         PASS   1.30e7 18007317   1.80e7 2013…
+## 10  2013 tt181… After E… notalk notalk     FAIL   1.30e8 60522097   2.44e8 2013…
 ## # … with 1,784 more rows, and 5 more variables: budget_2013 &lt;int&gt;,
 ## #   domgross_2013 &lt;dbl&gt;, intgross_2013 &lt;dbl&gt;, period_code &lt;int&gt;,
 ## #   decade_code &lt;int&gt;
 ```
 ]
+
+???
+
+Variables for us:
+
+* clean_test
+* budget
+* domgross
+* decade_code (1990s = 3, 2000s = 2, 2010s = 1)
 
 ---
 class: your-turn
@@ -270,7 +294,7 @@ ggplot(data = bechdel) +
   geom_point(mapping = aes(x = budget, y = domgross))
 ```
 
-<div class="countdown" id="timer_60298345" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e2ec" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -419,7 +443,7 @@ class: your-turn
 * What happens when you use more than one aesthetic?
 ]
 
-<div class="countdown" id="timer_602981fe" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e3e5" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -571,7 +595,7 @@ ggplot(data = bechdel) +
 
 &lt;img src="images/visualize/plots/yt-scatter-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_60298143" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e243" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -606,7 +630,7 @@ class: your-turn
 
 &lt;img src="images/visualize/plots/yt-hist-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_60298390" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e2de" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -641,7 +665,7 @@ class: your-turn
 
 &lt;img src="images/visualize/plots/yt-col-den-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_602980e7" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e44f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -684,7 +708,7 @@ class: your-turn
 
 &lt;img src="images/visualize/plots/yt-col-bar-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_602980ee" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e39f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -732,7 +756,7 @@ ggplot(data = bechdel) +
   geom_smooth(mapping = aes(x = budget, y = domgross))
 ```
 
-<div class="countdown" id="timer_6029849e" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e323" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -979,7 +1003,7 @@ include_graphics(fig_chunk("need-pos", ".png"))
 
 &lt;img src="images/visualize/plots/need-pos-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_602983f1" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6058e278" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

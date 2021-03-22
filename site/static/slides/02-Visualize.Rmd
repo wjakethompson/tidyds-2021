@@ -37,6 +37,9 @@ knitr::opts_chunk$set(collapse = TRUE,
 
 xaringanExtra::use_share_again()
 xaringanExtra::use_panelset()
+xaringanExtra::use_extra_styles(hover_code_line = TRUE,
+                                mute_unhighlighted_code = TRUE)
+xaringanExtra::use_scribble(pen_color = "#009FB7")
 
 yt_counter <- 0
 library(countdown)
@@ -165,10 +168,20 @@ class: center
 ]
 
 .pull-right.center[
+<img class="img-border" src="images/visualize/layered-grammar.png" width="450px">
+
+https://doi.org/10.1198/jcgs.2009.07098
+]
+
+---
+# ggplot2
+
+.center[
 <img src="images/books/ggplot2-2nd.png" width="275px">
 
 [3rd Edition WIP](https://ggplot2-book.org/)
 ]
+
 
 ---
 class: center middle
@@ -364,6 +377,15 @@ bechdel
 ```
 ]
 
+???
+
+Variables for us:
+
+* clean_test
+* budget
+* domgross
+* decade_code (1990s = 3, 2000s = 2, 2010s = 1)
+
 ---
 class: your-turn
 
@@ -523,10 +545,10 @@ class: center
 
 ```{r bechdel-aes, echo = FALSE, message = FALSE, out.width="70%", fig.asp = 0.4}
 dat <- tibble(x = c(rep(1, 6), rep(1.2, 6)),
-       y = rep(1:6, 2),
-       label = c("ok", "dubious", "men", "notalk", "nowoman", "clean_test",
-                 "colorblock", "colorblock", "colorblock", "colorblock",
-                 "colorblock", "color"))
+              y = rep(1:6, 2),
+              label = c("ok", "dubious", "men", "notalk", "nowoman", "clean_test",
+                        "colorblock", "colorblock", "colorblock", "colorblock",
+                        "colorblock", "color"))
 
 ggplot() +
   geom_text(data = filter(dat, x == 1, y < 6),

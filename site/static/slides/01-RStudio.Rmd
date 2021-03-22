@@ -34,6 +34,10 @@ knitr::opts_chunk$set(collapse = TRUE,
                       fig.path = "images/r-rstudio/")
 
 xaringanExtra::use_share_again()
+xaringanExtra::use_panelset()
+xaringanExtra::use_extra_styles(hover_code_line = TRUE,
+                                mute_unhighlighted_code = TRUE)
+xaringanExtra::use_scribble(pen_color = "#009FB7")
 
 yt_counter <- 0
 library(countdown)
@@ -464,12 +468,11 @@ background-size: 90%
 ---
 class: title-slide, center
 
-<span class="fa-stack fa-4x">
-  <i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"></i>
-  <strong class="fa-stack-1x" style="color:#009FB7;">`r rmarkdown::metadata$session`</strong>
-</span> 
-
 # `r rmarkdown::metadata$title`
+
+```{r closing-hex, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("images/hex/RStudio.png")
+```
 
 ## `r rmarkdown::metadata$subtitle`
 

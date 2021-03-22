@@ -4,7 +4,7 @@
     <title>Welcome</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-02-14" />
+    <meta name="date" content="2021-03-22" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -12,6 +12,13 @@
     <script src="libs/shareon/shareon.min.js"></script>
     <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
@@ -220,8 +227,6 @@ class: middle, center
 
 ```
 ## Warning: The `.dots` argument of `group_by()` is deprecated as of dplyr 1.0.0.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
 ```
 
 <style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -229,7 +234,7 @@ html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#phcqyfitbv .gt_table {
+#gmumryvuka .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -254,7 +259,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_heading {
+#gmumryvuka .gt_heading {
   background-color: #F0F0F0;
   text-align: left;
   border-bottom-color: #F0F0F0;
@@ -266,7 +271,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_title {
+#gmumryvuka .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -276,7 +281,7 @@ html {
   border-bottom-width: 0;
 }
 
-#phcqyfitbv .gt_subtitle {
+#gmumryvuka .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -286,13 +291,13 @@ html {
   border-top-width: 0;
 }
 
-#phcqyfitbv .gt_bottom_border {
+#gmumryvuka .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_col_headings {
+#gmumryvuka .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #F0F0F0;
@@ -307,7 +312,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_col_heading {
+#gmumryvuka .gt_col_heading {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -327,7 +332,7 @@ html {
   overflow-x: hidden;
 }
 
-#phcqyfitbv .gt_column_spanner_outer {
+#gmumryvuka .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -339,15 +344,15 @@ html {
   padding-right: 4px;
 }
 
-#phcqyfitbv .gt_column_spanner_outer:first-child {
+#gmumryvuka .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#phcqyfitbv .gt_column_spanner_outer:last-child {
+#gmumryvuka .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#phcqyfitbv .gt_column_spanner {
+#gmumryvuka .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -359,7 +364,7 @@ html {
   width: 100%;
 }
 
-#phcqyfitbv .gt_group_heading {
+#gmumryvuka .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #F0F0F0;
@@ -381,7 +386,7 @@ html {
   vertical-align: middle;
 }
 
-#phcqyfitbv .gt_empty_group_heading {
+#gmumryvuka .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #F0F0F0;
@@ -396,15 +401,15 @@ html {
   vertical-align: middle;
 }
 
-#phcqyfitbv .gt_from_md > :first-child {
+#gmumryvuka .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#phcqyfitbv .gt_from_md > :last-child {
+#gmumryvuka .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#phcqyfitbv .gt_row {
+#gmumryvuka .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -423,7 +428,7 @@ html {
   overflow-x: hidden;
 }
 
-#phcqyfitbv .gt_stub {
+#gmumryvuka .gt_stub {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -435,7 +440,7 @@ html {
   padding-left: 12px;
 }
 
-#phcqyfitbv .gt_summary_row {
+#gmumryvuka .gt_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -445,7 +450,7 @@ html {
   padding-right: 5px;
 }
 
-#phcqyfitbv .gt_first_summary_row {
+#gmumryvuka .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -455,7 +460,7 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_grand_summary_row {
+#gmumryvuka .gt_grand_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -465,7 +470,7 @@ html {
   padding-right: 5px;
 }
 
-#phcqyfitbv .gt_first_grand_summary_row {
+#gmumryvuka .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -475,11 +480,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_striped {
+#gmumryvuka .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#phcqyfitbv .gt_table_body {
+#gmumryvuka .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -488,7 +493,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_footnotes {
+#gmumryvuka .gt_footnotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -502,13 +507,13 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_footnote {
+#gmumryvuka .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#phcqyfitbv .gt_sourcenotes {
+#gmumryvuka .gt_sourcenotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -522,46 +527,46 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#phcqyfitbv .gt_sourcenote {
+#gmumryvuka .gt_sourcenote {
   font-size: 12px;
   padding: 10px;
 }
 
-#phcqyfitbv .gt_left {
+#gmumryvuka .gt_left {
   text-align: left;
 }
 
-#phcqyfitbv .gt_center {
+#gmumryvuka .gt_center {
   text-align: center;
 }
 
-#phcqyfitbv .gt_right {
+#gmumryvuka .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#phcqyfitbv .gt_font_normal {
+#gmumryvuka .gt_font_normal {
   font-weight: normal;
 }
 
-#phcqyfitbv .gt_font_bold {
+#gmumryvuka .gt_font_bold {
   font-weight: bold;
 }
 
-#phcqyfitbv .gt_font_italic {
+#gmumryvuka .gt_font_italic {
   font-style: italic;
 }
 
-#phcqyfitbv .gt_super {
+#gmumryvuka .gt_super {
   font-size: 65%;
 }
 
-#phcqyfitbv .gt_footnote_marks {
+#gmumryvuka .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="phcqyfitbv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+<div id="gmumryvuka" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
   <colgroup>
     <col style="width:150px;"/>
     <col style="width:300px;"/>
@@ -574,24 +579,42 @@ html {
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-09:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Preliminaries</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:30-10:15</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Introduction to R and RStudio</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Visualization with <a href='https://ggplot2.tidyverse.org'>ggplot2</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍱</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td></tr>
-    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
-<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-09:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Preliminaries</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:30-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Introduction to R and RStudio</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Visualization with <a href='https://ggplot2.tidyverse.org'>ggplot2</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍱</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
   </tbody>
   
   
@@ -613,7 +636,7 @@ html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#murjgrpkmd .gt_table {
+#cavlzlhdxc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -638,7 +661,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_heading {
+#cavlzlhdxc .gt_heading {
   background-color: #F0F0F0;
   text-align: left;
   border-bottom-color: #F0F0F0;
@@ -650,7 +673,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_title {
+#cavlzlhdxc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -660,7 +683,7 @@ html {
   border-bottom-width: 0;
 }
 
-#murjgrpkmd .gt_subtitle {
+#cavlzlhdxc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -670,13 +693,13 @@ html {
   border-top-width: 0;
 }
 
-#murjgrpkmd .gt_bottom_border {
+#cavlzlhdxc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_col_headings {
+#cavlzlhdxc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #F0F0F0;
@@ -691,7 +714,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_col_heading {
+#cavlzlhdxc .gt_col_heading {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -711,7 +734,7 @@ html {
   overflow-x: hidden;
 }
 
-#murjgrpkmd .gt_column_spanner_outer {
+#cavlzlhdxc .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -723,15 +746,15 @@ html {
   padding-right: 4px;
 }
 
-#murjgrpkmd .gt_column_spanner_outer:first-child {
+#cavlzlhdxc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#murjgrpkmd .gt_column_spanner_outer:last-child {
+#cavlzlhdxc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#murjgrpkmd .gt_column_spanner {
+#cavlzlhdxc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -743,7 +766,7 @@ html {
   width: 100%;
 }
 
-#murjgrpkmd .gt_group_heading {
+#cavlzlhdxc .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #F0F0F0;
@@ -765,7 +788,7 @@ html {
   vertical-align: middle;
 }
 
-#murjgrpkmd .gt_empty_group_heading {
+#cavlzlhdxc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #F0F0F0;
@@ -780,15 +803,15 @@ html {
   vertical-align: middle;
 }
 
-#murjgrpkmd .gt_from_md > :first-child {
+#cavlzlhdxc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#murjgrpkmd .gt_from_md > :last-child {
+#cavlzlhdxc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#murjgrpkmd .gt_row {
+#cavlzlhdxc .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -807,7 +830,7 @@ html {
   overflow-x: hidden;
 }
 
-#murjgrpkmd .gt_stub {
+#cavlzlhdxc .gt_stub {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -819,7 +842,7 @@ html {
   padding-left: 12px;
 }
 
-#murjgrpkmd .gt_summary_row {
+#cavlzlhdxc .gt_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -829,7 +852,7 @@ html {
   padding-right: 5px;
 }
 
-#murjgrpkmd .gt_first_summary_row {
+#cavlzlhdxc .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -839,7 +862,7 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_grand_summary_row {
+#cavlzlhdxc .gt_grand_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -849,7 +872,7 @@ html {
   padding-right: 5px;
 }
 
-#murjgrpkmd .gt_first_grand_summary_row {
+#cavlzlhdxc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -859,11 +882,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_striped {
+#cavlzlhdxc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#murjgrpkmd .gt_table_body {
+#cavlzlhdxc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -872,7 +895,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_footnotes {
+#cavlzlhdxc .gt_footnotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -886,13 +909,13 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_footnote {
+#cavlzlhdxc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#murjgrpkmd .gt_sourcenotes {
+#cavlzlhdxc .gt_sourcenotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -906,46 +929,46 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#murjgrpkmd .gt_sourcenote {
+#cavlzlhdxc .gt_sourcenote {
   font-size: 12px;
   padding: 10px;
 }
 
-#murjgrpkmd .gt_left {
+#cavlzlhdxc .gt_left {
   text-align: left;
 }
 
-#murjgrpkmd .gt_center {
+#cavlzlhdxc .gt_center {
   text-align: center;
 }
 
-#murjgrpkmd .gt_right {
+#cavlzlhdxc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#murjgrpkmd .gt_font_normal {
+#cavlzlhdxc .gt_font_normal {
   font-weight: normal;
 }
 
-#murjgrpkmd .gt_font_bold {
+#cavlzlhdxc .gt_font_bold {
   font-weight: bold;
 }
 
-#murjgrpkmd .gt_font_italic {
+#cavlzlhdxc .gt_font_italic {
   font-style: italic;
 }
 
-#murjgrpkmd .gt_super {
+#cavlzlhdxc .gt_super {
   font-size: 65%;
 }
 
-#murjgrpkmd .gt_footnote_marks {
+#cavlzlhdxc .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="murjgrpkmd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+<div id="cavlzlhdxc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
   <colgroup>
     <col style="width:150px;"/>
     <col style="width:300px;"/>
@@ -958,22 +981,38 @@ html {
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:15</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Types</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Import Data with <a href='https://readr.tidyverse.org'>readr</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍕</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td></tr>
-    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
-<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Types</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Import Data with <a href='https://readr.tidyverse.org'>readr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
   </tbody>
   
   
@@ -999,7 +1038,7 @@ html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#nybgfqtdcy .gt_table {
+#pzmmxtugjf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1024,7 +1063,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_heading {
+#pzmmxtugjf .gt_heading {
   background-color: #F0F0F0;
   text-align: left;
   border-bottom-color: #F0F0F0;
@@ -1036,7 +1075,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_title {
+#pzmmxtugjf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1046,7 +1085,7 @@ html {
   border-bottom-width: 0;
 }
 
-#nybgfqtdcy .gt_subtitle {
+#pzmmxtugjf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1056,13 +1095,13 @@ html {
   border-top-width: 0;
 }
 
-#nybgfqtdcy .gt_bottom_border {
+#pzmmxtugjf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_col_headings {
+#pzmmxtugjf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #F0F0F0;
@@ -1077,7 +1116,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_col_heading {
+#pzmmxtugjf .gt_col_heading {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1097,7 +1136,7 @@ html {
   overflow-x: hidden;
 }
 
-#nybgfqtdcy .gt_column_spanner_outer {
+#pzmmxtugjf .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1109,15 +1148,15 @@ html {
   padding-right: 4px;
 }
 
-#nybgfqtdcy .gt_column_spanner_outer:first-child {
+#pzmmxtugjf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nybgfqtdcy .gt_column_spanner_outer:last-child {
+#pzmmxtugjf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nybgfqtdcy .gt_column_spanner {
+#pzmmxtugjf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1129,7 +1168,7 @@ html {
   width: 100%;
 }
 
-#nybgfqtdcy .gt_group_heading {
+#pzmmxtugjf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #F0F0F0;
@@ -1151,7 +1190,7 @@ html {
   vertical-align: middle;
 }
 
-#nybgfqtdcy .gt_empty_group_heading {
+#pzmmxtugjf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #F0F0F0;
@@ -1166,15 +1205,15 @@ html {
   vertical-align: middle;
 }
 
-#nybgfqtdcy .gt_from_md > :first-child {
+#pzmmxtugjf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nybgfqtdcy .gt_from_md > :last-child {
+#pzmmxtugjf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nybgfqtdcy .gt_row {
+#pzmmxtugjf .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -1193,7 +1232,7 @@ html {
   overflow-x: hidden;
 }
 
-#nybgfqtdcy .gt_stub {
+#pzmmxtugjf .gt_stub {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1205,7 +1244,7 @@ html {
   padding-left: 12px;
 }
 
-#nybgfqtdcy .gt_summary_row {
+#pzmmxtugjf .gt_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -1215,7 +1254,7 @@ html {
   padding-right: 5px;
 }
 
-#nybgfqtdcy .gt_first_summary_row {
+#pzmmxtugjf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1225,7 +1264,7 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_grand_summary_row {
+#pzmmxtugjf .gt_grand_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -1235,7 +1274,7 @@ html {
   padding-right: 5px;
 }
 
-#nybgfqtdcy .gt_first_grand_summary_row {
+#pzmmxtugjf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1245,11 +1284,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_striped {
+#pzmmxtugjf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nybgfqtdcy .gt_table_body {
+#pzmmxtugjf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1258,7 +1297,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_footnotes {
+#pzmmxtugjf .gt_footnotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -1272,13 +1311,13 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_footnote {
+#pzmmxtugjf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#nybgfqtdcy .gt_sourcenotes {
+#pzmmxtugjf .gt_sourcenotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -1292,46 +1331,46 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#nybgfqtdcy .gt_sourcenote {
+#pzmmxtugjf .gt_sourcenote {
   font-size: 12px;
   padding: 10px;
 }
 
-#nybgfqtdcy .gt_left {
+#pzmmxtugjf .gt_left {
   text-align: left;
 }
 
-#nybgfqtdcy .gt_center {
+#pzmmxtugjf .gt_center {
   text-align: center;
 }
 
-#nybgfqtdcy .gt_right {
+#pzmmxtugjf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nybgfqtdcy .gt_font_normal {
+#pzmmxtugjf .gt_font_normal {
   font-weight: normal;
 }
 
-#nybgfqtdcy .gt_font_bold {
+#pzmmxtugjf .gt_font_bold {
   font-weight: bold;
 }
 
-#nybgfqtdcy .gt_font_italic {
+#pzmmxtugjf .gt_font_italic {
   font-style: italic;
 }
 
-#nybgfqtdcy .gt_super {
+#pzmmxtugjf .gt_super {
   font-size: 65%;
 }
 
-#nybgfqtdcy .gt_footnote_marks {
+#pzmmxtugjf .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="nybgfqtdcy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+<div id="pzmmxtugjf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
   <colgroup>
     <col style="width:150px;"/>
     <col style="width:300px;"/>
@@ -1344,22 +1383,38 @@ html {
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Prediction with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🌯</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
-    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
-<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Prediction with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🌯</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
   </tbody>
   
   
@@ -1382,7 +1437,7 @@ html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#fdhbhigunq .gt_table {
+#zpokuvnfgp .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1407,7 +1462,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_heading {
+#zpokuvnfgp .gt_heading {
   background-color: #F0F0F0;
   text-align: left;
   border-bottom-color: #F0F0F0;
@@ -1419,7 +1474,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_title {
+#zpokuvnfgp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1429,7 +1484,7 @@ html {
   border-bottom-width: 0;
 }
 
-#fdhbhigunq .gt_subtitle {
+#zpokuvnfgp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1439,13 +1494,13 @@ html {
   border-top-width: 0;
 }
 
-#fdhbhigunq .gt_bottom_border {
+#zpokuvnfgp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_col_headings {
+#zpokuvnfgp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #F0F0F0;
@@ -1460,7 +1515,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_col_heading {
+#zpokuvnfgp .gt_col_heading {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1480,7 +1535,7 @@ html {
   overflow-x: hidden;
 }
 
-#fdhbhigunq .gt_column_spanner_outer {
+#zpokuvnfgp .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1492,15 +1547,15 @@ html {
   padding-right: 4px;
 }
 
-#fdhbhigunq .gt_column_spanner_outer:first-child {
+#zpokuvnfgp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fdhbhigunq .gt_column_spanner_outer:last-child {
+#zpokuvnfgp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fdhbhigunq .gt_column_spanner {
+#zpokuvnfgp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1512,7 +1567,7 @@ html {
   width: 100%;
 }
 
-#fdhbhigunq .gt_group_heading {
+#zpokuvnfgp .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #F0F0F0;
@@ -1534,7 +1589,7 @@ html {
   vertical-align: middle;
 }
 
-#fdhbhigunq .gt_empty_group_heading {
+#zpokuvnfgp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #F0F0F0;
@@ -1549,15 +1604,15 @@ html {
   vertical-align: middle;
 }
 
-#fdhbhigunq .gt_from_md > :first-child {
+#zpokuvnfgp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fdhbhigunq .gt_from_md > :last-child {
+#zpokuvnfgp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fdhbhigunq .gt_row {
+#zpokuvnfgp .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -1576,7 +1631,7 @@ html {
   overflow-x: hidden;
 }
 
-#fdhbhigunq .gt_stub {
+#zpokuvnfgp .gt_stub {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1588,7 +1643,7 @@ html {
   padding-left: 12px;
 }
 
-#fdhbhigunq .gt_summary_row {
+#zpokuvnfgp .gt_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -1598,7 +1653,7 @@ html {
   padding-right: 5px;
 }
 
-#fdhbhigunq .gt_first_summary_row {
+#zpokuvnfgp .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1608,7 +1663,7 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_grand_summary_row {
+#zpokuvnfgp .gt_grand_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -1618,7 +1673,7 @@ html {
   padding-right: 5px;
 }
 
-#fdhbhigunq .gt_first_grand_summary_row {
+#zpokuvnfgp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1628,11 +1683,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_striped {
+#zpokuvnfgp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fdhbhigunq .gt_table_body {
+#zpokuvnfgp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1641,7 +1696,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_footnotes {
+#zpokuvnfgp .gt_footnotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -1655,13 +1710,13 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_footnote {
+#zpokuvnfgp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#fdhbhigunq .gt_sourcenotes {
+#zpokuvnfgp .gt_sourcenotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -1675,46 +1730,46 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#fdhbhigunq .gt_sourcenote {
+#zpokuvnfgp .gt_sourcenote {
   font-size: 12px;
   padding: 10px;
 }
 
-#fdhbhigunq .gt_left {
+#zpokuvnfgp .gt_left {
   text-align: left;
 }
 
-#fdhbhigunq .gt_center {
+#zpokuvnfgp .gt_center {
   text-align: center;
 }
 
-#fdhbhigunq .gt_right {
+#zpokuvnfgp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fdhbhigunq .gt_font_normal {
+#zpokuvnfgp .gt_font_normal {
   font-weight: normal;
 }
 
-#fdhbhigunq .gt_font_bold {
+#zpokuvnfgp .gt_font_bold {
   font-weight: bold;
 }
 
-#fdhbhigunq .gt_font_italic {
+#zpokuvnfgp .gt_font_italic {
   font-style: italic;
 }
 
-#fdhbhigunq .gt_super {
+#zpokuvnfgp .gt_super {
   font-size: 65%;
 }
 
-#fdhbhigunq .gt_footnote_marks {
+#zpokuvnfgp .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="fdhbhigunq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+<div id="zpokuvnfgp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
   <colgroup>
     <col style="width:150px;"/>
     <col style="width:300px;"/>
@@ -1727,22 +1782,38 @@ html {
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Resampling with <a href='https://rsample.tidymodels.org'>rsample</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🥗</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://workflows.tidymodels.org'>workflows</a></td></tr>
-    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
-<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Resampling with <a href='https://rsample.tidymodels.org'>rsample</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🥗</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://workflows.tidymodels.org'>workflows</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
   </tbody>
   
   
@@ -1760,7 +1831,7 @@ html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#unyjyfsmwa .gt_table {
+#khmxlscjwm .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1785,7 +1856,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_heading {
+#khmxlscjwm .gt_heading {
   background-color: #F0F0F0;
   text-align: left;
   border-bottom-color: #F0F0F0;
@@ -1797,7 +1868,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_title {
+#khmxlscjwm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1807,7 +1878,7 @@ html {
   border-bottom-width: 0;
 }
 
-#unyjyfsmwa .gt_subtitle {
+#khmxlscjwm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1817,13 +1888,13 @@ html {
   border-top-width: 0;
 }
 
-#unyjyfsmwa .gt_bottom_border {
+#khmxlscjwm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_col_headings {
+#khmxlscjwm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #F0F0F0;
@@ -1838,7 +1909,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_col_heading {
+#khmxlscjwm .gt_col_heading {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1858,7 +1929,7 @@ html {
   overflow-x: hidden;
 }
 
-#unyjyfsmwa .gt_column_spanner_outer {
+#khmxlscjwm .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1870,15 +1941,15 @@ html {
   padding-right: 4px;
 }
 
-#unyjyfsmwa .gt_column_spanner_outer:first-child {
+#khmxlscjwm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#unyjyfsmwa .gt_column_spanner_outer:last-child {
+#khmxlscjwm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#unyjyfsmwa .gt_column_spanner {
+#khmxlscjwm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1890,7 +1961,7 @@ html {
   width: 100%;
 }
 
-#unyjyfsmwa .gt_group_heading {
+#khmxlscjwm .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #F0F0F0;
@@ -1912,7 +1983,7 @@ html {
   vertical-align: middle;
 }
 
-#unyjyfsmwa .gt_empty_group_heading {
+#khmxlscjwm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #F0F0F0;
@@ -1927,15 +1998,15 @@ html {
   vertical-align: middle;
 }
 
-#unyjyfsmwa .gt_from_md > :first-child {
+#khmxlscjwm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#unyjyfsmwa .gt_from_md > :last-child {
+#khmxlscjwm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#unyjyfsmwa .gt_row {
+#khmxlscjwm .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -1954,7 +2025,7 @@ html {
   overflow-x: hidden;
 }
 
-#unyjyfsmwa .gt_stub {
+#khmxlscjwm .gt_stub {
   color: #333333;
   background-color: #F0F0F0;
   font-size: 80%;
@@ -1966,7 +2037,7 @@ html {
   padding-left: 12px;
 }
 
-#unyjyfsmwa .gt_summary_row {
+#khmxlscjwm .gt_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -1976,7 +2047,7 @@ html {
   padding-right: 5px;
 }
 
-#unyjyfsmwa .gt_first_summary_row {
+#khmxlscjwm .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1986,7 +2057,7 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_grand_summary_row {
+#khmxlscjwm .gt_grand_summary_row {
   color: #333333;
   background-color: #F0F0F0;
   text-transform: inherit;
@@ -1996,7 +2067,7 @@ html {
   padding-right: 5px;
 }
 
-#unyjyfsmwa .gt_first_grand_summary_row {
+#khmxlscjwm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2006,11 +2077,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_striped {
+#khmxlscjwm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#unyjyfsmwa .gt_table_body {
+#khmxlscjwm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2019,7 +2090,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_footnotes {
+#khmxlscjwm .gt_footnotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -2033,13 +2104,13 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_footnote {
+#khmxlscjwm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#unyjyfsmwa .gt_sourcenotes {
+#khmxlscjwm .gt_sourcenotes {
   color: #333333;
   background-color: #F0F0F0;
   border-bottom-style: none;
@@ -2053,46 +2124,46 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#unyjyfsmwa .gt_sourcenote {
+#khmxlscjwm .gt_sourcenote {
   font-size: 12px;
   padding: 10px;
 }
 
-#unyjyfsmwa .gt_left {
+#khmxlscjwm .gt_left {
   text-align: left;
 }
 
-#unyjyfsmwa .gt_center {
+#khmxlscjwm .gt_center {
   text-align: center;
 }
 
-#unyjyfsmwa .gt_right {
+#khmxlscjwm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#unyjyfsmwa .gt_font_normal {
+#khmxlscjwm .gt_font_normal {
   font-weight: normal;
 }
 
-#unyjyfsmwa .gt_font_bold {
+#khmxlscjwm .gt_font_bold {
   font-weight: bold;
 }
 
-#unyjyfsmwa .gt_font_italic {
+#khmxlscjwm .gt_font_italic {
   font-style: italic;
 }
 
-#unyjyfsmwa .gt_super {
+#khmxlscjwm .gt_super {
   font-size: 65%;
 }
 
-#unyjyfsmwa .gt_footnote_marks {
+#khmxlscjwm .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="unyjyfsmwa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+<div id="khmxlscjwm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
   <colgroup>
     <col style="width:150px;"/>
     <col style="width:300px;"/>
@@ -2105,22 +2176,38 @@ html {
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍔</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td></tr>
-    <tr><td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
-<td class="gt_row gt_left" style="background-color: #F0F0F0;">Getting Help with <a href='https://reprex.tidyverse.org'>reprex</a></td></tr>
-    <tr><td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
-<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td></tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍔</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Getting Help with <a href='https://reprex.tidyverse.org'>reprex</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
   </tbody>
   
   
