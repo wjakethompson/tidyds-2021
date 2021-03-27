@@ -116,7 +116,7 @@ office_hours = ["Monday June 14, 09:00 to 15:30",
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  # {icon = "check", icon_pack = "fas", name = "Register Here", link = "https://ku.edu"},
+  {icon = "check", icon_pack = "fas", name = "Register Here", link = "https://aai.ku.edu/summercamp"},
   # {icon = "laptop-code", icon_pack = "fas", name = "Book Office Hours", link = "https://ku.edu"},
   # {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/Twitter"},
   # {icon = "skype", icon_pack = "fab", name = "Skype Me", link = "skype:echo123?call"},

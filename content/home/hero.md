@@ -37,6 +37,6 @@ hero_media = "fraser-campanile.jpg"
   label = 'Photo by the University of Kansas office of <a href="https://ku.widencollective.com/portals/vjyspcuh/KUBrandPhotography">Marketing Communications</a>.'
 +++
 
-Welcome! This is the website for a five-day workshop offered June 14-June 18, 2021 at the Achievement and Assessment Institute's Summer Stats Camp at the University of Kansas.
+Welcome! This is the website for a five-day workshop offered June 14-June 18, 2021 at the Achievement and Assessment Institute's Summer Research Methods Camp at the University of Kansas.
 
-This workshop provides a gentle introduction to doing data anlysis in R using the [tidyverse](https://tidyverse.org) and [tidymodels](https://tidymodels.org).
+This workshop provides a gentle introduction to doing data anlysis in R using the [tidyverse](https://tidyverse.org) and [tidymodels](https://tidymodels.org). For additional information and registration, click [here](https://aai.ku.edu/summercamp).
