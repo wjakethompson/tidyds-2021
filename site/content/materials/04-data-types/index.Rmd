@@ -1,0 +1,19 @@
+---
+title: 'Session 04: Data Types'
+draft: false
+slug: 04-data-types
+categories: []
+tags: []
+featured: no
+projects: []
+weight: 1
+links:
+- icon: images
+  icon_pack: fas
+  name: slides
+  url: /slides/04-Data-Types.html
+---
+
+```{r echo=FALSE}
+knitr::include_url("/slides/04-Data-Types.html")
+```
