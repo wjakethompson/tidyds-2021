@@ -169,6 +169,16 @@ a:hover, a:active, a:focus {
 
 
 /* Two-column layout */
+.large-left {
+  width: 74%;
+  float: left;
+  padding-top: 5em;
+}
+.small-right {
+  width: 25%;
+  float: right;
+}
+
 .left-column {
   color: #777;
   width: 25%;
