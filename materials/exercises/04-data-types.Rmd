@@ -34,19 +34,19 @@ Finally, create a summary table that shows:
 
 Fill in the blanks to:
 
-1. Isolate the last letter of every name
-2. and create a logical variable that displays whether the last letter is one of "a", "e", "i", "o", "u", or "y".  
-3. Use a weighted mean to calculate the proportion of children whose name ends in a vowel (by `year` and `sex`)
-4. and then display the results as a line plot.
+1. Isolate the last letter of every name.
+2. Create a variable that indicates whether the last letter is one of "a", "e", "i", "o", "u", or "y".
+3. Calculate the proportion of children whose name ends in a vowel, by **`year`** and **`sex`**.
+4. Display the results as a line plot.
 
 ```{r}
 babynames %>%
   ___(last = ___, 
       vowel = ___) %>%
   group_by(___) %>%
-  ___(p_vowel = weighted.mean(vowel, n)) %>%
-  ___(mapping = ___) +
-    ___(mapping = ___)
+  ___(p_vowel = weighted.mean(vowel, w = n)) %>%
+  ggplot(mapping = aes(x = ___, y = ___)) +
+  ___(mapping = ___)
 ```
 
 
@@ -56,7 +56,7 @@ Repeat the previous exercise, some of whose code is below, to make a sensible gr
 
 ```{r}
 gss_cat %>%
-  drop_na(___) %>%
+  drop_na(tvhours) %>%
   group_by(___) %>%
   summarize(___) %>%
   ggplot(mapping = ___) +
