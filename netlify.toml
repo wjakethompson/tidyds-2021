@@ -8,10 +8,10 @@
 
 [context]
 [context.branch-deploy]
-  command = "hugo -F -b $DEPLOY_PRIME_URL"
+  command = "hugo -F -D -b $DEPLOY_PRIME_URL"
 
 [context.deploy-preview]
-  command = "hugo -F -b $DEPLOY_PRIME_URL"
+  command = "hugo -F -D -b $DEPLOY_PRIME_URL"
 
 [context.production]
 [context.production.environment]
