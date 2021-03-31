@@ -1,6 +1,6 @@
 ---
 title: 'Session 02: Data Visualization'
-draft: false
+draft: true
 slug: 02-visualize
 categories: []
 tags: []
