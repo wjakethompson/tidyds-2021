@@ -44,7 +44,7 @@ babynames %>%
   ___(last = ___, 
       vowel = ___) %>%
   group_by(___) %>%
-  ___(p_vowel = weighted.mean(vowel, w = n)) %>%
+  ___(prop_vowel = weighted.mean(vowel, w = n)) %>%
   ggplot(mapping = aes(x = ___, y = ___)) +
   ___(mapping = ___)
 ```
@@ -60,7 +60,7 @@ gss_cat %>%
   group_by(___) %>%
   summarize(___) %>%
   ggplot(mapping = ___) +
-    geom_point()
+  geom_col()
 ```
 
 
@@ -96,12 +96,12 @@ Fill in the blanks to:
 
 ```{r}
 flights %>% 
+  drop_na(arr_delay) %>% 
   mutate(weekday = ___) %>% 
   ___ %>% 
-  drop_na(arr_delay) %>% 
-  summarize(avg_delay = ___) %>% 
-  ggplot(mapping = mapping = aes(x = weekday, y = avg_delay)) +
-    ___()
+  ___(avg_delay = ___) %>% 
+  ggplot(mapping = aes(x = weekday, y = avg_delay)) +
+  ___
 ```
 
 
