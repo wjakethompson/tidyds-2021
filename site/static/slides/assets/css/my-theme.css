@@ -12,6 +12,15 @@
 	font-weight: bold;
 }
 
+.remark-slide table {
+  border-top: none;
+  border-bottom: none;
+}
+
+.gt_center {
+  text-align: center;
+}
+
 .nobold {
   font-weight: normal;
 }
@@ -21,6 +30,11 @@
 }
 
 .yellow {
+  color: #FED766;
+}
+
+.blue-highlight {
+  background-color: #009FB7;
   color: #FED766;
 }
 
