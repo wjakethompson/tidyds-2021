@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Welcome</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="W. Jake Thompson" />
+    <meta name="date" content="2021-03-22" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, center
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#009FB7;"&gt;Hi!&lt;/strong&gt;
+&lt;/span&gt; 
+
+# Welcome
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
+---
+background-image: url(images/background/hello-banner2.png)
+background-position: top center
+background-size: 100%
+class: bottom, center
+
+## W. Jake Thompson
+
+&lt;img style="border-radius: 50%;" src="https://github.com/wjakethompson.png" width="150px"/&gt;
+
+.blue[&lt;i class="fab fa-github"&gt;&lt;/i&gt;] [@wjakethompson](https://github.com/wjakethompson)  
+.blue[&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;] [@wjakethompson](https://twitter.com/wjakethompson)
+
+---
+background-image: url(images/background/hello-banner2.png)
+background-position: top center
+background-size: 100%
+class: bottom, center
+
+Workshop content is based on the prior work of:
+
+.columns[
+
+.column-5[
+
+&lt;img style="border-radius: 50%;" src="https://github.com/hadley.png" width="150px"/&gt;
+
+[Hadley Wickham](https://twitter.com/hadleywickham)
+
+]
+
+.column-5[
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/ameliamn.png" width="150px"/&gt;
+
+[Amelia McNamara](https://twitter.com/AmeliaMN)
+
+]
+
+.column-5[
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/cwickham.png" width="150px"/&gt;
+
+[Charlotte Wickham](https://twitter.com/CVWickham)
+
+]
+
+.column-5[
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/garrettgman.png" width="150px"/&gt;
+
+[Garrett Grolemund](https://twitter.com/StatGarrett)
+
+]
+
+.column-5[
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/apreshill.png" width="150px"/&gt;
+
+[Alison Hill](https://twitter.com/apreshill)
+
+]
+
+]
+
+---
+class: middle, center
+
+.pull-left[
+
+# First Half:
+
+### How to work with data in R
+]
+
+--
+
+.pull-right[
+
+# Second Half:
+
+### How to learn from data in R
+
+]
+
+---
+class: middle, center
+
+.pull-left[
+
+# First Half:
+
+### How to work with data in R
+
+Visualize
+
+Transform
+
+Tidy
+]
+
+--
+
+.pull-right[
+
+# Second Half:
+
+### How to learn from data in R
+
+Predicting
+
+Classifying
+
+Sampling and Resampling
+
+Ensembling
+]
+
+---
+class: middle, center
+
+.pull-left[
+
+# First Half:
+
+### How to work with data in R
+
+&lt;img src="images/hex/tidyverse.png" width="50%" /&gt;
+]
+
+--
+
+.pull-right[
+
+# Second Half:
+
+### How to learn from data in R
+
+&lt;img src="images/hex/tidymodels.png" width="50%" /&gt;
+]
+
+---
+class: center
+
+.columns[
+
+.left-col[
+
+### R for Data&lt;br&gt;Science
+
+&lt;img src="images/books/r4ds.png" width="70%" /&gt;
+]
+
+.middle-col[
+
+### Tidy Modeling&lt;br&gt;with R
+
+
+]
+
+.right-col[
+
+### R Markdown: The Definitive Guide
+
+&lt;img src="images/books/rmdg.png" width="70%" /&gt;
+]
+]
+
+---
+class: middle, center
+
+# Day 1
+
+.pull-left[
+
+```
+## Warning: The `.dots` argument of `group_by()` is deprecated as of dplyr 1.0.0.
+```
+
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gmumryvuka .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#gmumryvuka .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#gmumryvuka .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gmumryvuka .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gmumryvuka .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gmumryvuka .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gmumryvuka .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gmumryvuka .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gmumryvuka .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gmumryvuka .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gmumryvuka .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gmumryvuka .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gmumryvuka .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#gmumryvuka .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gmumryvuka .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gmumryvuka .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gmumryvuka .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gmumryvuka .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#gmumryvuka .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#gmumryvuka .gt_left {
+  text-align: left;
+}
+
+#gmumryvuka .gt_center {
+  text-align: center;
+}
+
+#gmumryvuka .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gmumryvuka .gt_font_normal {
+  font-weight: normal;
+}
+
+#gmumryvuka .gt_font_bold {
+  font-weight: bold;
+}
+
+#gmumryvuka .gt_font_italic {
+  font-style: italic;
+}
+
+#gmumryvuka .gt_super {
+  font-size: 65%;
+}
+
+#gmumryvuka .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="gmumryvuka" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-09:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Preliminaries</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:30-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Introduction to R and RStudio</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Visualization with <a href='https://ggplot2.tidyverse.org'>ggplot2</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍱</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Manipulation with <a href='https://dplyr.tidyverse.org'>dplyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+.pull-right[
+&lt;img src="images/intro/hex-day1.png" width="60%" /&gt;
+]
+
+---
+class: middle, center
+
+# Day 2
+
+.pull-left[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#cavlzlhdxc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#cavlzlhdxc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#cavlzlhdxc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cavlzlhdxc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cavlzlhdxc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cavlzlhdxc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cavlzlhdxc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cavlzlhdxc .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cavlzlhdxc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cavlzlhdxc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cavlzlhdxc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cavlzlhdxc .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cavlzlhdxc .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#cavlzlhdxc .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cavlzlhdxc .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cavlzlhdxc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cavlzlhdxc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#cavlzlhdxc .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#cavlzlhdxc .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#cavlzlhdxc .gt_left {
+  text-align: left;
+}
+
+#cavlzlhdxc .gt_center {
+  text-align: center;
+}
+
+#cavlzlhdxc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cavlzlhdxc .gt_font_normal {
+  font-weight: normal;
+}
+
+#cavlzlhdxc .gt_font_bold {
+  font-weight: bold;
+}
+
+#cavlzlhdxc .gt_font_italic {
+  font-style: italic;
+}
+
+#cavlzlhdxc .gt_super {
+  font-size: 65%;
+}
+
+#cavlzlhdxc .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="cavlzlhdxc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Data Types</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-10:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:30-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Import Data with <a href='https://readr.tidyverse.org'>readr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Tidy Data with <a href='https://tidyr.tidyverse.org'>tidyr</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+.pull-right[
+&lt;img src="images/intro/hex-day2.png" width="90%" /&gt;
+]
+
+---
+class: middle, center
+
+# Day 3
+
+.pull-left[
+&lt;img src="images/intro/hex-day3.png" width="60%" /&gt;
+]
+
+.pull-right[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#pzmmxtugjf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#pzmmxtugjf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#pzmmxtugjf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pzmmxtugjf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pzmmxtugjf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pzmmxtugjf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pzmmxtugjf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pzmmxtugjf .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pzmmxtugjf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pzmmxtugjf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pzmmxtugjf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pzmmxtugjf .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pzmmxtugjf .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#pzmmxtugjf .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pzmmxtugjf .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pzmmxtugjf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pzmmxtugjf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#pzmmxtugjf .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#pzmmxtugjf .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#pzmmxtugjf .gt_left {
+  text-align: left;
+}
+
+#pzmmxtugjf .gt_center {
+  text-align: center;
+}
+
+#pzmmxtugjf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pzmmxtugjf .gt_font_normal {
+  font-weight: normal;
+}
+
+#pzmmxtugjf .gt_font_bold {
+  font-weight: bold;
+}
+
+#pzmmxtugjf .gt_font_italic {
+  font-style: italic;
+}
+
+#pzmmxtugjf .gt_super {
+  font-size: 65%;
+}
+
+#pzmmxtugjf .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="pzmmxtugjf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Prediction with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🌯</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Classification with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+
+---
+class: middle, center
+
+# Day 4
+
+.pull-left[
+&lt;img src="images/intro/hex-day4.png" width="60%" /&gt;
+]
+
+.pull-right[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#zpokuvnfgp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#zpokuvnfgp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#zpokuvnfgp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zpokuvnfgp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zpokuvnfgp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zpokuvnfgp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zpokuvnfgp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zpokuvnfgp .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zpokuvnfgp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zpokuvnfgp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zpokuvnfgp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zpokuvnfgp .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zpokuvnfgp .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#zpokuvnfgp .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpokuvnfgp .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpokuvnfgp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zpokuvnfgp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#zpokuvnfgp .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#zpokuvnfgp .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#zpokuvnfgp .gt_left {
+  text-align: left;
+}
+
+#zpokuvnfgp .gt_center {
+  text-align: center;
+}
+
+#zpokuvnfgp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zpokuvnfgp .gt_font_normal {
+  font-weight: normal;
+}
+
+#zpokuvnfgp .gt_font_bold {
+  font-weight: bold;
+}
+
+#zpokuvnfgp .gt_font_italic {
+  font-style: italic;
+}
+
+#zpokuvnfgp .gt_super {
+  font-size: 65%;
+}
+
+#zpokuvnfgp .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="zpokuvnfgp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Resampling with <a href='https://rsample.tidymodels.org'>rsample</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🥗</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Modeling Pipelines with <a href='https://workflows.tidymodels.org'>workflows</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+---
+class: middle, center
+
+# Day 5
+
+.pull-left[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#khmxlscjwm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#khmxlscjwm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#khmxlscjwm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#khmxlscjwm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#khmxlscjwm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#khmxlscjwm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#khmxlscjwm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#khmxlscjwm .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#khmxlscjwm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#khmxlscjwm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#khmxlscjwm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#khmxlscjwm .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#khmxlscjwm .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#khmxlscjwm .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khmxlscjwm .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#khmxlscjwm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#khmxlscjwm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#khmxlscjwm .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#khmxlscjwm .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#khmxlscjwm .gt_left {
+  text-align: left;
+}
+
+#khmxlscjwm .gt_center {
+  text-align: center;
+}
+
+#khmxlscjwm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#khmxlscjwm .gt_font_normal {
+  font-weight: normal;
+}
+
+#khmxlscjwm .gt_font_bold {
+  font-weight: bold;
+}
+
+#khmxlscjwm .gt_font_italic {
+  font-style: italic;
+}
+
+#khmxlscjwm .gt_super {
+  font-size: 65%;
+}
+
+#khmxlscjwm .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="khmxlscjwm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:150px;"/>
+    <col style="width:300px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">When</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">What</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">09:00-10:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:00-10:15</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> ☕</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">10:15-12:00</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">12:00-01:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Lunch</em> 🍔</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">01:30-02:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Case Study</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:30-02:45</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;"><em>Break</em> 🍵</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: Source Code Pro;">02:45-03:30</td>
+      <td class="gt_row gt_left" style="background-color: #F0F0F0;">Getting Help with <a href='https://reprex.tidyverse.org'>reprex</a></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: Source Code Pro;">03:30-04:30</td>
+      <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;"><em>Office Hours</em> (sign-up required)</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+.pull-right[
+&lt;img src="images/intro/hex-day5.png" width="60%" /&gt;
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

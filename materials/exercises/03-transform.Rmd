@@ -1,0 +1,359 @@
+---
+title: "Data Transformation"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+<!-- This file by Jake Thompson is licensed under a Creative Commons Attribution 4.0 International License, adapted from the orignal work at https://github.com/rstudio/master-the-tidyverse by RStudio. -->
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(babynames)
+library(nycflights13)
+library(skimr)
+```
+
+
+## Your Turn 1
+
+* Run this code to view a summary of the data
+
+```{r}
+babynames
+skim(babynames)
+```
+
+
+## Your Turn 2
+
+Alter the code to select just the `n` column:
+
+```{r}
+select(babynames, name, prop)
+```
+
+
+## `select()` helpers
+
+```{r}
+select(storms, name:pressure)
+select(storms, -c(name, pressure))
+select(storms, starts_with("w"))
+select(storms, ends_with("e"))
+select(storms, contains("d"))
+select(storms, matches("^.{4}$"))
+select(storms, any_of(c("name", "names", "Name")))
+```
+
+
+## Consider
+
+Which of these is NOT a way to select the `name` and `n` columns together?
+
+```{r}
+select(babynames, -c(year, sex, prop))
+select(babynames, name:n)
+select(babynames, starts_with("n"))
+select(babynames, ends_with("n"))
+```
+
+
+## Your Turn 3
+
+Show:
+
+* All of the names where prop is greater than or equal to 0.08  
+* All of the children named "Daenerys"  
+* All of the names that have a missing value for `n`  
+
+```{r}
+
+```
+
+
+## Your Turn 4
+
+Use Boolean operators to alter the code below to return only the rows that contain:
+
+* Girls named Sea 
+* Names that were used by exactly 5 or 6 children in 1880  
+* Names that are one of Acura, Lexus, or Yugo
+
+```{r}
+filter(babynames, name == "Sea" | name == "Anemone")
+```
+
+
+## Your Turn 5
+
+Arrange babynames by `n`. Add `prop` as a second (tie breaking) variable to arrange on. Can you tell what the smallest value of `n` is?
+
+```{r}
+
+```
+
+
+## Your Turn 6
+
+* Use `desc()` to find the names with the highest prop.
+* Then, use `desc()` to find the names with the highest n.
+
+```{r}
+
+```
+
+
+## Consider
+
+How would you do the following to the `babynames` data:
+
+1. Filter to only the names Sansas and Arya;
+2. Arrange by `name` and then `year`; and
+3. Remove the `prop` variable
+
+One less than ideal option: nesting.
+
+```{r}
+babynames
+filter(babynames, name %in% c("Sansa", "Arya"))
+arrange(filter(babynames, name %in% c("Sansa", "Arya")), name, year)
+select(arrange(filter(babynames, name %in% c("Sansa", "Arya")), name, year), -prop)
+```
+
+Another less than ideal option: intermediate objects.
+
+```{r}
+bn1 <- babynames
+bn2 <- filter(bn1, name %in% c("Sansa", "Arya"))
+bn3 <- arrange(bn2, name, year)
+bn4 <- select(bn3, -prop)
+```
+
+
+## Reconsider
+
+How would you do the following to the `babynames` data:
+
+1. Filter to only the names Sansas and Arya;
+2. Arrange by `name` and then `year`; and
+3. Remove the `prop` variable
+
+A better way: pipes.
+
+```{r}
+babynames %>%
+  filter(name %in% c("Sansa", "Arya")) %>%
+  arrange(name, year) %>%
+  select(-prop)
+```
+
+
+## Your Turn 7
+
+Use `%>%` to write a sequence of functions that: 
+
+1. Filter babynames to just the girls that were born in 2015  
+2. Select the `name` and `n` columns  
+3. Arrange the results so that the most popular names are near the top.
+
+```{r}
+
+```
+
+
+## Your Turn 8
+
+1. Trim `babynames` to just the rows that contain your `name` and your `sex`  
+2. Trim the result to just the columns that will appear in your graph (not strictly necessary, but useful practice)  
+3. Plot the results as a line graph with `year` on the x axis and `prop` on the y axis, colored by `sex`
+
+```{r}
+
+```
+
+
+## Your Turn 9
+
+Use `summarize()` to compute three statistics about the data:
+
+1. The first (minimum) year in the data set  
+2. The last (maximum) year in the data set  
+3. The total number of unique names in the data set
+
+```{r}
+
+```
+
+
+## Your Turn 10
+
+Extract the rows where `name == "Khaleesi"`. Then use `summarize()` to find:
+
+1. The total number of children named Khaleesi
+2. The first year Khaleesi appeared in the data
+
+```{r}
+
+```
+
+
+## Your Turn 11
+
+Calculate popularity by determining the total number of children given each name.
+
+1. Use **`group_by()`** and **`summarize()`** to calculate the total number of children that have been given each name, by sex.
+2. Arrange the results to show the most popular names first.
+
+Bonus:
+
+3. Create a bar plot of the 10 most popular names, with **`name`** on the x-axis and total children on the y-axis.
+
+```{r}
+
+```
+
+
+## Your Turn 12
+
+* Use grouping to calculate and then plot the number of children born each year over time.
+* Plot the results as a line graph.
+
+```{r}
+
+```
+
+
+## Mutate
+
+```{r}
+babynames %>%
+  mutate(percent = round(prop * 100, 2))
+```
+
+
+## Your Turn 13
+
+Use `min_rank()` and `mutate()` to rank each row in `babynames` from largest `prop` to lowest `prop`.
+
+```{r}
+
+```
+
+
+## Your Turn 14
+
+* Compute each name's rank _within its year and sex_. 
+* Then compute the median rank _for each combination of name and sex_, and arrange the results from highest median rank to lowest.
+
+```{r}
+
+```
+
+
+## Flights data
+```{r}
+flights
+skim(flights)
+```
+
+
+## Toy data
+
+```{r}
+heroes <- tribble(
+  ~hero,           ~identity,
+  "Iron Man",      "Tony Stark",
+  "Spider-Man",    "Peter Parker",
+  "Black Panther", "T'Challa"
+)
+
+homes <- tribble(
+  ~hero,           ~home,
+  "Thor",          "Asgard",
+  "Spider-Man",    "Queens",
+  "Black Panther", "Wakanda"
+)
+
+enemies <- tribble(
+  ~avenger,        ~villain,
+  "Thor",          "Loki",
+  "Spider-Man",    "Mysterio",
+  "Black Panther", "Killmonger"
+)
+```
+
+
+## Mutating joins
+
+```{r}
+left_join(heroes, homes, by = "hero")
+
+right_join(heroes, homes, by = "hero")
+
+full_join(heroes, homes, by = "hero")
+
+inner_join(heroes, homes, by = "hero")
+```
+
+
+## Your Turn 15
+
+Which airlines had the largest arrival delays (**`arr_delay`**)? Complete the code below.
+
+1. Join `airlines` to `flights`
+2. Compute and order the average arrival delays by airline. Display full names, no codes.
+
+```{r}
+flights %>%
+  drop_na(arr_delay) %>%
+  ___ %>%
+  group_by(___) %>%
+  ___ %>%
+  arrange(___) 
+```
+
+
+## Different names
+
+```{r}
+heroes %>% left_join(enemies, by = c("hero" = "avenger"))
+```
+
+## Filtering joins
+
+```{r}
+semi_join(heroes, homes, by = "hero")
+
+anti_join(heroes, homes, by = "hero")
+```
+
+
+## Your Turn 16
+
+How many airports in `airports` are serviced by flights originating in New York (i.e. flights in our data set?) Notice that the column to join on is named `faa` in the **airports** data set and `dest` in the **flights** data set.
+
+
+```{r}
+___ %>%
+  ___(___, by = ___) %>%
+  distinct(___)
+```
+
+
+***
+
+# Take aways
+
+* Extract variables with `select()`  
+* Extract cases with `filter()`  
+* Arrange cases, with `arrange()`  
+
+* Make tables of summaries with `summarize()`  
+* Make new variables, with `mutate()`  
+* Do groupwise operations with `group_by()`
+
+* Connect operations with `%>%`  
+
+* Use `left_join()`, `right_join()`, `full_join()`, or `inner_join()` to join data sets
+* Use `semi_join()` or `anti_join()` to filter data sets against each other

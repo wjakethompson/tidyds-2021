@@ -7,6 +7,10 @@ if (file.exists("~/.Rprofile")) {
   base::sys.source("~/.Rprofile", envir = environment())
 }
 
+if (interactive()) {
+  suppressMessages(require(blogdown))
+}
+
 # Now set options to customize the behavior of blogdown for this project. Below
 # are a few sample options; for more options, see
 # https://bookdown.org/yihui/blogdown/global-options.html
@@ -14,10 +18,16 @@ options(
   # to automatically serve the site on RStudio startup, set this option to TRUE
   blogdown.serve_site.startup = FALSE,
   # to disable knitting Rmd files on save, set this option to FALSE
-  blogdown.knit.on_save = TRUE,
+  blogdown.knit.on_save = FALSE,
   # build .Rmd to .html (via Pandoc); to build to Markdown, set this option to 'markdown'
-  blogdown.method = 'html'
+  blogdown.method = 'html',
+  # fix Hugo version
+  blogdown.hugo.version = "0.80.0",
+  # set website root directory
+  blogdown.site_root = "site/"
 )
 
-# fix Hugo version
-options(blogdown.hugo.version = "0.80.0")
+options(
+  scipen = 0,
+  dplyr.summarise.inform = TRUE
+)

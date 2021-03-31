@@ -3,3 +3,6 @@
 .Rdata
 .httr-oauth
 .DS_Store
+site/static/slides/*_cache/
+*.key
+*.nb.html
