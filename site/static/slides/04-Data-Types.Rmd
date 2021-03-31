@@ -987,3 +987,476 @@ class: center middle
 ```{r reorder-logo, echo = FALSE, out.width = "100%"}
 ```
 ]
+
+---
+# `fct_collapse()`
+
+Changes multiple levels into a single level.
+
+```{r collapse-example, include = FALSE, eval = FALSE}
+fct_collapse(f, ...)
+```
+
+```{r collapse-example-flair, echo = FALSE}
+decorate("collapse-example", eval = FALSE)
+```
+
+---
+# `fct_collapse()`
+
+Changes multiple levels into a single level.
+
+```{r collapse-example-flair-f, echo = FALSE}
+decorate("collapse-example", eval = FALSE) %>%
+  flair_rx("(?<=\\()f", background = yellow, color = blue)
+```
+
+???
+
+Factor with levels
+
+---
+# `fct_collapse()`
+
+Changes multiple levels into a single level.
+
+```{r collapse-example-flair-dots, echo = FALSE}
+decorate("collapse-example", eval = FALSE) %>%
+  flair("...", background = yellow, color = blue)
+```
+
+???
+
+Named levels to be collapsed
+
+---
+.panelset[
+```{r collapse-count, panelset = c(source = "Code", output = "Plot"), out.width = "80%"}
+gss_cat %>%
+  drop_na(tvhours) %>%
+  mutate(new_party = fct_collapse(partyid,
+                                  Conservative = c("Strong republican",
+                                                   "Not str republican",
+                                                   "Ind,near rep"),
+                                  Liberal = c("Strong democrat",
+                                              "Not str democrat",
+                                              "Ind,near dem"))) %>%
+  ggplot(mapping = aes(x = fct_infreq(new_party))) +
+  geom_bar() +
+  labs(x = "party")
+```
+]
+
+---
+```{r need-lump, out.width = "90%", echo = FALSE}
+gss_cat %>%
+  drop_na(tvhours) %>%
+  mutate(new_party = fct_collapse(partyid,
+                                  Conservative = c("Strong republican",
+                                                   "Not str republican",
+                                                   "Ind,near rep"),
+                                  Liberal = c("Strong democrat",
+                                              "Not str democrat",
+                                              "Ind,near dem")),
+         party = case_when(new_party %in% c("Liberal", "Conservative", "Independent") ~ glue("{new_party}"),
+                           TRUE ~ glue("<strong style='color:#E69F00'>{new_party}</strong>")),
+         fill_party = case_when(new_party %in% c("Liberal", "Conservative", "Independent") ~ "Other",
+                                TRUE ~ "Replace")) %>%
+  ggplot(mapping = aes(x = fct_infreq(party))) +
+  geom_bar(aes(fill = fill_party), show.legend = FALSE) +
+  scale_fill_manual(values = c("Other" = "grey35", "Replace" = "#E69F00")) +
+  labs(x = "party") +
+  theme(axis.text.x = element_markdown())
+```
+
+---
+# `fct_lump_n()`
+
+Collapses levels with fewest values into a single level. By default collapses as many levels as possible such that the new level is still the smallest.
+
+```{r lump-example, include = FALSE, eval = FALSE}
+fct_lump_n(f, n, other_level = "Other", ...)
+```
+
+```{r lump-example-flair, echo = FALSE}
+decorate("lump-example", eval = FALSE)
+```
+
+---
+# `fct_lump_n()`
+
+Collapses levels with fewest values into a single level. By default collapses as many levels as possible such that the new level is still the smallest.
+
+```{r lump-example-flair-f, echo = FALSE}
+decorate("lump-example", eval = FALSE) %>%
+  flair_rx("(?<=\\()f", background = yellow, color = blue)
+```
+
+???
+
+Factor with levels
+
+---
+# `fct_lump_n()`
+
+Collapses levels with fewest values into a single level. By default collapses as many levels as possible such that the new level is still the smallest.
+
+```{r lump-example-flair-n, echo = FALSE}
+decorate("lump-example", eval = FALSE) %>%
+  flair("n", background = yellow, color = blue)
+```
+
+???
+
+number of levels to lump (n smallest levels)
+
+---
+# `fct_lump_n()`
+
+Collapses levels with fewest values into a single level. By default collapses as many levels as possible such that the new level is still the smallest.
+
+```{r lump-example-flair-dots, echo = FALSE}
+decorate("lump-example", eval = FALSE) %>%
+  flair('other_level = "Other"', background = yellow, color = blue)
+```
+
+???
+
+name of new level
+
+---
+.panelset[
+```{r show-lump, panelset = c(source = "Code", output = "Plot"), out.width = "80%"}
+gss_cat %>%
+  drop_na(tvhours) %>%
+  mutate(new_party = fct_collapse(partyid,
+                                  Conservative = c("Strong republican",
+                                                   "Not str republican",
+                                                   "Ind,near rep"),
+                                  Liberal = c("Strong democrat",
+                                              "Not str democrat",
+                                              "Ind,near dem")),
+         new_party = fct_lump_n(new_party, other_level = "Other", n = 3))  %>%
+  group_by(new_party) %>%
+  summarize(tvhours = mean(tvhours)) %>%
+  ggplot(aes(x = tvhours, y = fct_reorder(new_party, tvhours, mean))) +
+  geom_col() +
+  labs(y = "partyid")
+```
+]
+
+---
+name: dates
+class: center middle
+
+# dates and times
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+Does every year have 365 days?
+
+--
+
+Does every day have 24 hours?
+
+--
+
+Does every minute have 60 seconds?
+
+--
+
+What does a month measure?
+
+---
+# Most useful skills
+
+1\. Creating dates/times (i.e., parsing)
+
+2\. Access and change parts of a date
+
+.fade[
+3\. Deal with time zones
+
+4\. Do math with instants and time spans
+]
+
+---
+class: pop-quiz
+
+# Consider
+
+Discuss in the chat:
+
+* What is the best time of day to fly?
+
+* What is the best day of the week to fly?
+
+```{r date-pq-cd, echo = FALSE}
+countdown(minutes = 1)
+```
+
+---
+
+```{r flight-time}
+flights %>%
+  select(year, month, day, hour, minute, sched_dep_time, time_hour)
+```
+
+???
+
+Let's focus briefly on the relationship between the scheduled departure time, `sched_dep_time`, and the average flight delay.
+
+---
+.panelset[
+```{r bad-flight-time, panelset = c(source = "Code", output = "Plot"), out.width = "80%", message = FALSE, warning = FALSE, cache = TRUE}
+flights %>%
+  ggplot(mapping = aes(x = sched_dep_time, y = arr_delay)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth()
+```
+]
+
+???
+
+We might start by making a plot of departure time vs. arrival delay. What's wrong with this? Minutes stop at 59, so there are gaps from 60-99 for every "hour". Time counting is not the same as our normal number line.
+
+---
+class: center middle
+
+.large-left[
+# Creating dates and times
+]
+
+.small-right[
+```{r hms-logo, echo = FALSE, out.width = "100%"}
+include_graphics("images/hex/hms.png")
+```
+]
+
+<a href="https://r4ds.had.co.nz/dates-and-times.html">
+  <img class="norm-book" src="images/books/r4ds-dates-times.png">
+</a>
+
+---
+# hms
+
+.center[
+.fade[2021-05-04] .blue-highlight[**14:52:34**]
+]
+
+Stored as the number of seconds since 00:00:00.<sup>*</sup>
+
+```{r hms-example, message = FALSE}
+library(hms)
+hms(seconds = 34, minutes = 52, hours = 14)
+
+unclass(hms(34, 52, 14))
+```
+
+.footnote[*On a typical day.]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+What is the best time of day to fly?
+
+1. Use the **`hour`** and **`minute`** variable in flights to compute the time of day for each flight as an `hms`.
+2. Use a smooth line to plot the relationship between time of day and **`arr_delay`**.
+]
+
+```{r tod-cd, echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+```{r tod-sol, fig.show = "hide", warning = FALSE, message = FALSE, cache = TRUE}
+flights %>%
+  mutate(time = hms(hours = hour, minutes = minute)) %>%
+  ggplot(mapping = aes(x = time, y = arr_delay)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth()
+```
+]
+
+.panel[.panel-name[Plot]
+```{r show-tod-sol, echo = FALSE, out.width = "80%"}
+include_graphics(fig_chunk("tod-sol", ".png"))
+```
+]
+
+.panel[.panel-name[Improved]
+```{r tod-sol-best, echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE, out.width = "80%"}
+flights %>%
+  mutate(time = hms(hours = hour, minutes = minute)) %>%
+  ggplot(mapping = aes(x = time, y = arr_delay)) +
+  geom_smooth()
+```
+]
+]
+
+---
+class: center middle
+
+.large-left[
+# lubridate
+]
+
+.small-right[
+```{r lubridate-logo, echo = FALSE, out.width = "100%"}
+include_graphics("images/hex/lubridate.png")
+```
+]
+
+<a href="https://r4ds.had.co.nz/dates-and-times.html">
+  <img class="norm-book" src="images/books/r4ds-dates-times.png">
+</a>
+
+---
+# `ymd()` family
+
+To parse strings as dates, use a *y*, *m*, *d*, *h*, *m*, *s* combination.
+
+```{r ymd-example}
+ymd("2021-05-04")
+
+mdy("May 4, 2021")
+
+ymd_hms("2021-05-04 14:52:34")
+```
+
+---
+# Accessing components
+
+Extract components by name with a **singular** name.
+
+```{r extract-year}
+star_wars <- ymd("2021-05-04")
+year(star_wars)
+
+month(star_wars)
+
+day(star_wars)
+```
+
+---
+# Setting components
+
+Use the same functions to set components
+
+```{r set-comp}
+star_wars
+
+year(star_wars) <- 2002
+star_wars
+```
+
+---
+# Date and time components
+
+```{r lubridate-tab, message = FALSE, warning = FALSE, echo = FALSE}
+library(gt)
+
+tribble(
+  ~`function`, ~extracts,        ~`extra arguments`,
+  "year()",    "year",           NA,
+  "month()",   "month",          "label = FALSE, abbr = TRUE",
+  "week()",    "week",           NA,
+  "day()",     "day of month",   NA,
+  "wday()",    "day of week",    "label = FALSE, abbr = TRUE",
+  "qday()",    "day of quarter", NA,
+  "yday()",    "day of year",    NA,
+  "hour()",    "hour",           NA,
+  "minute()",  "minute",         NA,
+  "second()",  "second",         NA
+) %>%
+  gt() %>%
+  wjake::gt_theme_wjake() %>%
+  tab_style(style = cell_text(font = google_font("Source Code Pro")),
+            locations = cells_body(columns = c(1, 3))) %>%
+  fmt_missing(columns = 3, missing_text = "") %>%
+  cols_width(1 ~ px(120),
+             2 ~ px(150),
+             3 ~ px(350)) %>%
+  cols_align(align = "center", columns = 1:3)
+```
+
+---
+# Accessing components
+
+```{r weekday-example}
+wday(star_wars)
+
+wday(star_wars, label = TRUE)
+
+wday(star_wars, label = TRUE, abbr = FALSE)
+```
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+Complete the following code to:
+
+1. Extract the day of the week for each flight (as a full name) from **`time_hour`**.
+2. Calculate the average **`arr_delay`** by day of the week.
+3. Plot the results as a column chart (bar chart) with `geom_col()`.
+
+```{r yt-flight-day, echo = FALSE, fig.show = "hide"}
+flights %>% 
+  drop_na(arr_delay) %>% 
+  mutate(weekday = wday(time_hour, label = TRUE, abbr = FALSE)) %>% 
+  group_by(weekday) %>%
+  summarize(avg_delay = mean(arr_delay)) %>% 
+  ggplot(mapping = aes(x = weekday, y = avg_delay)) +
+  geom_col()
+```
+
+```{r yt-flight-mask, echo = FALSE}
+decorate("yt-flight-day", eval = FALSE, fig.show = NULL) %>%
+  mask("wday(time_hour, label = TRUE, abbr = FALSE)", background = yellow) %>%
+  mask("group_by(weekday)", background = yellow) %>%
+  mask("summarize", background = yellow) %>%
+  mask("mean(arr_delay)", background = yellow) %>%
+  mask("geom_col()", background = yellow)
+```
+
+```{r yt-flight-cd, echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+```{r yt-flight-day-sol, panelset = c(source = "Code", output = "Plot"), out.width = "80%"}
+<<yt-flight-day>>
+```
+]
+
+---
+class: title-slide, center
+
+# `r rmarkdown::metadata$title`
+
+```{r closing-hex, echo = FALSE, out.width = "30%"}
+include_graphics("images/data-types/hex-group.png")
+```
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
