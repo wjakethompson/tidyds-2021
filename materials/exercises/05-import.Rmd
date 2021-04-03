@@ -7,11 +7,13 @@ editor_options:
 
 <!-- This file by Jake Thompson is licensed under a Creative Commons Attribution 4.0 International License, adapted from the orignal work at https://github.com/rstudio/master-the-tidyverse by RStudio. -->
 
+## Your Turn 1
+
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(viridis)
 
-setwd("/Users/jakethompson/Documents/GIT/courses/tidyds-2019")
+setwd("/Users/jakethompson/Documents/GIT/courses/tidyds-2021")
 ```
 
 
@@ -28,13 +30,12 @@ dr_here()
 ```
 
 
-## Your Turn 1
+## Your Turn 2
 
 Find nimbus.csv on your server or computer. Then read it into an object. Then view the results.
 
 ```{r}
-nimbus <- ___
-nimbus
+
 ```
 
 
@@ -46,7 +47,7 @@ as.data.frame(starwars)
 ```
 
 
-## Your Turn 2
+## Your Turn 3
 
 * Read in the `nimbus` data set
 * Set values of `.` to `NA`
@@ -56,7 +57,7 @@ nimbus <- read_csv(here("data", "nimbus.csv"))
 ```
 
 
-## Your Turn 3
+## Your Turn 4
 
 * Modify the code to specify `ozone` as integer values
 
