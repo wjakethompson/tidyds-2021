@@ -4,7 +4,7 @@
     <title>Import Data</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-03-30" />
+    <meta name="date" content="2021-04-02" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -19,6 +19,8 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
@@ -69,6 +71,1877 @@ MathJax.Hub.Config({
 .blue {color: #009FB7;}
 &lt;/style&gt;
 
+---
+background-image: url(images/import/bored.jpeg)
+background-position: center middle
+background-size: 100%
+
+### **Incredibly boring, or...**
+
+---
+background-image: url(images/import/frustrated.jpeg)
+background-position: center middle
+background-size: 100%
+
+### **absolutely infuriating.**
+
+---
+class: your-turn
+
+# Your turn 1
+
+<div class="countdown" id="timer_6067c8ba" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+.pull-left.big[
+* Open the R Notebook **materials/exercises/05-import.Rmd**
+* Run the setup chunk
+]
+
+--
+
+.pull-right[
+&lt;img src="images/import/shock-emoji.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+class: center middle
+
+&lt;a href="https://twitter.com/hadleywickham/status/940021008764846080"&gt;
+    &lt;img src="images/import/fire-tweet.png" width = "800px"&gt;
+&lt;/a&gt;
+
+---
+# Be kind to your collaborators...
+
+--
+
+## including future you.
+
+--
+
+* Workflow
+
+    * Editor
+    * Home directory
+    * R code you ran before break
+    
+--
+
+* Product
+    * Raw data
+    * R code someone else need to run to replicate results
+
+--
+
+* **Workflows should not be hardwired into the products**
+
+---
+# Projects
+
+* Each analysis as a *project*
+    * Folder on your computer with all relevant files
+
+* R scripts written with assumption of:
+    1. Clean session
+    2. Working directory = project directory
+
+* Creates everything it needs, touches nothing it didn't create.
+
+???
+
+Can move directory on computer, can move to different computer, can be used by other person (including future you!)
+
+It’s like agreeing that we will all drive on the left or the right. A hallmark of civilization is following conventions that constrain your behavior a little, in the name of public safety.
+
+
+---
+background-image: url(images/import/here.png)
+background-position: 75% 50%
+background-size: 60%
+
+&lt;a href="https://r4ds.had.co.nz/workflow-projects.html"&gt;
+  &lt;img class="norm-book-footnote" src="images/books/r4ds-workflow-projects.png"&gt;
+&lt;/a&gt;
+
+.footnote[Artwork by [@allison_horst](https://twitter.com/allison_horst)]
+
+---
+# `here()`
+
+.big[Find the project directory and build file paths.]
+
+
+```r
+library(here)
+
+here()
+#&gt; [1] "/Users/jakethompson/Documents/GIT/courses/tidyds-2021"
+
+here("materials", "data", "nimbus.csv")
+#&gt; [1] "/Users/jakethompson/Documents/GIT/courses/tidyds-2021/materials/data/nimbus.csv"
+```
+
+---
+# `here()`
+
+Where does **`here()`** start?
+
+* Is a file named `.here` present?  
+
+* Is there a `.Rproj` file (e.g., `tidyds-2021.Rproj`)?  
+
+* Is there a `.git` or `.svn` directory?
+
+
+```r
+dr_here()
+#&gt; here() starts at /Users/jakethompson/Documents/GIT/courses/tidyds-2021.
+#&gt; - This directory contains a file matching "[.]Rproj$" with contents matching "^Version: " in the first line
+#&gt; - Initial working directory: /Users/jakethompson/Documents/GIT/courses/tidyds-2021/site/static/slides
+#&gt; - Current working directory: /Users/jakethompson/Documents/GIT/courses/tidyds-2021/site/static/slides
+```
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://readr.tidyverse.org"&gt;
+    &lt;img class="hex" src="images/hex/readr.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://r4ds.had.co.nz/data-import.html"&gt;
+    &lt;img class="book" src="images/books/r4ds-data-import.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+background-image: url(images/import/applied-ds-import.png)
+background-position: center 60%
+background-size: 85%
+
+---
+# `readr` functions
+
+.big[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#eryolcbhyo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#eryolcbhyo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#eryolcbhyo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#eryolcbhyo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#eryolcbhyo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#eryolcbhyo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#eryolcbhyo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#eryolcbhyo .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eryolcbhyo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#eryolcbhyo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#eryolcbhyo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#eryolcbhyo .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#eryolcbhyo .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#eryolcbhyo .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eryolcbhyo .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#eryolcbhyo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#eryolcbhyo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#eryolcbhyo .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#eryolcbhyo .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#eryolcbhyo .gt_left {
+  text-align: left;
+}
+
+#eryolcbhyo .gt_center {
+  text-align: center;
+}
+
+#eryolcbhyo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#eryolcbhyo .gt_font_normal {
+  font-weight: normal;
+}
+
+#eryolcbhyo .gt_font_bold {
+  font-weight: bold;
+}
+
+#eryolcbhyo .gt_font_italic {
+  font-style: italic;
+}
+
+#eryolcbhyo .gt_super {
+  font-size: 65%;
+}
+
+#eryolcbhyo .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="eryolcbhyo" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:200px;"/>
+    <col style="width:400px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">function</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">extracts</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_csv()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">comma separated files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_csv2()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">semi-colon separated files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_delim()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">general delimited files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_fwf()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">fixed width files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_log()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">Apache log files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_table()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">space separated files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_tsv()</td>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;">tab separated files</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+---
+# `readr` functions
+
+.big[
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#nhdrimtsqn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#nhdrimtsqn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#nhdrimtsqn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nhdrimtsqn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nhdrimtsqn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nhdrimtsqn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nhdrimtsqn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nhdrimtsqn .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nhdrimtsqn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nhdrimtsqn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nhdrimtsqn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nhdrimtsqn .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nhdrimtsqn .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#nhdrimtsqn .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nhdrimtsqn .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nhdrimtsqn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nhdrimtsqn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#nhdrimtsqn .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#nhdrimtsqn .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#nhdrimtsqn .gt_left {
+  text-align: left;
+}
+
+#nhdrimtsqn .gt_center {
+  text-align: center;
+}
+
+#nhdrimtsqn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nhdrimtsqn .gt_font_normal {
+  font-weight: normal;
+}
+
+#nhdrimtsqn .gt_font_bold {
+  font-weight: bold;
+}
+
+#nhdrimtsqn .gt_font_italic {
+  font-style: italic;
+}
+
+#nhdrimtsqn .gt_super {
+  font-size: 65%;
+}
+
+#nhdrimtsqn .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="nhdrimtsqn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:200px;"/>
+    <col style="width:400px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">function</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">extracts</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;; font-weight: bold;">read_csv()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-weight: bold;">comma separated files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_csv2()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">semi-colon separated files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_delim()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">general delimited files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_fwf()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">fixed width files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_log()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">Apache log files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_table()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">space separated files</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">read_tsv()</td>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;">tab separated files</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+]
+
+---
+# Example data: `nimbus`
+
+
+```
+#&gt; date,longitude,latitude,ozone
+#&gt; 1985-10-01T00:00:00Z,-179.375,-73.5,302
+#&gt; 1985-10-01T00:00:00Z,-178.125,-73.5,302
+#&gt; 1985-10-01T00:00:00Z,-176.875,-73.5,302
+#&gt; 1985-10-01T00:00:00Z,-175.625,-73.5,302
+#&gt; 1985-10-01T00:00:00Z,-174.375,-73.5,304
+#&gt; 1985-10-01T00:00:00Z,-173.125,-73.5,304
+#&gt; 1985-10-01T00:00:00Z,-171.875,-73.5,304
+#&gt; 1985-10-01T00:00:00Z,-170.625,-73.5,304
+#&gt; 1985-10-01T00:00:00Z,-164.375,-73.5,287
+```
+
+---
+# `read_csv()`
+
+**`readr`** functions share a common syntax.
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;dat &lt;- read_csv("path/to/file.csv", ...)&lt;/code&gt;
+
+---
+# `read_csv()`
+
+**`readr`** functions share a common syntax.
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style="background-color:#FED766;color:#009FB7"&gt;dat&lt;/span&gt; &lt;- read_csv("path/to/file.csv", ...)&lt;/code&gt;
+
+???
+
+object to save data to
+
+---
+# `read_csv()`
+
+**`readr`** functions share a common syntax.
+
+
+&lt;code class ='r hljs remark-code'&gt;dat &lt;- read_csv(&lt;span style="background-color:red;color:white"&gt;"path/to/file.csv"&lt;/span&gt;, ...)&lt;/code&gt;
+
+
+---
+# `read_csv()`
+
+**`readr`** functions share a common syntax.
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;dat &lt;- read_csv(&lt;span style="background-color:#FED766;color:#009FB7"&gt;here("path", "to", "file.csv")&lt;/span&gt;, ...)&lt;/code&gt;
+
+???
+
+build file path with `here()`
+
+---
+class: your-turn
+
+# Your turn 2
+
+.big[
+* Find **`nimbus.csv`** in your project directory
+
+* Read it into an object
+
+* View the results
+]
+
+<div class="countdown" id="timer_6067c83a" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.smallish[
+
+```r
+nimbus &lt;- read_csv(here("materials", "data", "nimbus.csv"))
+#&gt; 
+#&gt; ── Column specification ────────────────────────────────────────────────────────
+#&gt; cols(
+#&gt;   date = col_datetime(format = ""),
+#&gt;   longitude = col_double(),
+#&gt;   latitude = col_double(),
+#&gt;   ozone = col_character()
+#&gt; )
+nimbus
+#&gt; # A tibble: 18,963 x 4
+#&gt;    date                longitude latitude ozone
+#&gt;    &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+#&gt;  1 1985-10-01 00:00:00     -179.    -73.5 302  
+#&gt;  2 1985-10-01 00:00:00     -178.    -73.5 302  
+#&gt;  3 1985-10-01 00:00:00     -177.    -73.5 302  
+#&gt;  4 1985-10-01 00:00:00     -176.    -73.5 302  
+#&gt;  5 1985-10-01 00:00:00     -174.    -73.5 304  
+#&gt;  6 1985-10-01 00:00:00     -173.    -73.5 304  
+#&gt;  7 1985-10-01 00:00:00     -172.    -73.5 304  
+#&gt;  8 1985-10-01 00:00:00     -171.    -73.5 304  
+#&gt;  9 1985-10-01 00:00:00     -164.    -73.5 287  
+#&gt; 10 1985-10-01 00:00:00     -163.    -73.5 287  
+#&gt; # … with 18,953 more rows
+```
+]
+
+---
+name: tibble
+class: center middle
+
+# tibbles
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://tibble.tidyverse.org"&gt;
+    &lt;img class="hex" src="images/hex/tibble.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://r4ds.had.co.nz/tibbles.html"&gt;
+    &lt;img class="book" src="images/books/r4ds-tibbles.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+# `read.csv()` vs. `read_csv()`
+
+.pull-left.small[
+
+```
+#&gt;                                            
+#&gt; 18939 1985-10-01T00:00:00Z 139.375 -0.5 270
+#&gt; 18940 1985-10-01T00:00:00Z 140.625 -0.5 275
+#&gt; 18941 1985-10-01T00:00:00Z 141.875 -0.5 270
+#&gt; 18942 1985-10-01T00:00:00Z 143.125 -0.5 266
+#&gt; 18943 1985-10-01T00:00:00Z 144.375 -0.5 267
+#&gt; 18944 1985-10-01T00:00:00Z 145.625 -0.5 263
+#&gt; 18945 1985-10-01T00:00:00Z 146.875 -0.5 261
+#&gt; 18946 1985-10-01T00:00:00Z 148.125 -0.5 262
+#&gt; 18947 1985-10-01T00:00:00Z 154.375 -0.5 271
+#&gt; 18948 1985-10-01T00:00:00Z 155.625 -0.5 272
+#&gt; 18949 1985-10-01T00:00:00Z 156.875 -0.5 268
+#&gt; 18950 1985-10-01T00:00:00Z 158.125 -0.5 276
+#&gt; 18951 1985-10-01T00:00:00Z 159.375 -0.5 273
+#&gt; 18952 1985-10-01T00:00:00Z 160.625 -0.5 272
+#&gt; 18953 1985-10-01T00:00:00Z 161.875 -0.5 271
+#&gt; 18954 1985-10-01T00:00:00Z 163.125 -0.5 272
+#&gt; 18955 1985-10-01T00:00:00Z 164.375 -0.5 275
+#&gt; 18956 1985-10-01T00:00:00Z 165.625 -0.5 271
+#&gt; 18957 1985-10-01T00:00:00Z 166.875 -0.5 271
+#&gt; 18958 1985-10-01T00:00:00Z 168.125 -0.5 273
+#&gt; 18959 1985-10-01T00:00:00Z 169.375 -0.5 273
+#&gt; 18960 1985-10-01T00:00:00Z 170.625 -0.5 271
+#&gt; 18961 1985-10-01T00:00:00Z 171.875 -0.5 270
+#&gt; 18962 1985-10-01T00:00:00Z 173.125 -0.5 268
+#&gt; 18963 1985-10-01T00:00:00Z 174.375 -0.5 265
+```
+]
+
+--
+
+.pull-right.small[
+
+```
+#&gt; # A tibble: 18,963 x 4
+#&gt;    date                longitude latitude ozone
+#&gt;    &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+#&gt;  1 1985-10-01 00:00:00     -179.    -73.5 302  
+#&gt;  2 1985-10-01 00:00:00     -178.    -73.5 302  
+#&gt;  3 1985-10-01 00:00:00     -177.    -73.5 302  
+#&gt;  4 1985-10-01 00:00:00     -176.    -73.5 302  
+#&gt;  5 1985-10-01 00:00:00     -174.    -73.5 304  
+#&gt;  6 1985-10-01 00:00:00     -173.    -73.5 304  
+#&gt;  7 1985-10-01 00:00:00     -172.    -73.5 304  
+#&gt;  8 1985-10-01 00:00:00     -171.    -73.5 304  
+#&gt;  9 1985-10-01 00:00:00     -164.    -73.5 287  
+#&gt; 10 1985-10-01 00:00:00     -163.    -73.5 287  
+#&gt; # … with 18,953 more rows
+```
+]
+
+---
+background-image: url(images/import/df-display.png)
+background-position: center middle
+background-size: 65%
+
+---
+background-image: url(images/import/tib-display.png)
+background-position: center middle
+background-size: 65%
+
+---
+background-image: url(images/import/cheatsheet-tibble.png)
+background-position: center middle
+background-size: 70%
+
+---
+name: parsing
+class: center middle
+
+# parsing
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+* Look at the **`nimbus`** data.
+
+* What class (data type) is **`ozone`**?
+]
+
+
+```r
+nimbus %&gt;%
+  pull(ozone) %&gt;%
+  class()
+```
+
+<div class="countdown" id="timer_6067c647" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+class: pop-quiz
+
+
+
+
+```r
+nimbus %&gt;%
+  pull(ozone) %&gt;%
+  class()
+#&gt; [1] "character"
+
+nimbus %&gt;%
+  pull(ozone) %&gt;%
+  unique()
+#&gt;   [1] "302" "304" "287" "274" "264" "242" "211" "195" "197" "196" "198" "193"
+#&gt;  [13] "187" "190" "199" "194" "213" "218" "221" "229" "209" "186" "188" "191"
+#&gt;  [25] "189" "184" "180" "."   "215" "312" "319" "320" "311" "300" "290" "267"
+#&gt;  [37] "226" "210" "200" "203" "201" "192" "204" "206" "208" "205" "223" "232"
+#&gt;  [49] "238" "243" "220" "202" "185" "219" "222" "216" "324" "336" "333" "323"
+#&gt;  [61] "308" "295" "244" "212" "237" "248" "239" "241" "250" "249" "252" "234"
+#&gt;  [73] "318" "313" "326" "335" "337" "316" "266" "207" "227" "251" "253" "257"
+#&gt;  [85] "261" "214" "228" "273" "285" "288" "291" "270" "254" "317" "325" "332"
+#&gt;  [97] "340" "344" "338" "297" "247" "217" "225" "231" "235" "236" "262" "260"
+#&gt; [109] "265" "272" "278" "280" "279" "255" "245" "224" "181" "240" "269" "296"
+#&gt; [121] "307" "315" "321" "306" "299" "298" "283" "327" "322" "328" "331" "310"
+#&gt; [133] "275" "233" "258" "276" "281" "289" "330" "346" "305" "334" "359" "347"
+#&gt; [145] "314" "301" "256" "263" "277" "284"
+#&gt;  [ reached getOption("max.print") -- omitted 82 entries ]
+```
+
+
+
+---
+# `NA` values
+
+
+```r
+nimbus %&gt;%
+  filter(ozone == ".")
+#&gt; # A tibble: 155 x 4
+#&gt;    date                longitude latitude ozone
+#&gt;    &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+#&gt;  1 1985-10-01 00:00:00      70.6    -73.5 .    
+#&gt;  2 1985-10-01 00:00:00      71.9    -73.5 .    
+#&gt;  3 1985-10-01 00:00:00      73.1    -73.5 .    
+#&gt;  4 1985-10-01 00:00:00      74.4    -73.5 .    
+#&gt;  5 1985-10-01 00:00:00      75.6    -73.5 .    
+#&gt;  6 1985-10-01 00:00:00      76.9    -73.5 .    
+#&gt;  7 1985-10-01 00:00:00      78.1    -73.5 .    
+#&gt;  8 1985-10-01 00:00:00      79.4    -73.5 .    
+#&gt;  9 1985-10-01 00:00:00      65.6    -72.5 .    
+#&gt; 10 1985-10-01 00:00:00      66.9    -72.5 .    
+#&gt; # … with 145 more rows
+```
+
+---
+# Define missing values
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;dat &lt;- read_csv(here("path", "to", "file.csv"), &lt;span style="background-color:#FED766;color:#009FB7"&gt;na = "."&lt;/span&gt;)&lt;/code&gt;
+
+---
+class: your-turn
+
+# Your turn 3
+
+.big[
+* Read in **`nimbus.csv`** again.
+
+* Set values of **`"."`** to **`NA`**.
+]
+
+<div class="countdown" id="timer_6067c623" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Original]
+.smallish[
+
+```r
+read_csv(here("materials", "data", "nimbus.csv"))
+#&gt; 
+#&gt; ── Column specification ────────────────────────────────────────────────────────
+#&gt; cols(
+#&gt;   date = col_datetime(format = ""),
+#&gt;   longitude = col_double(),
+#&gt;   latitude = col_double(),
+#&gt;   ozone = col_character()
+#&gt; )
+#&gt; # A tibble: 18,963 x 4
+#&gt;    date                longitude latitude ozone
+#&gt;    &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;
+#&gt;  1 1985-10-01 00:00:00     -179.    -73.5 302  
+#&gt;  2 1985-10-01 00:00:00     -178.    -73.5 302  
+#&gt;  3 1985-10-01 00:00:00     -177.    -73.5 302  
+#&gt;  4 1985-10-01 00:00:00     -176.    -73.5 302  
+#&gt;  5 1985-10-01 00:00:00     -174.    -73.5 304  
+#&gt;  6 1985-10-01 00:00:00     -173.    -73.5 304  
+#&gt;  7 1985-10-01 00:00:00     -172.    -73.5 304  
+#&gt;  8 1985-10-01 00:00:00     -171.    -73.5 304  
+#&gt;  9 1985-10-01 00:00:00     -164.    -73.5 287  
+#&gt; 10 1985-10-01 00:00:00     -163.    -73.5 287  
+#&gt; # … with 18,953 more rows
+```
+]
+]
+
+.panel[.panel-name[Solution]
+.smallish[
+
+```r
+read_csv(here("materials", "data", "nimbus.csv"), na = ".")
+#&gt; 
+#&gt; ── Column specification ────────────────────────────────────────────────────────
+#&gt; cols(
+#&gt;   date = col_datetime(format = ""),
+#&gt;   longitude = col_double(),
+#&gt;   latitude = col_double(),
+#&gt;   ozone = col_double()
+#&gt; )
+#&gt; # A tibble: 18,963 x 4
+#&gt;    date                longitude latitude ozone
+#&gt;    &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 1985-10-01 00:00:00     -179.    -73.5   302
+#&gt;  2 1985-10-01 00:00:00     -178.    -73.5   302
+#&gt;  3 1985-10-01 00:00:00     -177.    -73.5   302
+#&gt;  4 1985-10-01 00:00:00     -176.    -73.5   302
+#&gt;  5 1985-10-01 00:00:00     -174.    -73.5   304
+#&gt;  6 1985-10-01 00:00:00     -173.    -73.5   304
+#&gt;  7 1985-10-01 00:00:00     -172.    -73.5   304
+#&gt;  8 1985-10-01 00:00:00     -171.    -73.5   304
+#&gt;  9 1985-10-01 00:00:00     -164.    -73.5   287
+#&gt; 10 1985-10-01 00:00:00     -163.    -73.5   287
+#&gt; # … with 18,953 more rows
+```
+]
+]
+]
+
+---
+# Specify column types
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;dat &lt;- read_csv(here("path", "to", "file.csv"), na = ".",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;col_types = cols(var_1 = col_number())&lt;/span&gt;)&lt;/code&gt;
+
+---
+# Column types
+
+<style>@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#goxrbphrsm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #F0F0F0;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_heading {
+  background-color: #F0F0F0;
+  text-align: left;
+  border-bottom-color: #F0F0F0;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #F0F0F0;
+  border-bottom-width: 0;
+}
+
+#goxrbphrsm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #F0F0F0;
+  border-top-width: 0;
+}
+
+#goxrbphrsm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F0F0F0;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_col_heading {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#goxrbphrsm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#goxrbphrsm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#goxrbphrsm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#goxrbphrsm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#goxrbphrsm .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#goxrbphrsm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#goxrbphrsm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#goxrbphrsm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#goxrbphrsm .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#goxrbphrsm .gt_stub {
+  color: #333333;
+  background-color: #F0F0F0;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#goxrbphrsm .gt_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#goxrbphrsm .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #F0F0F0;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#goxrbphrsm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#goxrbphrsm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_footnotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#goxrbphrsm .gt_sourcenotes {
+  color: #333333;
+  background-color: #F0F0F0;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 0px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 0px;
+  border-right-color: #D3D3D3;
+}
+
+#goxrbphrsm .gt_sourcenote {
+  font-size: 12px;
+  padding: 10px;
+}
+
+#goxrbphrsm .gt_left {
+  text-align: left;
+}
+
+#goxrbphrsm .gt_center {
+  text-align: center;
+}
+
+#goxrbphrsm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#goxrbphrsm .gt_font_normal {
+  font-weight: normal;
+}
+
+#goxrbphrsm .gt_font_bold {
+  font-weight: bold;
+}
+
+#goxrbphrsm .gt_font_italic {
+  font-style: italic;
+}
+
+#goxrbphrsm .gt_super {
+  font-size: 65%;
+}
+
+#goxrbphrsm .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="goxrbphrsm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table" style="table-layout: fixed;; width: 0px">
+  <colgroup>
+    <col style="width:220px;"/>
+    <col style="width:500px;"/>
+  </colgroup>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">function</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="text-align: center; vertical-align: middle; font-weight: bold; border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: black;">data type</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_character()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">characters</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_date()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">dates</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_datetime()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">POSIXct (date-time)</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_double()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">double (decimal number)</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_factor()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">factors</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_guess()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">let readr guess (default)</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_integer()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">integers</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_logical()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">logicals</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_number()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">numbers mixed with non-number characters</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_numeric()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">double or integer</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_skip()</td>
+      <td class="gt_row gt_center" style="background-color: #F0F0F0;">do not read</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0; font-family: &#39;Source Code Pro&#39;;">col_time()</td>
+      <td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent; background-color: #F0F0F0;">time</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+---
+class: your-turn
+
+# Your turn 4
+
+.big[
+* Read in **`nimbus.csv`** again.
+
+* Set values of **`"."`** to **`NA`**.
+
+* Specify **`ozone`** as integer values.
+]
+
+<div class="countdown" id="timer_6067c902" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Solution]
+
+```r
+read_csv(here("materials", "data", "nimbus.csv"), na = ".",
+         col_types = cols(ozone = col_integer()))
+#&gt; # A tibble: 18,963 x 4
+#&gt;    date                longitude latitude ozone
+#&gt;    &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+#&gt;  1 1985-10-01 00:00:00     -179.    -73.5   302
+#&gt;  2 1985-10-01 00:00:00     -178.    -73.5   302
+#&gt;  3 1985-10-01 00:00:00     -177.    -73.5   302
+#&gt;  4 1985-10-01 00:00:00     -176.    -73.5   302
+#&gt;  5 1985-10-01 00:00:00     -174.    -73.5   304
+#&gt;  6 1985-10-01 00:00:00     -173.    -73.5   304
+#&gt;  7 1985-10-01 00:00:00     -172.    -73.5   304
+#&gt;  8 1985-10-01 00:00:00     -171.    -73.5   304
+#&gt;  9 1985-10-01 00:00:00     -164.    -73.5   287
+#&gt; 10 1985-10-01 00:00:00     -163.    -73.5   287
+#&gt; # … with 18,953 more rows
+```
+
+
+]
+
+.panel[.panel-name[Bonus Map]
+
+```r
+library(rnaturalearth)
+library(sf)
+
+world &lt;- ne_countries(scale = "medium", returnclass = "sf")
+
+ortho &lt;- "+proj=ortho +lat_0=-78 +lon_0=166 +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs"
+
+ggplot(data = nimbus) +
+  geom_point(mapping = aes(x = longitude, y = latitude, color = ozone)) +
+  geom_sf(data = world, fill = NA, color = "black") +
+  scale_color_viridis_c(option = "viridis") +
+  coord_sf(crs = ortho)
+```
+]
+
+.panel[.panel-name[Map]
+&lt;img src="images/import/plots/bonus-map-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+name: misc
+class: center middle
+
+# other data files
+
+---
+class: center middle
+
+.large-left-multi[
+# Excel files (`.xls` and `.xlsx`)
+]
+
+.small-right[
+&lt;img src="images/hex/readxl.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center middle
+
+.large-left-multi[
+# Data from other statistical software (SPSS, Stata, and SAS)
+]
+
+.small-right[
+&lt;img src="images/hex/haven.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center middle
+
+.large-left-multi[
+# Google Sheets and other files from Google Drive
+]
+
+.small-right[
+&lt;img src="images/import/google.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center middle
+
+.large-left-multi[
+# Efficient data sharing between R and Python
+]
+
+.small-right[
+&lt;img src="images/hex/feather.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center middle
+
+.large-left-multi[
+# Web pages (web scraping)
+]
+
+.small-right[
+&lt;img src="images/hex/rvest.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+background-image: url(images/import/other-pkgs.png)
+background-position: center middle
+background-size: 50%
+
+???
+
+jsonlite -&gt; json
+xml2 -&gt; xml
+httr -&gt; web APIs
+DBI -&gt; databases
+
+---
+class: title-slide, center
+
+# Import Data
+
+&lt;img src="images/import/hex-group.png" width="18%" style="display: block; margin: auto;" /&gt;
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

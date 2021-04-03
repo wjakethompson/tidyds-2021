@@ -184,9 +184,14 @@ a:hover, a:active, a:focus {
 
 /* Two-column layout */
 .large-left {
-  width: 74%;
+  width: 70%;
   float: left;
   padding-top: 5em;
+}
+.large-left-multi {
+  width: 70%;
+  float: left;
+  padding-top: 2em;
 }
 .small-right {
   width: 25%;
@@ -325,6 +330,13 @@ div.hex-book {
 .norm-book {
   position: absolute;
   top: 85%;
+  left: 3%;
+  height: 65px;
+}
+
+.norm-book-footnote {
+  position: absolute;
+  top: 83%;
   left: 3%;
   height: 65px;
 }
