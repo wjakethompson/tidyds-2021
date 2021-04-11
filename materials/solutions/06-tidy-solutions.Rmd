@@ -97,23 +97,26 @@ Using `bp_systolic2` with `group_by()`, and `summarize()`:
 ```{r}
 bp_systolic2 %>% 
   group_by(subject_id) %>%
-  summarize(avg_bp = mean(systolic),
-            last_time = max(time))
+  summarize(avg_sys = mean(systolic),
+            last_measurement = max(time))
 ```
 
 
 ## Your Turn 3
 
-On a sheet of paper, draw how the cases data set would look if it had the same values grouped into three columns: **country**, **year**, **n**
+On a sheet of paper, draw how the `cases` data set would look if it had the same values grouped into three columns: **country**, **year**, **n**
 
 country     | year |  cases |
 ----------- | ---- |  ----- |
-Afghanistan | 1999 |    745 |
-Afghanistan | 2000 |   2666 |
-Brazil      | 1999 |  37737 |
-Brazil      | 2000 |  80488 |
-China       | 1999 | 212258 |
-China       | 2000 | 213766 |
+FR          | 2011 |   7000 |
+DE          | 2011 |   5800 |
+US          | 2011 |  15000 |
+FR          | 2012 |   6900 |
+DE          | 2012 |   6000 |
+US          | 2012 |  14000 |
+FR          | 2013 |   7000 |
+DE          | 2013 |   6200 |
+US          | 2013 |  13000 |
 
 
 ## Your Turn 4
@@ -122,7 +125,8 @@ Use `pivot_longer()` to reorganize `table4a` into three columns: **country**, **
 
 ```{r}
 table4a %>%
-  pivot_longer(-country, names_to = "year", values_to = "cases")
+  pivot_longer(cols = -country, names_to = "year", values_to = "n",
+               names_transform = list(year = as.integer))
 ```
 
 
@@ -132,9 +136,9 @@ On a sheet of paper, draw how `pollution` would look if it had the same values g
 
 city     | large | small |
 -------- | ----- | ----- |
-Beijing  |   121 |   121 |
-London   |    22 |    16 |
 New York |    23 |    14 |
+London   |    22 |    16 |
+Beijing  |   121 |    56 |
 
 
 ## Your Turn 6
@@ -143,7 +147,7 @@ Use `pivot_wider()` to reorganize `table2` into four columns: **country**, **yea
 
 ```{r}
 table2 %>%
-  pivot_wider(names_from = type, values_from = count)
+  pivot_wider(names_from = "type", values_from = "count")
 ```
 
 

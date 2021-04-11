@@ -102,7 +102,7 @@ bp_systolic2
 
 ## Your Turn 3
 
-On a sheet of paper, draw how the cases data set would look if it had the same values grouped into three columns: **country**, **year**, **n**
+On a sheet of paper, draw how the `cases` data set would look if it had the same values grouped into three columns: **country**, **year**, **n**
 
 
 ## Your Turn 4
