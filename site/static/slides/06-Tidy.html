@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tidy Data</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="W. Jake Thompson" />
+    <meta name="date" content="2021-04-11" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: title-slide, center
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#009FB7;"&gt;6&lt;/strong&gt;
+&lt;/span&gt; 
+
+# Tidy Data
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$`
+`$$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      blue: ["{\\color{blue}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FED766;}
+.blue {color: #009FB7;}
+&lt;/style&gt;
+
+---
+class: your-turn
+
+# Your turn 0
+
+.big[
+* Open the R Notebook **materials/exercises/06-tidy.Rmd**
+* Run the setup chunk
+]
+
+<div class="countdown" id="timer_60731834" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(images/tidy/applied-ds-tidy.png)
+background-position: center 60%
+background-size: 85%
+
+---
+name: tidy-tools
+class: center middle
+
+# tidy tools
+
+---
+# Tidy tools
+
+Functions are easiest to use when they are:
+
+1\. **Simple**: They do one thing, and they do it well.
+
+--
+
+2\. **Composable**: They can be combined with other functions for multi-step operations.
+
+--
+
+3\. **Smart**: They can use R objects as input.
+
+--
+
+Tidy functions do these things in a specific way.
+
+---
+# Tidy tools
+
+Functions are easiest to use when they are:
+
+1\. **Simple**: They do one thing, and they do it well.
+
+2\. **Composable**: They can be combined with other functions for multi-step operations.
+
+.fade[
+3\. **Smart**: They can use R objects as input.
+]
+
+Tidy functions do these things in a specific way.
+
+---
+# Simple
+
+.big[
+They do one thing, and they do it well.
+
+**`filter()`** &amp;#8211; extract cases  
+**`arrange()`** &amp;#8211; reorder cases  
+**`group_by()`** &amp;#8211; group cases  
+**`select()`** &amp;#8211; extract variables  
+**`mutate()`** &amp;#8211; create new variables  
+**`summarize()`** &amp;#8211; summarize variables
+]
+
+---
+# Composable
+
+.big[
+They can be combined with other functions for multi-step operations.
+
+&lt;img src="images/tidy/pipe-example.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Each `dplyr` function takes a data frame as its first argument and returns a data frame. As a result, you can directly pipe the output of one function into the next.
+]
+
+---
+name: tidy-data
+class: center middle
+
+# tidy data
+
+---
+class: center middle
+
+&lt;blockquote&gt;
+.huge[Data are not just numbers, they are numbers with a context.]
+.right[ &lt;cite&gt; &amp;#8211; [George Cobb and David Moore (1997)](https://doi.org/10.2307/2975286) &lt;/cite&gt;]
+&lt;/blockquote&gt;
+
+---
+class: pop-quiz
+
+# Consider
+
+What are the variables in this data set?
+
+&lt;img src="images/tidy/table1-tidy.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: pop-quiz
+
+# Consider
+
+What are the variables in this data set?
+
+&lt;img src="images/tidy/table1-tidy-vars.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: pop-quiz
+
+# Consider
+
+What are the variables in this data set?
+
+&lt;img src="images/tidy/table1-untidy.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: pop-quiz
+
+# Consider
+
+What are the variables in this data set?
+
+&lt;img src="images/tidy/table1-untidy-vars.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# This isn't tidy
+
+What are the variables in this data set?
+
+&lt;img src="images/tidy/table1-population.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center middle
+
+&lt;blockquote&gt;
+.huge[Data comes in many format, but R prefers just one: tidy data.]
+.right[ &lt;cite&gt; &amp;#8211; Garrett Grolemund &lt;/cite&gt;]
+&lt;/blockquote&gt;
+
+---
+# Tidy data
+
+.pull-left[
+&lt;img src="images/tidy/tidy-data.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+A data set is **tidy** if:
+
+1. Each .blue[**variable**] is in its own .blue[**column**].
+
+2. Each .dark-yellow[**case**] is in its own .dark-yellow[**row**].
+
+3. Each .pink[**value**] is in its own .pink[**cell**].
+]
+
+---
+class: your-turn
+
+# Your turn 1
+
+.big[
+Is **`bp_systolic`** tidy? What are the variables?
+]
+
+<div class="countdown" id="timer_60731ab3" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[`bp_systolic`]
+
+```r
+bp_systolic
+#&gt; # A tibble: 3 x 4
+#&gt;   subject_id time_1 time_2 time_3
+#&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1          1    120    118    121
+#&gt; 2          2    125    131     NA
+#&gt; 3          3    141     NA     NA
+```
+]
+
+.panel[.panel-name[`bp_systolic2`]
+
+```r
+bp_systolic2
+#&gt; # A tibble: 6 x 3
+#&gt;   subject_id  time systolic
+#&gt;        &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1          1     1      120
+#&gt; 2          1     2      118
+#&gt; 3          1     3      121
+#&gt; 4          2     1      125
+#&gt; 5          2     2      131
+#&gt; 6          3     1      141
+```
+]
+]
+
+???
+Three variables: subject, blood pressure, time point
+
+---
+class: your-turn
+
+# Your turn 2
+
+.big[
+Using **`bp_systolic2`** with `group_by()` and `summarize()`:
+
+1. Find the average systolic blood pressure for each subject.
+
+2. Find the last time each subject was measured.
+]
+
+<div class="countdown" id="timer_60731b20" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+bp_systolic2 %&gt;%
+  group_by(subject_id) %&gt;%
+  summarize(avg_sys = mean(systolic),
+            last_measurement = max(time))
+#&gt; # A tibble: 3 x 3
+#&gt;   subject_id avg_sys last_measurement
+#&gt;        &lt;dbl&gt;   &lt;dbl&gt;            &lt;dbl&gt;
+#&gt; 1          1    120.                3
+#&gt; 2          2    128                 2
+#&gt; 3          3    141                 1
+```
+
+---
+class: center middle
+
+&lt;blockquote&gt;
+.huge[Tidy datasets are all alike, but every messy dataset is messy in its own way.]
+.right[ &lt;cite&gt; &amp;#8211; [Hadley Wickham (2014)](https://doi.org/10.18637/jss.v059.i10) &lt;/cite&gt;]
+&lt;/blockquote&gt;
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://tidyr.tidyverse.org"&gt;
+    &lt;img class="hex" src="images/hex/tidyr.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://r4ds.had.co.nz/tidy-data.html"&gt;
+    &lt;img class="book" src="images/books/r4ds-tidy-data.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+# `tidyr` verbs
+
+.left-column[
+&lt;img src="images/tidy/pivot-longer.png" height="70px"&gt;
+]
+
+.right-column.center[
+Move column names into values with **`pivot_longer()`**
+]
+
+---
+# `tidyr` verbs
+
+.left-column[
+&lt;img src="images/tidy/pivot-longer.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/pivot-wider.png" height="70px"&gt;
+]
+
+.right-column.center[
+Move column names into values with **`pivot_longer()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Move values into column names with **`pivot_wider()`**
+]
+
+---
+# `tidyr` verbs
+
+.left-column[
+&lt;img src="images/tidy/pivot-longer.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/pivot-wider.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/separate.png" height="70px"&gt;
+]
+
+.right-column.center[
+Move column names into values with **`pivot_longer()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Move values into column names with **`pivot_wider()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Split a column with **`separate()`**
+]
+
+---
+# `tidyr` verbs
+
+.left-column[
+&lt;img src="images/tidy/pivot-longer.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/pivot-wider.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/separate.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/unite.png" height="70px"&gt;
+]
+
+.right-column.center[
+Move column names into values with **`pivot_longer()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Move values into column names with **`pivot_wider()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Split a column with **`separate()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Unite columns with **`unite()`**
+]
+
+---
+name: pivot-longer
+class: center middle
+
+# `pivot_longer()`
+
+---
+# Toy data for practice
+
+
+```r
+cases
+#&gt; # A tibble: 3 x 4
+#&gt;   country `2011` `2012` `2013`
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 FR        7000   6900   7000
+#&gt; 2 DE        5800   6000   6200
+#&gt; 3 US       15000  14000  13000
+```
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+Discuss in the chat: What are the variables in the **`cases`** data set?
+]
+
+&lt;img src="images/tidy/pivot-longer/cases.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_607318e2" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+What are the variables in the **`cases`** data set?
+]
+
+&lt;img src="images/tidy/pivot-longer/cases1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Variable 1: Country
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+What are the variables in the **`cases`** data set?
+]
+
+&lt;img src="images/tidy/pivot-longer/cases2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Variable 2: Year
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+What are the variables in the **`cases`** data set?
+]
+
+&lt;img src="images/tidy/pivot-longer/cases3.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Variable 3: cases
+
+---
+class: your-turn
+
+# Your turn 3
+
+.big[
+On a sheet of paper, draw how the **`cases`** data set would look if it had the same values grouped into three columns: **`country`**, **`year`**, and **`n`**.
+]
+
+&lt;img src="images/tidy/pivot-longer/cases.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_60731941" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(images/tidy/pivot-longer/pl00.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl01.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl02.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl03.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl04.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl05.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl06.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl07.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl08.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl09.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl10.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl11.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl12.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl13.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-longer/pl14.png)
+background-position: center middle
+background-size: 85%
+
+???
+
+The `names_to` argument specifies the new variable name for what was formerly the column headings.
+
+---
+background-image: url(images/tidy/pivot-longer/pl15.png)
+background-position: center middle
+background-size: 85%
+
+???
+
+The `values_to` argument specific the new variable name for what were formerly the spread out values.
+
+---
+# `pivot_longer()`
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;cases %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_longer(cols = -country,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;names_to = "year",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_to = "n")&lt;/code&gt;
+
+---
+# `pivot_longer()`
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style="background-color:#FED766;color:#009FB7"&gt;cases&lt;/span&gt; %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_longer(cols = -country,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;names_to = "year",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_to = "n")&lt;/code&gt;
+
+???
+
+The data to reshape
+
+---
+# `pivot_longer()`
+
+
+&lt;code class ='r hljs remark-code'&gt;cases %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_longer(&lt;span style="background-color:#FED766;color:#009FB7"&gt;cols = -country&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;names_to = "year",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_to = "n")&lt;/code&gt;
+
+???
+
+`cols` specifies which columns need to be pivoted
+
+---
+# `pivot_longer()`
+
+
+&lt;code class ='r hljs remark-code'&gt;cases %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_longer(cols = -country,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;names_to = "year"&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_to = "n")&lt;/code&gt;
+
+???
+
+Name of the column the column names will go to.
+
+---
+# `pivot_longer()`
+
+
+&lt;code class ='r hljs remark-code'&gt;cases %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_longer(cols = -country,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;names_to = "year",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;values_to = "n"&lt;/span&gt;)&lt;/code&gt;
+
+???
+
+Name of the column the values will go to.
+
+---
+class: your-turn
+
+# Your turn 4
+
+.big[
+Use **`pivot_longer()`** to reorganize **`table4a`** into three columns: `country`, `year`, and `cases`.
+]
+
+
+```r
+table4a
+#&gt; # A tibble: 3 x 3
+#&gt;   country     `1999` `2000`
+#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+#&gt; 1 Afghanistan    745   2666
+#&gt; 2 Brazil       37737  80488
+#&gt; 3 China       212258 213766
+```
+
+<div class="countdown" id="timer_60731a49" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Solution]
+
+```r
+table4a %&gt;%
+  pivot_longer(cols = -country, names_to = "year", values_to = "n")
+#&gt; # A tibble: 6 x 3
+#&gt;   country     year       n
+#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+#&gt; 1 Afghanistan 1999     745
+#&gt; 2 Afghanistan 2000    2666
+#&gt; 3 Brazil      1999   37737
+#&gt; 4 Brazil      2000   80488
+#&gt; 5 China       1999  212258
+#&gt; 6 China       2000  213766
+```
+]
+
+.panel[.panel-name[Better]
+
+```r
+table4a %&gt;%
+  pivot_longer(cols = -country, names_to = "year", values_to = "n",
+               names_transform = list(year = as.integer))
+#&gt; # A tibble: 6 x 3
+#&gt;   country      year      n
+#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
+#&gt; 1 Afghanistan  1999    745
+#&gt; 2 Afghanistan  2000   2666
+#&gt; 3 Brazil       1999  37737
+#&gt; 4 Brazil       2000  80488
+#&gt; 5 China        1999 212258
+#&gt; 6 China        2000 213766
+```
+]
+]
+
+---
+name: pivot-wider
+class: center middle
+
+# `pivot_wider()`
+
+---
+# Toy data for practice
+
+
+```r
+pollution
+#&gt; # A tibble: 6 x 3
+#&gt;   city     size  amount
+#&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt;
+#&gt; 1 New York large     23
+#&gt; 2 New York small     14
+#&gt; 3 London   large     22
+#&gt; 4 London   small     16
+#&gt; 5 Beijing  large    121
+#&gt; 6 Beijing  small     56
+```
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+Discuss in the chat: What are the variables in the **`pollution`** data set?
+]
+
+&lt;img src="images/tidy/pivot-wider/pollution.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_60731af9" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+What are the variables in the **`pollution`** data set?
+]
+
+&lt;img src="images/tidy/pivot-wider/pollution1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Variable 1: City
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+What are the variables in the **`pollution`** data set?
+]
+
+&lt;img src="images/tidy/pivot-wider/pollution2.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Variable 2: amount of large particulate
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+What are the variables in the **`pollution`** data set?
+]
+
+&lt;img src="images/tidy/pivot-wider/pollution3.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Variable 3: amount of small particulate
+
+---
+class: your-turn
+
+# Your turn 5
+
+.big[
+On a sheet of paper, draw how the **`pollution`** data set would look if it had the same values grouped into three columns: **`city`**, **`large`**, and **`small`**.
+]
+
+&lt;img src="images/tidy/pivot-wider/pollution.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_60731822" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(images/tidy/pivot-wider/pw00.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw01.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw02.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw03.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw04.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw05.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw06.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw07.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw08.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw09.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw10.png)
+background-position: center middle
+background-size: 85%
+
+---
+background-image: url(images/tidy/pivot-wider/pw11.png)
+background-position: center middle
+background-size: 85%
+
+???
+
+The `names_from` argument specifies the variable the new column names will come from.
+
+
+---
+background-image: url(images/tidy/pivot-wider/pw12.png)
+background-position: center middle
+background-size: 85%
+
+???
+
+The `values_from` argument specific the variable the new values will come from.
+
+---
+# `pivot_wider()`
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;pollution %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_wider(names_from = "size",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_from = "amount")&lt;/code&gt;
+
+---
+# `pivot_wider()`
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style="background-color:#FED766;color:#009FB7"&gt;pollution&lt;/span&gt; %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_wider(names_from = "size",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_from = "amount")&lt;/code&gt;
+
+???
+
+The data to reshape
+
+---
+# `pivot_wider()`
+
+
+&lt;code class ='r hljs remark-code'&gt;pollution %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_wider(&lt;span style="background-color:#FED766;color:#009FB7"&gt;names_from = "size"&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;values_from = "amount")&lt;/code&gt;
+
+???
+
+Name of the column that will become column names.
+
+---
+# `pivot_wider()`
+
+
+&lt;code class ='r hljs remark-code'&gt;pollution %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;pivot_wider(names_from = "size",&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;values_from = "amount"&lt;/span&gt;)&lt;/code&gt;
+
+???
+
+Name of the column that will make up the values of the new columns.
+
+---
+class: your-turn
+
+# Your turn 6
+
+.big[
+Use **`pivot_wider()`** to reorganize **`table2`** into four columns: `country`, `year`, `cases`, and `population`.
+]
+
+.smallish[
+
+```r
+table2
+#&gt; # A tibble: 12 x 4
+#&gt;    country      year type            count
+#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+#&gt;  1 Afghanistan  1999 cases             745
+#&gt;  2 Afghanistan  1999 population   19987071
+#&gt;  3 Afghanistan  2000 cases            2666
+#&gt;  4 Afghanistan  2000 population   20595360
+#&gt;  5 Brazil       1999 cases           37737
+#&gt;  6 Brazil       1999 population  172006362
+#&gt;  7 Brazil       2000 cases           80488
+#&gt;  8 Brazil       2000 population  174504898
+#&gt;  9 China        1999 cases          212258
+#&gt; 10 China        1999 population 1272915272
+#&gt; 11 China        2000 cases          213766
+#&gt; 12 China        2000 population 1280428583
+```
+]
+
+<div class="countdown" id="timer_60731bb4" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+table2 %&gt;%
+  pivot_wider(names_from = "type", values_from = "count")
+#&gt; # A tibble: 6 x 4
+#&gt;   country      year  cases population
+#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+#&gt; 1 Afghanistan  1999    745   19987071
+#&gt; 2 Afghanistan  2000   2666   20595360
+#&gt; 3 Brazil       1999  37737  172006362
+#&gt; 4 Brazil       2000  80488  174504898
+#&gt; 5 China        1999 212258 1272915272
+#&gt; 6 China        2000 213766 1280428583
+```
+
+---
+name: sep-unite
+class: center middle
+
+# `separate()` and `unite()`
+
+---
+# Toy data for practice
+
+
+```r
+scores
+#&gt; # A tibble: 12 x 3
+#&gt;    name                   house      score
+#&gt;    &lt;chr&gt;                  &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  1 Ronald Weasley         Gryffindor    78
+#&gt;  2 Harry Potter           Gryffindor    85
+#&gt;  3 Hermione Granger       Gryffindor   100
+#&gt;  4 Justin Finch-Fletchley Hufflepuff    87
+#&gt;  5 Hannah Abbot           Hufflepuff    92
+#&gt;  6 Susan Bones            Hufflepuff    93
+#&gt;  7 Anthony Goldstein      Ravenclaw     84
+#&gt;  8 Michael Corner         Ravenclaw     93
+#&gt;  9 Padma Patil            Ravenclaw     97
+#&gt; 10 Vincent Crabbe         Slytherin     61
+#&gt; 11 Gregory Goyle          Slytherin     61
+#&gt; 12 Draco Malfoy           Slytherin     92
+```
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+Discuss in the chat: What the variables in the `scores` data set?
+]
+
+&lt;img src="images/tidy/hogwarts.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_6073195b" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+One variable or two? What is "tidy" will depend on your purpose.
+]
+
+&lt;img src="images/tidy/hogwarts2.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+# `separate()`
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(data, col, into, sep = "[^[:alnum:]]+", ...)&lt;/code&gt;
+
+---
+# `separate()`
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(&lt;span style="background-color:#FED766;color:#009FB7"&gt;data&lt;/span&gt;, col, into, sep = "[^[:alnum:]]+", ...)&lt;/code&gt;
+
+???
+
+Data frame to tidy
+
+---
+# `separate()`
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(data, &lt;span style="background-color:#FED766;color:#009FB7"&gt;col&lt;/span&gt;, into, sep = "[^[:alnum:]]+", ...)&lt;/code&gt;
+
+???
+
+Column to separate
+
+---
+# `separate()`
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(data, col, &lt;span style="background-color:#FED766;color:#009FB7"&gt;into&lt;/span&gt;, sep = "[^[:alnum:]]+", ...)&lt;/code&gt;
+
+???
+
+New columns to be created
+
+---
+# `separate()`
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(data, col, into, &lt;span style="background-color:#FED766;color:#009FB7"&gt;sep = "[^[:alnum:]]+"&lt;/span&gt;, ...)&lt;/code&gt;
+
+???
+
+What divides the pieces of information
+
+---
+
+```r
+scores %&gt;%
+  separate(col = name, into = c("first", "last"))
+#&gt; Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [4].
+#&gt; # A tibble: 12 x 4
+#&gt;    first    last      house      score
+#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  1 Ronald   Weasley   Gryffindor    78
+#&gt;  2 Harry    Potter    Gryffindor    85
+#&gt;  3 Hermione Granger   Gryffindor   100
+#&gt;  4 Justin   Finch     Hufflepuff    87
+#&gt;  5 Hannah   Abbot     Hufflepuff    92
+#&gt;  6 Susan    Bones     Hufflepuff    93
+#&gt;  7 Anthony  Goldstein Ravenclaw     84
+#&gt;  8 Michael  Corner    Ravenclaw     93
+#&gt;  9 Padma    Patil     Ravenclaw     97
+#&gt; 10 Vincent  Crabbe    Slytherin     61
+#&gt; 11 Gregory  Goyle     Slytherin     61
+#&gt; 12 Draco    Malfoy    Slytherin     92
+```
+
+---
+
+&lt;code class ='r hljs remark-code'&gt;scores %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;separate(col = name, into = c("first", "last"))&lt;br&gt;&lt;span style="color:red"&gt;#&gt; Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [4].&lt;/span&gt;&lt;br&gt;#&gt; # A tibble: 12 x 4&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;first &amp;nbsp;&amp;nbsp;&amp;nbsp;last &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;house &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;score&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;dbl&gt;&lt;br&gt;#&gt; &amp;nbsp;1 Ronald &amp;nbsp;&amp;nbsp;Weasley &amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;78&lt;br&gt;#&gt; &amp;nbsp;2 Harry &amp;nbsp;&amp;nbsp;&amp;nbsp;Potter &amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;85&lt;br&gt;#&gt; &amp;nbsp;3 Hermione Granger &amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;100&lt;br&gt;#&gt; &amp;nbsp;4 Justin &amp;nbsp;&amp;nbsp;Finch &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;87&lt;br&gt;#&gt; &amp;nbsp;5 Hannah &amp;nbsp;&amp;nbsp;Abbot &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;br&gt;#&gt; &amp;nbsp;6 Susan &amp;nbsp;&amp;nbsp;&amp;nbsp;Bones &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;7 Anthony &amp;nbsp;Goldstein Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;84&lt;br&gt;#&gt; &amp;nbsp;8 Michael &amp;nbsp;Corner &amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;9 Padma &amp;nbsp;&amp;nbsp;&amp;nbsp;Patil &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;97&lt;br&gt;#&gt; 10 Vincent &amp;nbsp;Crabbe &amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 11 Gregory &amp;nbsp;Goyle &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 12 Draco &amp;nbsp;&amp;nbsp;&amp;nbsp;Malfoy &amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;/code&gt;
+
+---
+
+&lt;code class ='r hljs remark-code'&gt;scores %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;separate(col = name, into = c("first", "last"))&lt;br&gt;&lt;span style="color:red"&gt;#&gt; Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [4].&lt;/span&gt;&lt;br&gt;#&gt; # A tibble: 12 x 4&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;first &amp;nbsp;&amp;nbsp;&amp;nbsp;last &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;house &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;score&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;dbl&gt;&lt;br&gt;#&gt; &amp;nbsp;1 Ronald &amp;nbsp;&amp;nbsp;Weasley &amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;78&lt;br&gt;#&gt; &amp;nbsp;2 Harry &amp;nbsp;&amp;nbsp;&amp;nbsp;Potter &amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;85&lt;br&gt;#&gt; &amp;nbsp;3 Hermione Granger &amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;100&lt;br&gt;#&gt; &amp;nbsp;4 Justin &amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;Finch&lt;/span&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;87&lt;br&gt;#&gt; &amp;nbsp;5 Hannah &amp;nbsp;&amp;nbsp;Abbot &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;br&gt;#&gt; &amp;nbsp;6 Susan &amp;nbsp;&amp;nbsp;&amp;nbsp;Bones &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;7 Anthony &amp;nbsp;Goldstein Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;84&lt;br&gt;#&gt; &amp;nbsp;8 Michael &amp;nbsp;Corner &amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;9 Padma &amp;nbsp;&amp;nbsp;&amp;nbsp;Patil &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;97&lt;br&gt;#&gt; 10 Vincent &amp;nbsp;Crabbe &amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 11 Gregory &amp;nbsp;Goyle &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 12 Draco &amp;nbsp;&amp;nbsp;&amp;nbsp;Malfoy &amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;/code&gt;
+
+---
+
+
+
+&lt;code class ='r hljs remark-code'&gt;scores %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;separate(col = name, into = c("first", "last"), &lt;span style="background-color:#FED766;color:#009FB7"&gt;sep = " "&lt;/span&gt;)&lt;br&gt;#&gt; # A tibble: 12 x 4&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;first &amp;nbsp;&amp;nbsp;&amp;nbsp;last &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;house &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;score&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;dbl&gt;&lt;br&gt;#&gt; &amp;nbsp;1 Ronald &amp;nbsp;&amp;nbsp;Weasley &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;78&lt;br&gt;#&gt; &amp;nbsp;2 Harry &amp;nbsp;&amp;nbsp;&amp;nbsp;Potter &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;85&lt;br&gt;#&gt; &amp;nbsp;3 Hermione Granger &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;100&lt;br&gt;#&gt; &amp;nbsp;4 Justin &amp;nbsp;&amp;nbsp;Finch-Fletchley Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;87&lt;br&gt;#&gt; &amp;nbsp;5 Hannah &amp;nbsp;&amp;nbsp;Abbot &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;br&gt;#&gt; &amp;nbsp;6 Susan &amp;nbsp;&amp;nbsp;&amp;nbsp;Bones &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;7 Anthony &amp;nbsp;Goldstein &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;84&lt;br&gt;#&gt; &amp;nbsp;8 Michael &amp;nbsp;Corner &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;9 Padma &amp;nbsp;&amp;nbsp;&amp;nbsp;Patil &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;97&lt;br&gt;#&gt; 10 Vincent &amp;nbsp;Crabbe &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 11 Gregory &amp;nbsp;Goyle &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 12 Draco &amp;nbsp;&amp;nbsp;&amp;nbsp;Malfoy &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;/code&gt;
+
+---
+
+&lt;code class ='r hljs remark-code'&gt;scores %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;separate(col = name, into = c("first", "last"), &lt;span style="background-color:#FED766;color:#009FB7"&gt;sep = " "&lt;/span&gt;)&lt;br&gt;#&gt; # A tibble: 12 x 4&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;first &amp;nbsp;&amp;nbsp;&amp;nbsp;last &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;house &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;score&lt;br&gt;#&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;chr&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;dbl&gt;&lt;br&gt;#&gt; &amp;nbsp;1 Ronald &amp;nbsp;&amp;nbsp;Weasley &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;78&lt;br&gt;#&gt; &amp;nbsp;2 Harry &amp;nbsp;&amp;nbsp;&amp;nbsp;Potter &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;&amp;nbsp;85&lt;br&gt;#&gt; &amp;nbsp;3 Hermione Granger &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Gryffindor &amp;nbsp;&amp;nbsp;100&lt;br&gt;#&gt; &amp;nbsp;4 Justin &amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;Finch-Fletchley&lt;/span&gt; Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;87&lt;br&gt;#&gt; &amp;nbsp;5 Hannah &amp;nbsp;&amp;nbsp;Abbot &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;br&gt;#&gt; &amp;nbsp;6 Susan &amp;nbsp;&amp;nbsp;&amp;nbsp;Bones &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Hufflepuff &amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;7 Anthony &amp;nbsp;Goldstein &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;84&lt;br&gt;#&gt; &amp;nbsp;8 Michael &amp;nbsp;Corner &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;93&lt;br&gt;#&gt; &amp;nbsp;9 Padma &amp;nbsp;&amp;nbsp;&amp;nbsp;Patil &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Ravenclaw &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;97&lt;br&gt;#&gt; 10 Vincent &amp;nbsp;Crabbe &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 11 Gregory &amp;nbsp;Goyle &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;61&lt;br&gt;#&gt; 12 Draco &amp;nbsp;&amp;nbsp;&amp;nbsp;Malfoy &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Slytherin &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;92&lt;/code&gt;
+
+---
+# `separate()`
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(data, col, into, sep = "[^[:alnum:]]+", ...,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766;color:#009FB7"&gt;extra = "warn"&lt;/span&gt;, fill = "warn")&lt;/code&gt;
+
+--
+
+- **`warn`**: emit warning, drop extra values
+
+- **`drop`**: drop extra values without warning
+
+- **`merge`**: merge extra values into final column of `into`
+
+---
+# `separate()`
+
+
+&lt;code class ='r hljs remark-code'&gt;separate(data, col, into, sep = "[^[:alnum:]]+", ...,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;extra = "warn", &lt;span style="background-color:#FED766;color:#009FB7"&gt;fill = "warn"&lt;/span&gt;)&lt;/code&gt;
+
+--
+
+- **`warn`**: emit warning, fill with `NA` from right
+
+- **`right`**: fill with `NA` from right without warning
+
+- **`left`**: fill with `NA` from left without warning
+
+---
+# `unite()`
+
+.big[
+Merges columns together; opposite of **`separate()`**
+]
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;unite(data, col, ..., sep = "_")&lt;/code&gt;
+
+---
+# `unite()`
+
+.big[
+Merges columns together; opposite of **`separate()`**
+]
+
+
+&lt;code class ='r hljs remark-code'&gt;unite(&lt;span style="background-color:#FED766;color:#009FB7"&gt;data&lt;/span&gt;, col, ..., sep = "_")&lt;/code&gt;
+
+???
+
+Data frame to tidy
+
+---
+# `unite()`
+
+.big[
+Merges columns together; opposite of **`separate()`**
+]
+
+
+&lt;code class ='r hljs remark-code'&gt;unite(data, &lt;span style="background-color:#FED766;color:#009FB7"&gt;col&lt;/span&gt;, ..., sep = "_")&lt;/code&gt;
+
+???
+
+Name of new column to be created
+
+---
+# `unite()`
+
+.big[
+Merges columns together; opposite of **`separate()`**
+]
+
+
+&lt;code class ='r hljs remark-code'&gt;unite(data, col, &lt;span style="background-color:#FED766;color:#009FB7"&gt;...&lt;/span&gt;, sep = "_")&lt;/code&gt;
+
+???
+
+Columns to be merged
+
+---
+# `unite()`
+
+.big[
+Merges columns together; opposite of **`separate()`**
+]
+
+
+&lt;code class ='r hljs remark-code'&gt;unite(data, col, ..., &lt;span style="background-color:#FED766;color:#009FB7"&gt;sep = "_"&lt;/span&gt;)&lt;/code&gt;
+
+???
+
+What divides the pieces of information
+
+---
+.panelset[
+.panel[.panel-name[Separate Names]
+
+```r
+sep_scores &lt;- scores %&gt;%
+  separate(name, into = c("first", "last"), sep = " ")
+sep_scores
+#&gt; # A tibble: 12 x 4
+#&gt;    first    last            house      score
+#&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  1 Ronald   Weasley         Gryffindor    78
+#&gt;  2 Harry    Potter          Gryffindor    85
+#&gt;  3 Hermione Granger         Gryffindor   100
+#&gt;  4 Justin   Finch-Fletchley Hufflepuff    87
+#&gt;  5 Hannah   Abbot           Hufflepuff    92
+#&gt;  6 Susan    Bones           Hufflepuff    93
+#&gt;  7 Anthony  Goldstein       Ravenclaw     84
+#&gt;  8 Michael  Corner          Ravenclaw     93
+#&gt;  9 Padma    Patil           Ravenclaw     97
+#&gt; 10 Vincent  Crabbe          Slytherin     61
+#&gt; 11 Gregory  Goyle           Slytherin     61
+#&gt; 12 Draco    Malfoy          Slytherin     92
+```
+]
+
+.panel[.panel-name[Unite Names]
+
+```r
+sep_scores %&gt;%
+  unite("full_name", first, last)
+#&gt; # A tibble: 12 x 3
+#&gt;    full_name              house      score
+#&gt;    &lt;chr&gt;                  &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  1 Ronald_Weasley         Gryffindor    78
+#&gt;  2 Harry_Potter           Gryffindor    85
+#&gt;  3 Hermione_Granger       Gryffindor   100
+#&gt;  4 Justin_Finch-Fletchley Hufflepuff    87
+#&gt;  5 Hannah_Abbot           Hufflepuff    92
+#&gt;  6 Susan_Bones            Hufflepuff    93
+#&gt;  7 Anthony_Goldstein      Ravenclaw     84
+#&gt;  8 Michael_Corner         Ravenclaw     93
+#&gt;  9 Padma_Patil            Ravenclaw     97
+#&gt; 10 Vincent_Crabbe         Slytherin     61
+#&gt; 11 Gregory_Goyle          Slytherin     61
+#&gt; 12 Draco_Malfoy           Slytherin     92
+```
+]
+
+.panel[.panel-name[Better Unite]
+
+```r
+sep_scores %&gt;%
+  unite("full_name", first, last, sep = " ")
+#&gt; # A tibble: 12 x 3
+#&gt;    full_name              house      score
+#&gt;    &lt;chr&gt;                  &lt;chr&gt;      &lt;dbl&gt;
+#&gt;  1 Ronald Weasley         Gryffindor    78
+#&gt;  2 Harry Potter           Gryffindor    85
+#&gt;  3 Hermione Granger       Gryffindor   100
+#&gt;  4 Justin Finch-Fletchley Hufflepuff    87
+#&gt;  5 Hannah Abbot           Hufflepuff    92
+#&gt;  6 Susan Bones            Hufflepuff    93
+#&gt;  7 Anthony Goldstein      Ravenclaw     84
+#&gt;  8 Michael Corner         Ravenclaw     93
+#&gt;  9 Padma Patil            Ravenclaw     97
+#&gt; 10 Vincent Crabbe         Slytherin     61
+#&gt; 11 Gregory Goyle          Slytherin     61
+#&gt; 12 Draco Malfoy           Slytherin     92
+```
+]
+]
+
+---
+# Recap: tidyr verbs
+
+.left-column[
+&lt;img src="images/tidy/pivot-longer.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/pivot-wider.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/separate.png" height="70px"&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;img src="images/tidy/unite.png" height="70px"&gt;
+]
+
+.right-column.center[
+Move column names into values with **`pivot_longer()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Move values into column names with **`pivot_wider()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Split a column with **`separate()`**
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+Unite columns with **`unite()`**
+]
+
+---
+class: title-slide, center
+
+# Tidy Data
+
+&lt;img src="images/hex/tidyr.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

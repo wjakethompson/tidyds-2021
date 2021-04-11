@@ -7,7 +7,7 @@ if (file.exists("~/.Rprofile")) {
   base::sys.source("~/.Rprofile", envir = environment())
 }
 
-if (interactive()) {
+if (interactive() & requireNamespace("blogdown", quietly = TRUE)) {
   suppressMessages(require(blogdown))
 }
 

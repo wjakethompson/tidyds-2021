@@ -29,8 +29,24 @@
   color: #009FB7;
 }
 
+.light-blue {
+  color: #0ADEFF;
+}
+
 .yellow {
   color: #FED766;
+}
+
+.dark-yellow {
+  color: #A27A01;
+}
+
+.pink {
+  color: #CB297B;
+}
+
+.light-pink {
+  color: #FF8DC6;
 }
 
 .blue-highlight {
@@ -74,7 +90,7 @@
 
 .big {
   font-size: 125%;
-  line-height: 2em;
+  line-height: 1.5em;
 }
 
 .huge {
