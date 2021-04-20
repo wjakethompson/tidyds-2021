@@ -89,13 +89,17 @@
 
 
 .big {
-  font-size: 125%;
+  font-size: 125% !important;
   line-height: 1.5em;
 }
 
 .huge {
   font-size: 150%;
   line-height: 3em;
+}
+
+.huger {
+  font-size: 250%;
 }
 
 img {
@@ -125,6 +129,14 @@ pre code {
 
 .hljs {
 	background: #fff !important;
+}
+
+.hljs-solarized-light .hljs-meta {
+  color: #93a1a1;
+}
+
+.hljs-solarized-light .hljs-meta .hljs-meta-string {
+  color: #93a1a1;
 }
 
 .display {
@@ -242,6 +254,10 @@ a:hover, a:active, a:focus {
 
 .center {
   text-align: center;
+}
+
+.right-float {
+  float: right;
 }
 
 img, video, iframe {
