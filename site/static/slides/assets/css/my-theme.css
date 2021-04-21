@@ -49,6 +49,10 @@
   color: #FF8DC6;
 }
 
+.grey {
+  color: #696773;
+}
+
 .blue-highlight {
   background-color: #009FB7;
   color: #FED766;
@@ -643,9 +647,9 @@ div.my-footer span {
 
 
 .frame h1 {
-  color: #2f5275;
+  color: #009FB7;
   padding-bottom: 1.0em !important;
-  border-bottom: 3px solid #bed3ec;
+  border-bottom: 3px solid #009FB7;
 }
 
 .inverse .frame h1 {
