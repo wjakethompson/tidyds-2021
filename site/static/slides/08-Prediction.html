@@ -4,7 +4,7 @@
     <title>Prediction</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-04-19" />
+    <meta name="date" content="2021-04-20" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -19,6 +19,8 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
@@ -70,9 +72,229 @@ MathJax.Hub.Config({
 &lt;/style&gt;
 
 ---
-background-image: url(images/case-study-1/tidyr-dplyr-ggplot2.png)
-background-position: center middle
+class: your-turn
+
+# Your Turn 0
+
+.big[
+* Open the R Notebook **materials/exercises/08-prediction.Rmd**
+* Run the setup chunk
+]
+
+<div class="countdown" id="timer_607f9051" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(images/prediction/applied-ds-model.png)
+background-position: center 60%
 background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+class: center middle
+
+# What is a model?
+
+---
+# Models
+
+A low dimensional description of a higher dimensional data set.
+
+.columns[
+.left-col[
+&lt;img src="images/prediction/plots/model-1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.middle-col[
+&lt;img src="images/prediction/plots/model-2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-col[
+&lt;img src="images/prediction/plots/model-3-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+# Models
+
+
+
+&lt;br&gt;
+
+.columns[
+.left-col[
+&lt;img src="images/prediction/plots/raw-data-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Data
+]
+
+.middle-col[
+&lt;img src="images/prediction/black-box.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-col[
+&lt;img src="images/prediction/plots/blank-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Model Function
+]
+]
+
+---
+# Models
+
+What is the .blue[**model function**]?
+
+.columns[
+
+.left-col[
+&lt;img src="images/prediction/plots/raw-data-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Data
+]
+
+.middle-col[
+&lt;img src="images/prediction/black-box.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-col[
+&lt;img src="images/prediction/plots/model-func-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Model Function
+]
+]
+
+---
+# Models
+
+What .grey[**uncertainty**] is associated with it?
+
+.columns[
+
+.left-col[
+&lt;img src="images/prediction/plots/raw-data-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Data
+]
+
+.middle-col[
+&lt;img src="images/prediction/black-box.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-col[
+&lt;img src="images/prediction/plots/model-uncert-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Model Function
+]
+]
+
+---
+# Models
+
+What are the .pink[**residuals**]?
+
+.columns[
+
+.left-col[
+&lt;img src="images/prediction/plots/raw-data-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Data
+]
+
+.middle-col[
+&lt;img src="images/prediction/black-box.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-col[
+&lt;img src="images/prediction/plots/model-resid-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Model Function
+]
+]
+
+---
+# Models
+
+What are the .dark-yellow[**predictions**]?
+
+.columns[
+
+.left-col[
+&lt;img src="images/prediction/plots/raw-data-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Data
+]
+
+.middle-col[
+&lt;img src="images/prediction/black-box.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-col[
+&lt;img src="images/prediction/plots/model-pred-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Model Function
+]
+]
+
+---
+background-image: url(images/prediction/algorithm.png)
+background-position: center middle
+background-size: cover
+
+???
+
+What makes an algorithm "good"?
+
+So many... which one is "best"?
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://tidymodels.org"&gt;
+    &lt;img class="hex" src="images/hex/tidymodels.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://www.tmwr.org/"&gt;
+    &lt;img class="book" src="images/books/tmwr.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+class: middle, center, frame
+
+# Goal of Machine Learning
+
+--
+
+## generate accurate predictions
+
+---
+# `lm()`
+
+
+
+```r
+lm_ames &lt;- lm(Sale_Price ~ Gr_Liv_Area, data = ames)
+lm_ames
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Sale_Price ~ Gr_Liv_Area, data = ames)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)  Gr_Liv_Area  
+#&gt;     13289.6        111.7
+```
+
+
+???
+
+So let's start with prediction. To predict, we have to have two things: a model to generate predictions, and data to predict
+
+---
+background-image: url("images/prediction/train-model.png")
+background-size: 50%
+
+# Step 1: Train the model
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
