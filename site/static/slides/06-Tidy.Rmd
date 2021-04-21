@@ -175,6 +175,8 @@ background-image: url(images/tidy/applied-ds-tidy.png)
 background-position: center 60%
 background-size: 85%
 
+# .nobold[(Applied)] Data Science
+
 ---
 name: tidy-tools
 class: center middle
