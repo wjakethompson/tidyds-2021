@@ -230,6 +230,21 @@ a:hover, a:active, a:focus {
   float: right;
 }
 
+.pull-left2 {
+  float: left;
+  width: 35%;
+}
+.pull-right2 {
+  float: right;
+  width: 60%;
+}
+.pull-right2 ~ * {
+  clear: both;
+}
+
+
+
+
 .left-column {
   color: #777;
   width: 25%;
@@ -660,3 +675,4 @@ div.my-footer span {
 
 .inverse h1 {
   color: #F0F0F0;
+}
