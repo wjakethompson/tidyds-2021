@@ -196,21 +196,21 @@ a:hover, a:active, a:focus {
 }
 
 .inverse {
-  background-color: #282a36;
-  color: #FFFFFF;
+  background-color: #272727;
+  color: #F0F0F0;
   text-shadow: none;
 }
 
 .inverse .remark-inline-code {
-  color: #8be9fd;
+  color: #009FB7;
 }
 
 .inverse a {
-  color: #fff;
+  color: #FED766;
 }
 
 .inverse a:hover {
-  color: #bed3ec;
+  color: #FED766;
 }
 
 
@@ -657,3 +657,6 @@ div.my-footer span {
   padding-bottom: 1.0em !important;
   border-bottom: 3px solid #bed3ec;
 }
+
+.inverse h1 {
+  color: #F0F0F0;
