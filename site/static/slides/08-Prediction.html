@@ -4,7 +4,7 @@
     <title>Prediction</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-04-20" />
+    <meta name="date" content="2021-05-01" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -49,27 +49,32 @@ class: title-slide, center
 .footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
 
 &lt;div style = "position:fixed; visibility: hidden"&gt;
-`$$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$`
-`$$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$`
+  `$$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$`
+  `$$\require{color}\definecolor{light_blue}{rgb}{0.0392156862745098, 0.870588235294118, 1}$$`
+  `$$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$`
+  `$$\require{color}\definecolor{dark_yellow}{rgb}{0.635294117647059, 0.47843137254902, 0.00392156862745098}$$`
+  `$$\require{color}\definecolor{pink}{rgb}{0.796078431372549, 0.16078431372549, 0.482352941176471}$$`
+  `$$\require{color}\definecolor{light_pink}{rgb}{1, 0.552941176470588, 0.776470588235294}$$`
+  `$$\require{color}\definecolor{grey}{rgb}{0.411764705882353, 0.403921568627451, 0.450980392156863}$$`
 &lt;/div&gt;
-
+  
 &lt;script type="text/x-mathjax-config"&gt;
-MathJax.Hub.Config({
-  TeX: {
-    Macros: {
-      yellow: ["{\\color{yellow}{#1}}", 1],
-      blue: ["{\\color{blue}{#1}}", 1]
-    },
-    loader: {load: ['[tex]/color']},
-    tex: {packages: {'[+]': ['color']}}
-  }
-});
+  MathJax.Hub.Config({
+    TeX: {
+      Macros: {
+        blue: ["{\\color{blue}{#1}}", 1],
+        light_blue: ["{\\color{light_blue}{#1}}", 1],
+        yellow: ["{\\color{yellow}{#1}}", 1],
+        dark_yellow: ["{\\color{dark_yellow}{#1}}", 1],
+        pink: ["{\\color{pink}{#1}}", 1],
+        light_pink: ["{\\color{light_pink}{#1}}", 1],
+        grey: ["{\\color{grey}{#1}}", 1]
+      },
+      loader: {load: ['[tex]/color']},
+      tex: {packages: {'[+]': ['color']}}
+    }
+  });
 &lt;/script&gt;
-
-&lt;style&gt;
-.yellow {color: #FED766;}
-.blue {color: #009FB7;}
-&lt;/style&gt;
 
 ---
 class: your-turn
@@ -81,7 +86,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_607f9051" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_608deb58" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -91,6 +96,220 @@ background-position: center 60%
 background-size: 85%
 
 # .nobold[(Applied)] Data Science
+
+---
+# AmesHousing
+
+Descriptions of 2,930 houses sold in Ames, IA from 2006 to 2010, collected by the Ames Assessor’s Office.
+
+
+```r
+# install.packages("AmesHousing")
+library(AmesHousing)
+ames &lt;- make_ames() %&gt;% 
+  dplyr::select(-matches("Qu"))
+```
+
+???
+
+`ames` contains descriptions of 2,930 houses sold in Ames, IA from 2006 to 2010. The data comes from the Ames Assessor’s Office and contains things like the square footage of a house, its lot size, and its sale price.
+
+---
+class: middle
+
+
+```r
+glimpse(ames)
+#&gt; Rows: 2,930
+#&gt; Columns: 74
+#&gt; $ MS_SubClass        &lt;fct&gt; One_Story_1946_and_Newer_All_Styles, One_Story_1946…
+#&gt; $ MS_Zoning          &lt;fct&gt; Residential_Low_Density, Residential_High_Density, …
+#&gt; $ Lot_Frontage       &lt;dbl&gt; 141, 80, 81, 93, 74, 78, 41, 43, 39, 60, 75, 0, 63,…
+#&gt; $ Lot_Area           &lt;int&gt; 31770, 11622, 14267, 11160, 13830, 9978, 4920, 5005…
+#&gt; $ Street             &lt;fct&gt; Pave, Pave, Pave, Pave, Pave, Pave, Pave, Pave, Pav…
+#&gt; $ Alley              &lt;fct&gt; No_Alley_Access, No_Alley_Access, No_Alley_Access, …
+#&gt; $ Lot_Shape          &lt;fct&gt; Slightly_Irregular, Regular, Slightly_Irregular, Re…
+#&gt; $ Land_Contour       &lt;fct&gt; Lvl, Lvl, Lvl, Lvl, Lvl, Lvl, Lvl, HLS, Lvl, Lvl, L…
+#&gt; $ Utilities          &lt;fct&gt; AllPub, AllPub, AllPub, AllPub, AllPub, AllPub, All…
+#&gt; $ Lot_Config         &lt;fct&gt; Corner, Inside, Corner, Corner, Inside, Inside, Ins…
+#&gt; $ Land_Slope         &lt;fct&gt; Gtl, Gtl, Gtl, Gtl, Gtl, Gtl, Gtl, Gtl, Gtl, Gtl, G…
+#&gt; $ Neighborhood       &lt;fct&gt; North_Ames, North_Ames, North_Ames, North_Ames, Gil…
+#&gt; $ Condition_1        &lt;fct&gt; Norm, Feedr, Norm, Norm, Norm, Norm, Norm, Norm, No…
+#&gt; $ Condition_2        &lt;fct&gt; Norm, Norm, Norm, Norm, Norm, Norm, Norm, Norm, Nor…
+#&gt; $ Bldg_Type          &lt;fct&gt; OneFam, OneFam, OneFam, OneFam, OneFam, OneFam, Twn…
+#&gt; $ House_Style        &lt;fct&gt; One_Story, One_Story, One_Story, One_Story, Two_Sto…
+#&gt; $ Overall_Cond       &lt;fct&gt; Average, Above_Average, Above_Average, Average, Ave…
+#&gt; $ Year_Built         &lt;int&gt; 1960, 1961, 1958, 1968, 1997, 1998, 2001, 1992, 199…
+#&gt; $ Year_Remod_Add     &lt;int&gt; 1960, 1961, 1958, 1968, 1998, 1998, 2001, 1992, 199…
+#&gt; $ Roof_Style         &lt;fct&gt; Hip, Gable, Hip, Hip, Gable, Gable, Gable, Gable, G…
+#&gt; $ Roof_Matl          &lt;fct&gt; CompShg, CompShg, CompShg, CompShg, CompShg, CompSh…
+#&gt; $ Exterior_1st       &lt;fct&gt; BrkFace, VinylSd, Wd Sdng, BrkFace, VinylSd, VinylS…
+#&gt; $ Exterior_2nd       &lt;fct&gt; Plywood, VinylSd, Wd Sdng, BrkFace, VinylSd, VinylS…
+#&gt; $ Mas_Vnr_Type       &lt;fct&gt; Stone, None, BrkFace, None, None, BrkFace, None, No…
+#&gt; $ Mas_Vnr_Area       &lt;dbl&gt; 112, 0, 108, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6…
+#&gt; $ Exter_Cond         &lt;fct&gt; Typical, Typical, Typical, Typical, Typical, Typica…
+#&gt; $ Foundation         &lt;fct&gt; CBlock, CBlock, CBlock, CBlock, PConc, PConc, PConc…
+#&gt; $ Bsmt_Cond          &lt;fct&gt; Good, Typical, Typical, Typical, Typical, Typical, …
+#&gt; $ Bsmt_Exposure      &lt;fct&gt; Gd, No, No, No, No, No, Mn, No, No, No, No, No, No,…
+#&gt; $ BsmtFin_Type_1     &lt;fct&gt; BLQ, Rec, ALQ, ALQ, GLQ, GLQ, GLQ, ALQ, GLQ, Unf, U…
+#&gt; $ BsmtFin_SF_1       &lt;dbl&gt; 2, 6, 1, 1, 3, 3, 3, 1, 3, 7, 7, 1, 7, 3, 3, 1, 3, …
+#&gt; $ BsmtFin_Type_2     &lt;fct&gt; Unf, LwQ, Unf, Unf, Unf, Unf, Unf, Unf, Unf, Unf, U…
+#&gt; $ BsmtFin_SF_2       &lt;dbl&gt; 0, 144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1120, 0…
+#&gt; $ Bsmt_Unf_SF        &lt;dbl&gt; 441, 270, 406, 1045, 137, 324, 722, 1017, 415, 994,…
+#&gt; $ Total_Bsmt_SF      &lt;dbl&gt; 1080, 882, 1329, 2110, 928, 926, 1338, 1280, 1595, …
+#&gt; $ Heating            &lt;fct&gt; GasA, GasA, GasA, GasA, GasA, GasA, GasA, GasA, Gas…
+#&gt; $ Heating_QC         &lt;fct&gt; Fair, Typical, Typical, Excellent, Good, Excellent,…
+#&gt; $ Central_Air        &lt;fct&gt; Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, Y, …
+#&gt; $ Electrical         &lt;fct&gt; SBrkr, SBrkr, SBrkr, SBrkr, SBrkr, SBrkr, SBrkr, SB…
+#&gt; $ First_Flr_SF       &lt;int&gt; 1656, 896, 1329, 2110, 928, 926, 1338, 1280, 1616, …
+#&gt; $ Second_Flr_SF      &lt;int&gt; 0, 0, 0, 0, 701, 678, 0, 0, 0, 776, 892, 0, 676, 0,…
+#&gt; $ Gr_Liv_Area        &lt;int&gt; 1656, 896, 1329, 2110, 1629, 1604, 1338, 1280, 1616…
+#&gt; $ Bsmt_Full_Bath     &lt;dbl&gt; 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, …
+#&gt; $ Bsmt_Half_Bath     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ Full_Bath          &lt;int&gt; 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 3, 2, …
+#&gt; $ Half_Bath          &lt;int&gt; 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, …
+#&gt; $ Bedroom_AbvGr      &lt;int&gt; 3, 2, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 2, 1, 4, 4, …
+#&gt; $ Kitchen_AbvGr      &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+#&gt; $ TotRms_AbvGrd      &lt;int&gt; 7, 5, 6, 8, 6, 7, 6, 5, 5, 7, 7, 6, 7, 5, 4, 12, 8,…
+#&gt; $ Functional         &lt;fct&gt; Typ, Typ, Typ, Typ, Typ, Typ, Typ, Typ, Typ, Typ, T…
+#&gt; $ Fireplaces         &lt;int&gt; 2, 0, 0, 2, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, …
+#&gt; $ Garage_Type        &lt;fct&gt; Attchd, Attchd, Attchd, Attchd, Attchd, Attchd, Att…
+#&gt; $ Garage_Finish      &lt;fct&gt; Fin, Unf, Unf, Fin, Fin, Fin, Fin, RFn, RFn, Fin, F…
+#&gt; $ Garage_Cars        &lt;dbl&gt; 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, …
+#&gt; $ Garage_Area        &lt;dbl&gt; 528, 730, 312, 522, 482, 470, 582, 506, 608, 442, 4…
+#&gt; $ Garage_Cond        &lt;fct&gt; Typical, Typical, Typical, Typical, Typical, Typica…
+#&gt; $ Paved_Drive        &lt;fct&gt; Partial_Pavement, Paved, Paved, Paved, Paved, Paved…
+#&gt; $ Wood_Deck_SF       &lt;int&gt; 210, 140, 393, 0, 212, 360, 0, 0, 237, 140, 157, 48…
+#&gt; $ Open_Porch_SF      &lt;int&gt; 62, 0, 36, 0, 34, 36, 0, 82, 152, 60, 84, 21, 75, 0…
+#&gt; $ Enclosed_Porch     &lt;int&gt; 0, 0, 0, 0, 0, 0, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+#&gt; $ Three_season_porch &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ Screen_Porch       &lt;int&gt; 0, 120, 0, 0, 0, 0, 0, 144, 0, 0, 0, 0, 0, 0, 140, …
+#&gt; $ Pool_Area          &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ Pool_QC            &lt;fct&gt; No_Pool, No_Pool, No_Pool, No_Pool, No_Pool, No_Poo…
+#&gt; $ Fence              &lt;fct&gt; No_Fence, Minimum_Privacy, No_Fence, No_Fence, Mini…
+#&gt; $ Misc_Feature       &lt;fct&gt; None, None, Gar2, None, None, None, None, None, Non…
+#&gt; $ Misc_Val           &lt;int&gt; 0, 0, 12500, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 0, 0, …
+#&gt; $ Mo_Sold            &lt;int&gt; 5, 6, 6, 4, 3, 6, 4, 1, 3, 6, 4, 3, 5, 2, 6, 6, 6, …
+#&gt; $ Year_Sold          &lt;int&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 201…
+#&gt; $ Sale_Type          &lt;fct&gt; WD , WD , WD , WD , WD , WD , WD , WD , WD , WD , W…
+#&gt; $ Sale_Condition     &lt;fct&gt; Normal, Normal, Normal, Normal, Normal, Normal, Nor…
+#&gt; $ Sale_Price         &lt;int&gt; 215000, 105000, 172000, 244000, 189900, 195500, 213…
+#&gt; $ Longitude          &lt;dbl&gt; -93.61975, -93.61976, -93.61939, -93.61732, -93.638…
+#&gt; $ Latitude           &lt;dbl&gt; 42.05403, 42.05301, 42.05266, 42.05125, 42.06090, 4…
+```
+
+---
+
+
+```r
+lm_ames &lt;- lm(Sale_Price ~ Gr_Liv_Area, data = ames)
+lm_ames
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Sale_Price ~ Gr_Liv_Area, data = ames)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)  Gr_Liv_Area  
+#&gt;     13289.6        111.7
+```
+
+???
+
+Since I'm a data scientist, I might do something like this with the data.
+
+Who recognizes what this code does? What does it do?
+
+---
+# `lm()`
+
+.big[
+Fits linear models with Ordinary Least Squares regression
+]
+
+
+```r
+lm_ames &lt;- lm(Sale_Price ~ Gr_Liv_Area, data = ames)
+```
+
+???
+
+`lm()` is the archetype R modeling function. It fits a linear model to a data set. In this case, the linear model predicts the `Sale_Price` variable in the `ames` data set with another variable in the `ames` data set:
+
+1. `Gr_Liv_Area` - which is the total above ground square feet of the house and 
+
+You can tell this from the arguments we pass to `lm()`.
+
+---
+# Formulas
+
+Bare variable names separated by a `~` 
+
+
+
+```r
+Sale_Price ~ Gr_Liv_Area + Full_Bath
+```
+
+$$ y = \alpha + \beta{x} + \epsilon$$
+
+.center[
+`\(y\)` `~` `\(x\)`
+]
+
+.footnote[See `?formula` for help.]
+
+???
+
+That's great. `lm()` is one of the simplest places to start with Machine Learning. We'll use it to establish some important points. And if you've never used `lm()` before, don't worry. I'll review what you need to know as we go. 
+
+Like many modeling functions in R, `lm()` takes a _formula_ that describes the relationship we wish to model. Formulas are always divided by a `~` and contain bare variable names, that is variable names that are _not_ surrounded by quotation marks. The variable to the left of the `~` becomes the response variable in the model. The variables to the right of the tilde become the predictors. Where do these variables live? In the data set passed to the data argument. 
+
+A formula can have a single variable on the right hand side, or many as we see here. Alternatively, the right hand side can contain a `.`, which is shorthand for "every other variable in the data set." Formulas in R come with their own extensive syntax which you can read more about at `?formula`. For example, you can add a zero to the right-hand side to remove the intercept term, which is included by default. And you can specify the interaction between two terms with `:`. We're going to use formulas throughout the day; but they will only be simple formulas like this.
+
+Notice that I saved the model results to `lm_ames`. This is common practice in R. Model results contain _a lot_ of information, a lot more information than you see when you call `lm_ames`. How can we see more of the output?
+
+---
+# `summary()`
+
+Display a "summary" of the results. Not `summarize()`!
+
+
+
+```r
+summary(lm_ames)
+```
+
+
+.footnote[See `?summary` for help.]
+
+???
+
+One popular way is to run `summary()` on the model object—not to be confused with `summarize()` from the dplyr package.
+
+---
+
+```r
+summary(lm_ames)
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Sale_Price ~ Gr_Liv_Area, data = ames)
+#&gt; 
+#&gt; Residuals:
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -483467  -30219   -1966   22728  334323 
+#&gt; 
+#&gt; Coefficients:
+#&gt;              Estimate Std. Error t value             Pr(&gt;|t|)    
+#&gt; (Intercept) 13289.634   3269.703   4.064            0.0000494 ***
+#&gt; Gr_Liv_Area   111.694      2.066  54.061 &lt; 0.0000000000000002 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 56520 on 2928 degrees of freedom
+#&gt; Multiple R-squared:  0.4995,	Adjusted R-squared:  0.4994 
+#&gt; F-statistic:  2923 on 1 and 2928 DF,  p-value: &lt; 0.00000000000000022
+```
+
 
 ---
 class: center middle
@@ -249,6 +468,75 @@ What makes an algorithm "good"?
 So many... which one is "best"?
 
 ---
+background-image: url(images/prediction/modeling.png)
+background-size: 45%
+background-position: center 80%
+
+# Statistical modeling is an *extension of hypothesis testing.*
+
+???
+
+Statistical modeling is an extension of hypothesis testing. Statisticians want to test hypotheses about nature. They do this by formulating those hypotheses as models and then testing the models against data.
+
+At one level, models embed hypotheses like _`Sale_Price` depends on `Gr_Liv_Area`."_ We use the model to test whether these hypotheses agree with the data. At another level, the model _is_ a hypothesis and we test how well _it_ comports with the data. 
+
+If the model passes the tests, we check to see how much it explains about the data. The best models explain the most. The hope is that we will find a hypothesis that accurately explains the data, and hence reality. In this context, the data is sacred and every model is evaluated by how closely it fits the data at hand.
+
+So statisticians ask questions like, "Is this model a reasonable representation of the world given the data?"
+
+---
+# The hypothesis determines
+
+.big[
+1\. Which .display[data] to use
+
+2\. Which .display[model] to use
+
+3\. How to .display[assess] the model
+]
+
+???
+
+In other words, statisticians use a model to test the hypotheses in the model. The hypotheses dictate:
+
+1. Which data to use
+2. Which model to use
+3. How to assess the model, e.g. Does it perform better than the null model according to a well-established, non-generalizable statistical test custom made for the assessment?
+
+This is an important starting place for Machine Learning, because the first thing you need to know about Machine Learning is that Machine Learning is nothing like Hypothesis Testing.
+
+---
+background-image: url(images/prediction/ml-1.png)
+background-size: 70%
+background-position: center middle
+
+---
+background-image: url(images/prediction/ml-2.png)
+background-size: 70%
+background-position: center middle
+
+---
+background-image: url(images/prediction/ml-3.png)
+background-size: 70%
+background-position: center middle
+
+---
+background-image: url(images/prediction/ml-4.png)
+background-size: 70%
+background-position: center middle
+
+---
+background-image: url(images/prediction/ml-5.png)
+background-size: 70%
+background-position: center middle
+
+---
+background-image: url(images/prediction/ml-6.png)
+background-size: 70%
+background-position: center middle
+
+
+---
 &lt;div class="hex-book"&gt;
   &lt;a href="https://tidymodels.org"&gt;
     &lt;img class="hex" src="images/hex/tidymodels.png"&gt;
@@ -259,6 +547,7 @@ So many... which one is "best"?
 &lt;/div&gt;
 
 ---
+name: ml-goal
 class: middle, center, frame
 
 # Goal of Machine Learning
@@ -266,6 +555,16 @@ class: middle, center, frame
 --
 
 ## generate accurate predictions
+
+
+---
+name: predictions
+class: middle, center, frame
+
+# Goal of Machine Learning
+
+## 🔮 generate accurate .display[predictions]
+
 
 ---
 # `lm()`
@@ -290,11 +589,1332 @@ lm_ames
 So let's start with prediction. To predict, we have to have two things: a model to generate predictions, and data to predict
 
 ---
-background-image: url("images/prediction/train-model.png")
-background-size: 50%
+name: step1
+background-image: url("images/prediction/predicting-1.png")
+background-position: center 70%
+background-size: 60%
 
 # Step 1: Train the model
 
+---
+# Linear Regression
+
+* Base R includes some default functionality with `lm()` and `glm()`.
+
+* [`glmnet`](https://glmnet.stanford.edu/) for regularized regression.
+
+* [`rstanarm`](https://mc-stan.org/rstanarm/) and [`brms`](https://paul-buerkner.github.io/brms/) for Bayesian regression.
+
+* [`keras`](https://keras.rstudio.com/) for regression using tensorflow
+
+* [`sparklyr`](https://spark.rstudio.com/) for large data sets.
+
+* And MANY more...
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://tidymodels.org"&gt;
+    &lt;img class="hex" src="images/hex/parsnip.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://www.tmwr.org/"&gt;
+    &lt;img class="book" src="images/books/tmwr-parsnip.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+class: middle, frame
+
+# .center[Specify a model with `parsnip`]
+
+.right-column[
+
+1\. Pick a .display[model]
+
+2\. Set the .display[engine]
+
+3\. Set the .display[mode] (if needed)
+
+]
+
+---
+class: middle, frame
+
+# .center[Specify a model with `parsnip`]
+
+
+```r
+decision_tree() %&gt;%
+  set_engine("C5.0") %&gt;%
+  set_mode("classification")
+```
+
+---
+class: middle, frame
+
+# .center[Specify a model with `parsnip`]
+
+
+```r
+nearest_neighbor() %&gt;%              
+  set_engine("kknn") %&gt;%             
+  set_mode("regression") %&gt;%        
+```
+
+---
+class: middle, frame
+
+.fade[
+# .center[To specify a model with parsnip]
+]
+
+
+.right-column[
+
+1\. Pick a .display[model]
+.fade[
+2\. Set the .display[engine]
+
+3\. Set the .display[mode] (if needed)
+]
+
+]
+
+---
+class: middle, center
+
+# 1\. Pick a .display[model] 
+
+All available models are listed at
+
+&lt;https://www.tidymodels.org/find/parsnip/&gt;
+
+&lt;iframe src="https://www.tidymodels.org/find/parsnip/" width="504" height="400px"&gt;&lt;/iframe&gt;
+
+---
+# `linear_reg()`
+
+.big[
+Specifies a model that uses linear regression
+]
+
+
+```r
+linear_reg(mode = "regression", penalty = NULL, mixture = NULL)
+```
+
+---
+# `linear_reg()`
+
+.big[
+Specifies a model that uses linear regression
+]
+
+
+```r
+linear_reg(
+  mode = "regression",   # "default" mode, if exists
+  penalty = NULL,        # model hyper-parameter
+  mixture = NULL         # model hyper-parameter
+)
+```
+
+---
+class: middle, frame
+
+.fade[
+# .center[To specify a model with parsnip]
+]
+
+
+.right-column[
+.fade[
+1\. Pick a .display[model]
+]
+
+2\. Set the .display[engine]
+
+.fade[
+3\. Set the .display[mode] (if needed)
+]
+
+]
+
+---
+# `set_engine()`
+
+.big[
+Adds an engine to power or implement the model.
+]
+
+
+```r
+lm_spec %&gt;%
+  set_engine(engine = "lm", ...)
+```
+
+---
+class: middle, frame
+
+.fade[
+# .center[To specify a model with parsnip]
+]
+
+
+.right-column[
+.fade[
+1\. Pick a .display[model]
+
+2\. Set the .display[engine]
+]
+
+3\. Set the .display[mode] (if needed)
+
+
+]
+
+---
+# `set_mode()`
+
+.big[
+Sets the class of problem the model will solve, which influences which output is collected. Not necessary if mode is set in Step 1.
+]
+
+
+```r
+lm_spec %&gt;%
+  set_mode(mode = "regression")
+```
+
+---
+class: your-turn
+
+# Your turn 1
+
+Write a pipe that creates a model that uses `lm()` to fit a linear regression. Save it as `lm_spec` and look at the object. What does it return?
+
+
+*Hint: you'll need https://www.tidymodels.org/find/parsnip/*
+
+
+<div class="countdown" id="timer_608dece9" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+lm_spec &lt;- 
+   linear_reg() %&gt;% # Pick linear regression
+   set_engine(engine = "lm") # set engine
+
+lm_spec
+#&gt; Linear Regression Model Specification (regression)
+#&gt; 
+#&gt; Computational engine: lm
+```
+
+---
+# `fit()`
+
+.big[
+Train a model by fitting a model. Returns a {parsnip} model fit.
+]
+
+
+```r
+fit(lm_spec, Sale_Price ~ Gr_Liv_Area, data = ames)
+```
+
+---
+# `fit()`
+
+.big[
+Train a model by fitting a model. Returns a {parsnip} model fit.
+]
+
+
+```r
+fit(
+  model = lm_spec,           # parsnip model
+  Sale_Price ~ Gr_Liv_Area,  # a formula
+  data = ames                # data frame
+)
+```
+
+---
+class: your-turn
+
+# Your turn 2
+
+.big[
+Double check. Does
+]
+
+
+```r
+lm_fit &lt;- fit(lm_spec,
+              Sale_Price ~ Gr_Liv_Area,
+              data = ames)
+lm_fit
+```
+
+.big[
+give the same results as
+]
+
+
+```r
+lm(Sale_Price ~ Gr_Liv_Area, data = ames)
+```
+
+<div class="countdown" id="timer_608debbc" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+```r
+lm_fit
+#&gt; parsnip model object
+#&gt; 
+#&gt; Fit time:  1ms 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = Sale_Price ~ Gr_Liv_Area, data = data)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)  Gr_Liv_Area  
+#&gt;     13289.6        111.7
+
+lm(Sale_Price ~ Gr_Liv_Area, data = ames)
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = Sale_Price ~ Gr_Liv_Area, data = ames)
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)  Gr_Liv_Area  
+#&gt;     13289.6        111.7
+```
+
+---
+class: center, middle
+
+data `(x, y)` + model = fitted model
+
+---
+template: step1
+
+---
+name: step2
+background-image: url("images/prediction/predicting-2.png")
+background-position: center 70%
+background-size: 60%
+
+# Step 2: Make predictions
+
+---
+# `predict()`
+
+.big[
+Use a fitted model to predict new **`y`** values from data. Returns a tibble.
+]
+
+
+```r
+predict(lm_fit, new_data = ames)
+```
+
+---
+# `predict()`
+
+.big[
+Use a fitted model to predict new **`y`** values from data. Returns a tibble.
+]
+
+
+```r
+predict(
+  object = lm_fit,  # fitted parsnip model
+  new_data = ames   # data frame
+)
+#&gt; # A tibble: 2,930 x 1
+#&gt;      .pred
+#&gt;      &lt;dbl&gt;
+#&gt;  1 198255.
+#&gt;  2 113367.
+#&gt;  3 161731.
+#&gt;  4 248964.
+#&gt;  5 195239.
+#&gt;  6 192447.
+#&gt;  7 162736.
+#&gt;  8 156258.
+#&gt;  9 193787.
+#&gt; 10 214786.
+#&gt; # … with 2,920 more rows
+```
+
+---
+name: lm-predict
+
+# Predictions
+
+&lt;img src="images/prediction/plots/lm-predict-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+class: your-turn
+
+# Your turn 3
+
+.big[
+Fill in the blanks. Use `predict()` to:
+
+1. Use your linear model to predict sale prices: save the tibble as `price_pred`.
+2. Add a pipe and use `mutate()` to add a column with the observed sale prices; name it `truth`.
+]
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;lm_fit &lt;- fit(lm_spec, Sale_Price ~ Gr_Liv_Area, data = ames)&lt;br&gt;&lt;br&gt;price_pred &lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;predict(new_data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames&lt;/span&gt;) %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;br&gt;price_pred&lt;/code&gt;
+
+<div class="countdown" id="timer_608dea46" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+class: your-turn
+
+
+```r
+lm_fit &lt;- fit(lm_spec, Sale_Price ~ Gr_Liv_Area, data = ames)
+
+price_pred &lt;- lm_fit %&gt;% 
+  predict(new_data = ames) %&gt;% 
+  mutate(truth = ames$Sale_Price)
+
+price_pred
+#&gt; # A tibble: 2,930 x 2
+#&gt;      .pred  truth
+#&gt;      &lt;dbl&gt;  &lt;int&gt;
+#&gt;  1 198255. 215000
+#&gt;  2 113367. 105000
+#&gt;  3 161731. 172000
+#&gt;  4 248964. 244000
+#&gt;  5 195239. 189900
+#&gt;  6 192447. 195500
+#&gt;  7 162736. 213500
+#&gt;  8 156258. 191500
+#&gt;  9 193787. 236500
+#&gt; 10 214786. 189000
+#&gt; # … with 2,920 more rows
+```
+
+---
+class: center middle
+
+data `(x, y)` + model = fitted model
+
+--
+
+data `(x)` + fitted model = predictions
+
+---
+template: predictions
+
+---
+name: accurate-predictions
+class: middle, center, frame
+
+# Goal of Machine Learning
+
+## 🎯 generate .display[accurate predictions]
+
+???
+
+Now we have predictions from our model. What can we do with them? If we already know the truth, that is, the outcome variable that was observed, we can compare them!
+
+---
+class: middle, center, frame
+
+# Axiom
+
+Better Model = Better Predictions (Lower error rate)
+
+---
+template: lm-predict
+
+---
+# Residuals
+
+&lt;img src="images/prediction/plots/lm-resid-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+# Residuals
+
+The difference between the predicted and observed values.
+
+`$$\huge{\hat{y}_i - {y}_i}$$` 
+
+???
+
+refers to a single residual. Since residuals are errors, the sum of the errors would be a good measure of total error except for two things. What's one of them?
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[What could go wrong?]
+
+.center[
+`$$\huge{\sum_{i=1}^n\hat{y}_i - {y}_i}$$` 
+]
+
+
+???
+
+First, the sum would increase every time we add a new data point. That means models fit on larger data sets would have bigger errors than models fit on small data sets. That makes no sense, so we work with the mean error.
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[What could go wrong?]
+
+.center[
+`$$\huge{\frac{1}{n} \sum_{i=1}^n\hat{y}_i - {y}_i}$$` 
+]
+
+
+???
+
+What else makes this an insufficient measure of error?
+
+Positive and negative residuals would cancel each other out. We can fix that by taking the absolute value of each residual...
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[What could go wrong?]
+
+.center[
+`$$\huge{\frac{1}{n} \sum_{i=1}^n |\hat{y}_i - {y}_i|}$$` 
+]
+
+
+.footnote[Mean Absolute Error]
+
+???
+
+...but absolute values are hard to work with mathematically. They're not differentiable at zero. That's not a big deal to us because we can use computers. But it mattered in the past, and as a result statisticians used the square instead, which also penalizes large residuals more than smaller residuals. The square version also has some convenient throretical properties. It's the standard deviation of the residuals about zero. So we will use the square.
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[What could go wrong?]
+
+.center[
+`$$\huge{\frac{1}{n} \sum_{i=1}^n (\hat{y}_i - {y}_i)^2}$$` 
+]
+
+???
+
+If you take the square, then to return things to the same units as the residuals, you have the the root mean square error.
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[What could go wrong?]
+
+.center[
+`$$\huge{\sqrt{\frac{1}{n} \sum_{i=1}^n (\hat{y}_i - {y}_i)^2 }}$$` 
+]
+
+.footnote[Root Mean Squared Error]
+
+---
+# RMSE
+
+.big[
+Root Mean Squared Error - The standard deviation of the residuals about zero.
+]
+
+.center[
+`$$\huge{\sqrt{\frac{1}{n} \sum_{i=1}^n (\hat{y}_i - {y}_i)^2 }}$$` 
+]
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://tidymodels.org"&gt;
+    &lt;img class="hex" src="images/hex/yardstick.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://www.tmwr.org/"&gt;
+    &lt;img class="book" src="images/books/tmwr-yardstick.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+# `rmse()`
+
+.big[
+Calculates the RMSE based on two columns in a dataframe:
+
+.center[
+The **truth**: `\(y_i\)`
+
+The predicted **estimate**: `\(\hat{y}_i\)`
+]
+]
+
+
+```r
+rmse(data, truth, estimate)
+```
+
+---
+
+
+```r
+lm_fit &lt;- fit(lm_spec,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ames)
+
+price_pred &lt;- lm_fit %&gt;% 
+  predict(new_data = ames) %&gt;% 
+  mutate(price_truth = ames$Sale_Price)
+
+*rmse(price_pred, truth = price_truth, estimate = .pred)
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      56505.
+```
+
+
+
+---
+template: step1
+
+---
+template: step2
+
+---
+name: step3
+background-image: url("images/prediction/predicting-3.png")
+background-position: center 70%
+background-size: 60%
+
+# Step 3: Compute metrics
+
+---
+class: center middle
+
+data `(x, y)` + model = fitted model
+
+--
+
+data `(x)` + fitted model = predictions
+
+--
+
+data `(y)` + predictions = metrics
+
+---
+class: middle, center, inverse
+
+A model doesn't have to be a straight line!
+
+---
+exclude: true
+
+
+
+
+
+```r
+rt_spec &lt;- 
+  decision_tree() %&gt;%          
+  set_engine(engine = "rpart") %&gt;% 
+  set_mode("regression")
+
+rt_fit &lt;- fit(rt_spec,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ames)
+
+price_pred &lt;- predict(rt_fit, new_data = ames) %&gt;% 
+  mutate(price_truth = ames$Sale_Price)
+
+rmse(price_pred, truth = price_truth, estimate = .pred)
+```
+
+---
+&lt;img src="images/prediction/plots/rt-plot-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="images/prediction/plots/rt-plot-resid-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, inverse, center
+
+# Do you trust it?
+
+---
+class: middle, inverse, center
+
+# Overfitting
+
+---
+
+
+
+&lt;img src="images/prediction/plots/overfit-poly2-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/overfit-poly5-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/overfit-poly9-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+
+.pull-left[
+
+&lt;img src="images/prediction/plots/overfit-poly5-highlight-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+&lt;img src="images/prediction/plots/overfit-poly9-highlight-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: your-turn
+
+# Your turn 4
+
+Discuss in the chat which model:
+
+1. Has the smallest residuals
+2. Will have lower prediction error. Why?
+
+.pull-left[
+&lt;img src="images/prediction/plots/overfit-poly5-highlight-1.png" width="60%" style="display: block; margin: auto 0 auto auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="images/prediction/plots/overfit-poly9-highlight-1.png" width="60%" style="display: block; margin: auto auto auto 0;" /&gt;
+]
+
+<div class="countdown" id="timer_608dec65" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+
+
+.panelset[
+.panel[.panel-name[Residuals]
+&lt;img src="images/prediction/plots/yt-of-sol-resid-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Prediction Error]
+&lt;img src="images/prediction/plots/yt-of-sol-preds-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: middle, center, frame
+
+# Axiom
+
+The best way to measure a model's performance at predicting new data is to .display[predict new data].
+
+---
+class: middle, center, frame
+
+# Goal of Machine Learning
+
+--
+
+
+## 🔨 construct .display[models] that
+
+--
+
+
+## 🎯 generate .display[accurate predictions]
+
+--
+
+
+## 🆕 for .display[future, yet-to-be-seen data]
+
+
+
+--
+
+.footnote[Max Kuhn &amp; Kjell Johnston, http://www.feat.engineering/]
+
+
+???
+
+But need new data...
+
+---
+class: middle, center, frame
+
+# Method #1
+
+## The holdout method
+
+---
+
+&lt;img src="images/prediction/plots/all-split-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+???
+
+We refer to the group for which we know the outcome, and use to develop the algorithm, as the training set. We refer to the group for which we pretend we don’t know the outcome as the test set.
+
+---
+# `initial_split()`
+
+.big[
+"Splits" data randomly into a single testing and a single training set.
+]
+
+
+```r
+initial_split(data, prop = 3/4)
+```
+
+---
+
+
+```r
+ames_split &lt;- initial_split(ames, prop = 0.75)
+ames_split
+#&gt; &lt;Analysis/Assess/Total&gt;
+#&gt; &lt;2198/732/2930&gt;
+```
+
+???
+
+data splitting
+
+---
+# `training()` and `testing()`
+
+.big[
+Extract training and testing sets from an rsplit
+]
+
+
+```r
+training(ames_split)
+testing(ames_split)
+```
+
+---
+
+```r
+train_set &lt;- training(ames_split) 
+train_set
+#&gt; # A tibble: 2,198 x 74
+#&gt;    MS_SubClass      MS_Zoning    Lot_Frontage Lot_Area Street Alley   Lot_Shape 
+#&gt;    &lt;fct&gt;            &lt;fct&gt;               &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt;   &lt;fct&gt;     
+#&gt;  1 One_Story_1946_… Residential…          141    31770 Pave   No_All… Slightly_…
+#&gt;  2 One_Story_1946_… Residential…           81    14267 Pave   No_All… Slightly_…
+#&gt;  3 Two_Story_1946_… Residential…           74    13830 Pave   No_All… Slightly_…
+#&gt;  4 Two_Story_1946_… Residential…           78     9978 Pave   No_All… Slightly_…
+#&gt;  5 One_Story_PUD_1… Residential…           41     4920 Pave   No_All… Regular   
+#&gt;  6 One_Story_PUD_1… Residential…           43     5005 Pave   No_All… Slightly_…
+#&gt;  7 Two_Story_1946_… Residential…           60     7500 Pave   No_All… Regular   
+#&gt;  8 Two_Story_1946_… Residential…           75    10000 Pave   No_All… Slightly_…
+#&gt;  9 One_Story_1946_… Residential…            0     7980 Pave   No_All… Slightly_…
+#&gt; 10 Two_Story_1946_… Residential…           63     8402 Pave   No_All… Slightly_…
+#&gt; # … with 2,188 more rows, and 67 more variables: Land_Contour &lt;fct&gt;,
+#&gt; #   Utilities &lt;fct&gt;, Lot_Config &lt;fct&gt;, Land_Slope &lt;fct&gt;, Neighborhood &lt;fct&gt;,
+#&gt; #   Condition_1 &lt;fct&gt;, Condition_2 &lt;fct&gt;, Bldg_Type &lt;fct&gt;, House_Style &lt;fct&gt;,
+#&gt; #   Overall_Cond &lt;fct&gt;, Year_Built &lt;int&gt;, Year_Remod_Add &lt;int&gt;,
+#&gt; #   Roof_Style &lt;fct&gt;, Roof_Matl &lt;fct&gt;, Exterior_1st &lt;fct&gt;, Exterior_2nd &lt;fct&gt;,
+#&gt; #   Mas_Vnr_Type &lt;fct&gt;, Mas_Vnr_Area &lt;dbl&gt;, Exter_Cond &lt;fct&gt;, Foundation &lt;fct&gt;,
+#&gt; #   Bsmt_Cond &lt;fct&gt;, Bsmt_Exposure &lt;fct&gt;, BsmtFin_Type_1 &lt;fct&gt;,
+#&gt; #   BsmtFin_SF_1 &lt;dbl&gt;, BsmtFin_Type_2 &lt;fct&gt;, BsmtFin_SF_2 &lt;dbl&gt;,
+#&gt; #   Bsmt_Unf_SF &lt;dbl&gt;, Total_Bsmt_SF &lt;dbl&gt;, Heating &lt;fct&gt;, Heating_QC &lt;fct&gt;,
+#&gt; #   Central_Air &lt;fct&gt;, Electrical &lt;fct&gt;, First_Flr_SF &lt;int&gt;,
+#&gt; #   Second_Flr_SF &lt;int&gt;, Gr_Liv_Area &lt;int&gt;, Bsmt_Full_Bath &lt;dbl&gt;,
+#&gt; #   Bsmt_Half_Bath &lt;dbl&gt;, Full_Bath &lt;int&gt;, Half_Bath &lt;int&gt;,
+#&gt; #   Bedroom_AbvGr &lt;int&gt;, Kitchen_AbvGr &lt;int&gt;, TotRms_AbvGrd &lt;int&gt;,
+#&gt; #   Functional &lt;fct&gt;, Fireplaces &lt;int&gt;, Garage_Type &lt;fct&gt;, Garage_Finish &lt;fct&gt;,
+#&gt; #   Garage_Cars &lt;dbl&gt;, Garage_Area &lt;dbl&gt;, Garage_Cond &lt;fct&gt;, Paved_Drive &lt;fct&gt;,
+#&gt; #   Wood_Deck_SF &lt;int&gt;, Open_Porch_SF &lt;int&gt;, Enclosed_Porch &lt;int&gt;,
+#&gt; #   Three_season_porch &lt;int&gt;, Screen_Porch &lt;int&gt;, Pool_Area &lt;int&gt;,
+#&gt; #   Pool_QC &lt;fct&gt;, Fence &lt;fct&gt;, Misc_Feature &lt;fct&gt;, Misc_Val &lt;int&gt;,
+#&gt; #   Mo_Sold &lt;int&gt;, Year_Sold &lt;int&gt;, Sale_Type &lt;fct&gt;, Sale_Condition &lt;fct&gt;,
+#&gt; #   Sale_Price &lt;int&gt;, Longitude &lt;dbl&gt;, Latitude &lt;dbl&gt;
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[
+Now that we have training and testing sets...
+]
+
+--
+
+.big[
+Which data set do you think we use for .display[fitting]?
+]
+
+--
+
+.big[
+Which do we use for .display[predicting]?
+]
+
+---
+template: step1
+
+---
+template: step2
+
+---
+template: step3
+
+---
+name: step3-func
+background-image: url("images/prediction/predicting-4.png")
+background-position: center 70%
+background-size: 60%
+
+# Step 3: Compute metrics
+
+---
+name: step1-split
+background-image: url("images/prediction/predicting-split-1.png")
+background-position: center 70%
+background-size: 80%
+
+# Step 1: Split the data
+
+---
+name: step2-split
+background-image: url("images/prediction/predicting-split-2.png")
+background-position: center 70%
+background-size: 80%
+
+# Step 2: Train the model
+
+---
+name: step3-split
+background-image: url("images/prediction/predicting-split-3.png")
+background-position: center 70%
+background-size: 80%
+
+# Step 3: Make predictions
+
+---
+name: step4-split
+background-image: url("images/prediction/predicting-split-4.png")
+background-position: center 70%
+background-size: 80%
+
+# Step 4: Compute metrics
+
+---
+class: your-turn
+
+# Your turn 5
+
+.pull-left2[
+Use `initial_split()`, `training()`, `testing()`, `lm()` and `rmse()` to:
+
+1. Split **ames** into training and test sets. Save the rsplit!
+
+1. Extract the training data. Fit a linear model to it. Save the model!
+
+1. Measure the RMSE of your model with your test set.  
+]
+
+.pull-right2[
+
+
+
+&lt;code class ='r hljs remark-code'&gt;set.seed(100)&lt;br&gt;&lt;br&gt;ames_split &amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;ames_train &amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;ames_test &amp;nbsp;&amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;br&gt;lm_fit &lt;- fit(lm_spec,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Sale_Price ~ Gr_Liv_Area, &lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames_train&lt;/span&gt;)&lt;br&gt;&lt;br&gt;price_pred &amp;nbsp;&lt;- &lt;span style="background-color:#FED766;color:#FED766"&gt;lm_fit&lt;/span&gt; %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;predict(new_data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames_test&lt;/span&gt;) %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;mutate(price_truth = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;br&gt;&lt;br&gt;rmse(&lt;span style="background-color:#FED766;color:#FED766"&gt;price_pred&lt;/span&gt;, truth = &lt;span style="background-color:#FED766;color:#FED766"&gt;price_truth&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;estimate = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;/code&gt;
+]
+
+<div class="countdown" id="timer_608dece4" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+set.seed(100)
+
+ames_split  &lt;- initial_split(ames)
+ames_train  &lt;- training(ames_split)
+ames_test   &lt;- testing(ames_split)
+
+lm_fit &lt;- fit(lm_spec,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ames_train)
+
+price_pred  &lt;- lm_fit %&gt;% 
+  predict(new_data = ames_test) %&gt;% 
+  mutate(price_truth = ames_test$Sale_Price)
+
+rmse(price_pred, truth = price_truth,
+     estimate = .pred)
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      59310.
+```
+
+
+
+RMSE = 59310.14; compare to 56504.88 when using full data
+
+---
+class: center middle
+
+.pull-left[
+### Training RMSE = 55539.85
+&lt;img src="images/prediction/plots/lm-resid-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+### Testing RMSE = 59310.14
+&lt;img src="images/prediction/plots/lm-test-resid-1.png" width="504" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center, middle
+
+old data `(x, y)` + model = fitted model
+
+--
+
+new data `(x)` + fitted model = predictions
+
+--
+
+new data `(y)` + predictions = metrics
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[
+How much data should you set aside for testing?
+]
+
+--
+
+.big[
+If .display[testing set] is small, performance metrics may be unreliable.
+]
+
+--
+
+.big[
+If .display[training set] is small, model fit may be poor.
+]
+
+---
+class: center middle inverse
+
+# Stratified sampling
+
+
+
+---
+
+&lt;img src="images/prediction/plots/split-exm-1-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-exm-2-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-exm-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-exm-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-exm-5-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="images/prediction/plots/split-strata-1-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="images/prediction/plots/split-strata-2-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-strata-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-strata-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/prediction/plots/split-strata-5-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+```r
+set.seed(100) # Important!
+
+ames_split  &lt;- initial_split(ames, 
+*                            strata = Sale_Price,
+*                            breaks = 4)
+ames_train  &lt;- training(ames_split)
+ames_test   &lt;- testing(ames_split)
+
+lm_fit      &lt;- fit(lm_spec,
+                   Sale_Price ~ Gr_Liv_Area, 
+                   data = ames_train)
+
+price_pred  &lt;- lm_fit %&gt;% 
+  predict(new_data = ames_test) %&gt;% 
+  mutate(price_truth = ames_test$Sale_Price)
+
+rmse(price_pred, truth = price_truth, estimate = .pred)
+```
+
+---
+# `decision_tree()`
+
+.big[
+Specifies a decision tree model
+]
+
+
+```r
+decision_tree(tree_depth = NULL, min_n = NULL, cost_complexity = NULL)
+```
+
+---
+class: your-turn
+
+# Your turn 6
+
+.big[
+Write a pipe to create a model that uses the {rpart} package to fit a regression tree and calculate the RMSE.
+
+Compare the `lm()` model. Which is better?
+]
+
+*Hint: you'll need https://www.tidymodels.org/find/parsnip/*
+
+<div class="countdown" id="timer_608decf1" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Create Split]
+
+```r
+set.seed(100) # Important!
+
+ames_split  &lt;- initial_split(ames, 
+                             strata = Sale_Price,
+                             breaks = 4)
+ames_train  &lt;- training(ames_split)
+ames_test   &lt;- testing(ames_split)
+```
+
+]
+
+.panel[.panel-name[Linear Model]
+
+```r
+lm_spec &lt;- 
+  linear_reg() %&gt;%
+  set_engine("lm") %&gt;%
+  set_mode("regression")
+
+lm_fit &lt;- fit(lm_spec,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ames_train)
+
+price_pred  &lt;- lm_fit %&gt;% 
+  predict(new_data = ames_test) %&gt;% 
+  mutate(price_truth = ames_test$Sale_Price)
+
+lm_rmse &lt;- rmse(price_pred,
+                truth = price_truth,
+                estimate = .pred)
+```
+]
+
+.panel[.panel-name[Decision Tree]
+
+```r
+rt_spec &lt;- 
+  decision_tree() %&gt;%
+  set_engine("rpart") %&gt;%
+  set_mode("regression")
+
+dt_fit &lt;- fit(rt_spec,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ames_train)
+
+price_pred  &lt;- dt_fit %&gt;% 
+  predict(new_data = ames_test) %&gt;% 
+  mutate(price_truth = ames_test$Sale_Price)
+
+dt_rmse &lt;- rmse(price_pred,
+                truth = price_truth,
+                estimate = .pred)
+```
+]
+
+.panel[.panel-name[Compare]
+
+```r
+lm_rmse
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      57734.
+
+dt_rmse
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      59716.
+```
+]
+]
+
+---
+# `nearest_neighbor()`
+
+.big[
+Specifies a KNN model
+]
+
+
+```r
+nearest_neighbor(neighbors = 1)
+```
+
+---
+class: your-turn
+
+# Your turn 7
+
+.big[
+Write another pipe to create a model that uses the {kknn} package to fit a K nearest neighbors model. Calculate the RMSE to compare to our other models that use the same formula?
+]
+
+*Hint: you'll need https://www.tidymodels.org/find/parsnip/*
+
+<div class="countdown" id="timer_608dec40" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Nearest Neighbor]
+
+```r
+knn_spec &lt;-
+  nearest_neighbor() %&gt;%
+  set_engine(engine = "kknn") %&gt;%
+  set_mode("regression")
+
+knn_fit &lt;- fit(knn_spec,
+               Sale_Price ~ Gr_Liv_Area, 
+               data = ames_train)
+
+price_pred  &lt;- knn_fit %&gt;% 
+  predict(new_data = ames_test) %&gt;% 
+  mutate(price_truth = ames_test$Sale_Price)
+
+knn_rmse &lt;- rmse(price_pred,
+                 truth = price_truth,
+                 estimate = .pred)
+```
+]
+
+.panel[.panel-name[Compare]
+
+```r
+lm_rmse
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      57734.
+
+dt_rmse
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      59716.
+
+knn_rmse
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard      61103.
+```
+]
+]
+
+---
+class: title-slide, center
+
+# Prediction
+
+&lt;img src="images/prediction/pred-hex.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
