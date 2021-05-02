@@ -1,7 +1,7 @@
 ---
 title: 'Session 04: Data Types'
 draft: true
-date: 2021-06-14
+date: 2021-06-13
 slug: 04-data-types
 categories: []
 tags: []

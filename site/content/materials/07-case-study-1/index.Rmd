@@ -1,7 +1,7 @@
 ---
 title: 'Session 07: Case Study 1'
 draft: true
-date: 2021-06-14
+date: 2021-06-13
 slug: 07-case-study-1
 categories: []
 tags: []
