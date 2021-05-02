@@ -49,6 +49,10 @@
   color: #FF8DC6;
 }
 
+.grey {
+  color: #696773;
+}
+
 .blue-highlight {
   background-color: #009FB7;
   color: #FED766;
@@ -192,21 +196,21 @@ a:hover, a:active, a:focus {
 }
 
 .inverse {
-  background-color: #282a36;
-  color: #FFFFFF;
+  background-color: #272727;
+  color: #F0F0F0;
   text-shadow: none;
 }
 
 .inverse .remark-inline-code {
-  color: #8be9fd;
+  color: #009FB7;
 }
 
 .inverse a {
-  color: #fff;
+  color: #FED766;
 }
 
 .inverse a:hover {
-  color: #bed3ec;
+  color: #FED766;
 }
 
 
@@ -225,6 +229,21 @@ a:hover, a:active, a:focus {
   width: 25%;
   float: right;
 }
+
+.pull-left2 {
+  float: left;
+  width: 35%;
+}
+.pull-right2 {
+  float: right;
+  width: 60%;
+}
+.pull-right2 ~ * {
+  clear: both;
+}
+
+
+
 
 .left-column {
   color: #777;
@@ -643,13 +662,17 @@ div.my-footer span {
 
 
 .frame h1 {
-  color: #2f5275;
+  color: #009FB7;
   padding-bottom: 1.0em !important;
-  border-bottom: 3px solid #bed3ec;
+  border-bottom: 3px solid #009FB7;
 }
 
 .inverse .frame h1 {
   color: #bed3ec;
   padding-bottom: 1.0em !important;
   border-bottom: 3px solid #bed3ec;
+}
+
+.inverse h1 {
+  color: #F0F0F0;
 }

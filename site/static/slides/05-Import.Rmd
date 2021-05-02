@@ -244,6 +244,8 @@ background-image: url(images/import/applied-ds-import.png)
 background-position: center 60%
 background-size: 85%
 
+# .nobold[(Applied)] Data Science
+
 ---
 # `readr` functions
 
