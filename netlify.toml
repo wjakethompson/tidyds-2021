@@ -16,3 +16,4 @@
 [context.production]
 [context.production.environment]
   HUGO_ENV = "production"
+  command = "hugo -F -b $DEPLOY_PRIME_URL"
