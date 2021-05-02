@@ -1,0 +1,28 @@
+---
+title: 'Session 09: Classification'
+draft: true
+date: 2021-06-13
+slug: 09-classification
+categories: []
+tags: []
+featured: no
+projects: []
+weight: 1
+links:
+- icon: images
+  icon_pack: fas
+  name: slides
+  url: /slides/09-Classification.html
+- icon: dumbbell
+  icon_pack: fas
+  name: Exercises
+  url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/exercises/09-classification.Rmd
+- icon: check-square
+  icon_pack: far
+  name: Solutions
+  url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/solutions/09-classification-solutions.Rmd
+---
+
+```{r echo=FALSE}
+knitr::include_url("/slides/09-Classification.html")
+```
