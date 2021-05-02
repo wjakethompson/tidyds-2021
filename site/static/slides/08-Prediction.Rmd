@@ -792,8 +792,8 @@ class: your-turn
 
 ```{r yt-lm-spec-sol}
 lm_spec <- 
-   linear_reg() %>% # Pick linear regression
-   set_engine(engine = "lm") # set engine
+   linear_reg() %>%           # Pick linear regression
+   set_engine(engine = "lm")  # set engine
 
 lm_spec
 ```
@@ -1441,6 +1441,12 @@ mc_grid %>%
 ]
 ]
 
+???
+
+Residuals - as the polynomial increases, the residuals get smaller and smaller.
+
+BUT, the out of sample prediction error gets larger and larger.
+
 ---
 class: middle, center, frame
 
@@ -1659,7 +1665,7 @@ lm_fit <- fit(lm_spec,
               Sale_Price ~ Gr_Liv_Area, 
               data = ames_train)
 
-price_pred  <- lm_fit %>% 
+price_pred <- lm_fit %>% 
   predict(new_data = ames_test) %>% 
   mutate(price_truth = ames_test$Sale_Price)
 
@@ -1952,7 +1958,7 @@ class: your-turn
 .big[
 Write a pipe to create a model that uses the {rpart} package to fit a regression tree and calculate the RMSE.
 
-Compare the `lm()` model. Which is better?
+Compare to the `lm()` model. Which is better?
 ]
 
 *Hint: you'll need https://www.tidymodels.org/find/parsnip/*
@@ -2046,7 +2052,7 @@ class: your-turn
 # Your turn `r (yt_counter <- yt_counter + 1)`
 
 .big[
-Write another pipe to create a model that uses the {kknn} package to fit a K nearest neighbors model. Calculate the RMSE to compare to our other models that use the same formula?
+Write another pipe to create a model that uses the {kknn} package to fit a K nearest neighbors model. Calculate the RMSE to compare to our other models that use the same formula.
 ]
 
 *Hint: you'll need https://www.tidymodels.org/find/parsnip/*

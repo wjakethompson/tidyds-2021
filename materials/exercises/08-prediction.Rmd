@@ -7,36 +7,31 @@ output: html_document
 library(tidyverse)
 library(AmesHousing)
 library(tidymodels)
-library(tune)
 
 ames <- make_ames() %>% 
   dplyr::select(-matches("Qu"))
-
-fit_data <- function(formula, model, data, ...) {
-  wf <- workflows::add_model(workflows::add_formula(workflows::workflow(), formula), model)
-  fit(wf, data, ...)
-}
-
-fit_split <- function(formula, model, split, ...) {
-  wf <- workflows::add_model(workflows::add_formula(workflows::workflow(), formula, blueprint = hardhat::default_formula_blueprint(indicators = FALSE, allow_novel_levels = TRUE)), model)
-  tune::last_fit(wf, split, ...)
-}
 ```
+
 
 # Your Turn 1
 
-Write a pipe that creates a learner that uses `lm()` to fit a linear regression. Save it as `lm_spec` and look at the object. What does it return?
+Write a pipe that creates a model that uses `lm()` to fit a linear regression. Save it as `lm_spec` and look at the object. What does it return?
+
+*Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
 ```{r}
 
 ```
+
 
 # Your Turn 2
 
 Double check. Does
 
 ```{r}
-lm_fit <- fit_data(Sale_Price ~ Gr_Liv_Area, model = lm_spec, data = ames)
+lm_fit <- fit(lm_spec,
+              Sale_Price ~ Gr_Liv_Area,
+              data = ames)
 lm_fit
 ```
 
@@ -51,13 +46,11 @@ lm(Sale_Price ~ Gr_Liv_Area, data = ames)
 
 Fill in the blanks. Use `predict()` to
 
-1. Use your linear model to predict sale prices; save the tibble as `price_pred`  
-1. Add a pipe and use `mutate()` to add a column with the observed sale prices; name it `truth`
+1. Use your linear model to predict sale prices; save the tibble as `price_pred`.
+2. Add a pipe and use `mutate()` to add a column with the observed sale prices; name it `truth`.
 
 ```{r}
-lm_fit <- fit_data(Sale_Price ~ Gr_Liv_Area, 
-                   model = lm_spec, 
-                   data = ames)
+lm_fit <- fit(lm_spec, Sale_Price ~ Gr_Liv_Area, data = ames)
 
 price_pred <- ________ %>% 
   predict(new_data = ________) %>% 
@@ -69,15 +62,13 @@ price_pred
 
 # Your Turn 4
 
-In your teams, decide which model:
+Discuss in the chat which model:
 
 1. Has the smallest residuals  
 2. Will have lower prediction error. Why?  
 
 
 # Your Turn 5
-
-Fill in the blanks. 
 
 Use `initial_split()`, `training()`, `testing()`, `lm()` and `rmse()` to:
 
@@ -87,10 +78,6 @@ Use `initial_split()`, `training()`, `testing()`, `lm()` and `rmse()` to:
 
 3. Measure the RMSE of your linear model with your test set.  
 
-Keep `set.seed(100)` at the start of your code.
-
-*Hint: Be sure to remove every `_` before running the code!*
-
 ```{r}
 set.seed(100) # Important!
 
@@ -98,79 +85,79 @@ ames_split  <- ________
 ames_train  <- ________
 ames_test   <- ________
 
-lm_fit      <- fit_data(Sale_Price ~ Gr_Liv_Area, 
-                        model = lm_spec, 
-                        data = ________)
+lm_fit <- fit(lm_spec,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ________)
 
-price_pred  <- ________ %>% 
+price_pred <- ________ %>% 
   predict(new_data = ________) %>% 
   mutate(price_truth = ________)
 
-rmse(________, truth = ________, estimate = ________)
+lm_rmse <- rmse(________, truth = ________, estimate = ________)
+
+lm_rmse
 ```
 
 
 # Your Turn 6
 
-Rewrite your code from the previous exercise using `fit_split()` and `collect_metrics()` to:
+Write a pipe to create a model that uses the {rpart} package to fit a regression tree and calculate the RMSE.
 
-1. Split **ames** into training and test sets. Save the rsplit!
+Compare to the `lm()` model. Which is better?
 
-2. Fit a linear model to the training set, then use the model to predict new observations from the test set.
-
-3. Extract the rmse- is it the same as what we just calculated in our previous exercise `r round(rmse_test, 0)`?
-
-Keep `set.seed(100)` at the start of your code.
+*Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
 ```{r}
-# solution from previous exercise below...
-set.seed(100) # Important!
+rt_spec <- 
+  ________ %>%
+  set_engine(________) %>%
+  set_mode(________)
 
-ames_split  <- initial_split(ames)
-ames_train  <- training(ames_split)
-ames_test   <- testing(ames_split)
+dt_fit <- fit(________,
+              Sale_Price ~ Gr_Liv_Area, 
+              data = ________)
 
-lm_fit      <- fit_data(Sale_Price ~ Gr_Liv_Area, 
-                        model = lm_spec, 
-                        data = ames_train)
+price_pred <- ________ %>% 
+  predict(new_data = ________) %>% 
+  mutate(price_truth = ________)
 
-price_pred  <- lm_fit %>% 
-  predict(new_data = ames_test) %>% 
-  mutate(price_truth = ames_test$Sale_Price)
+dt_rmse <- rmse(price_pred,
+                truth = ________,
+                estimate = ________)
 
-rmse(price_pred, truth = price_truth, estimate = .pred)
+lm_rmse
+
+dt_rmse
 ```
-
 
 
 # Your Turn 7
 
-Write a pipe to create a model that uses the rpart package to fit a regression tree. Use `fit_split()` and `collect_metrics()` to compare the RMSE here to one using the linear model for the same formula- which is better?
+Write a pipe to create a model that uses the {kknn} package to fit a K nearest neighbors model. Calculate the RMSE to compare to our other models that use the same formula.
 
-*Hint: you'll need https://tidymodels.github.io/parsnip/articles/articles/Models.html*
-
-```{r}
-rt_spec <- 
-  __________ %>%          
-  __________ %>% 
-  __________
-
-set.seed(100) # Important!
-__________(Sale_Price ~ Gr_Liv_Area, 
-          model = __________, 
-          split = __________) %>% 
-  __________
-```
-
-
-# Your Turn 11
-
-Write *another* pipe to create a model that uses the kknn package to fit a K nearest neighbors model. Use `fit_split()` and `collect_metrics()` to compare the RMSE here to our other models with the same formula- which is better?
-
-*Hint: you'll need https://tidymodels.github.io/parsnip/articles/articles/Models.html*
+*Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
 ```{r}
+knn_spec <-
+  ________ %>%
+  set_engine(________) %>%
+  set_mode(________)
 
+knn_fit <- fit(________,
+               Sale_Price ~ Gr_Liv_Area, 
+               data = ________)
+
+price_pred  <- ________ %>% 
+  predict(new_data = ________) %>% 
+  mutate(price_truth = ________)
+
+knn_rmse <- rmse(price_pred,
+                 truth = ________,
+                 estimate = ________)
+
+lm_rmse
+
+dt_rmse
+
+knn_rmse
 ```
-
-

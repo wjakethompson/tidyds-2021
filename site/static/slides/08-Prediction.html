@@ -4,7 +4,7 @@
     <title>Prediction</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-05-01" />
+    <meta name="date" content="2021-05-02" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -86,7 +86,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_608deb58" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_608eaae9" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -796,7 +796,7 @@ Write a pipe that creates a model that uses `lm()` to fit a linear regression. S
 *Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
 
-<div class="countdown" id="timer_608dece9" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608eae92" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -806,8 +806,8 @@ class: your-turn
 
 ```r
 lm_spec &lt;- 
-   linear_reg() %&gt;% # Pick linear regression
-   set_engine(engine = "lm") # set engine
+   linear_reg() %&gt;%           # Pick linear regression
+   set_engine(engine = "lm")  # set engine
 
 lm_spec
 #&gt; Linear Regression Model Specification (regression)
@@ -869,7 +869,7 @@ give the same results as
 lm(Sale_Price ~ Gr_Liv_Area, data = ames)
 ```
 
-<div class="countdown" id="timer_608debbc" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608eae0f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -979,7 +979,7 @@ Fill in the blanks. Use `predict()` to:
 
 &lt;code class ='r hljs remark-code'&gt;lm_fit &lt;- fit(lm_spec, Sale_Price ~ Gr_Liv_Area, data = ames)&lt;br&gt;&lt;br&gt;price_pred &lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;predict(new_data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames&lt;/span&gt;) %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;br&gt;price_pred&lt;/code&gt;
 
-<div class="countdown" id="timer_608dea46" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608eacc9" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1320,7 +1320,7 @@ Discuss in the chat which model:
 &lt;img src="images/prediction/plots/overfit-poly9-highlight-1.png" width="60%" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
 
-<div class="countdown" id="timer_608dec65" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608eab31" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1339,6 +1339,12 @@ class: your-turn
 &lt;img src="images/prediction/plots/yt-of-sol-preds-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 ]
+
+???
+
+Residuals - as the polynomial increases, the residuals get smaller and smaller.
+
+BUT, the out of sample prediction error gets larger and larger.
 
 ---
 class: middle, center, frame
@@ -1561,10 +1567,10 @@ Use `initial_split()`, `training()`, `testing()`, `lm()` and `rmse()` to:
 
 
 
-&lt;code class ='r hljs remark-code'&gt;set.seed(100)&lt;br&gt;&lt;br&gt;ames_split &amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;ames_train &amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;ames_test &amp;nbsp;&amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;br&gt;lm_fit &lt;- fit(lm_spec,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Sale_Price ~ Gr_Liv_Area, &lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames_train&lt;/span&gt;)&lt;br&gt;&lt;br&gt;price_pred &amp;nbsp;&lt;- &lt;span style="background-color:#FED766;color:#FED766"&gt;lm_fit&lt;/span&gt; %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;predict(new_data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames_test&lt;/span&gt;) %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;mutate(price_truth = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;br&gt;&lt;br&gt;rmse(&lt;span style="background-color:#FED766;color:#FED766"&gt;price_pred&lt;/span&gt;, truth = &lt;span style="background-color:#FED766;color:#FED766"&gt;price_truth&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;estimate = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;/code&gt;
+&lt;code class ='r hljs remark-code'&gt;set.seed(100)&lt;br&gt;&lt;br&gt;ames_split &amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;ames_train &amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;ames_test &amp;nbsp;&amp;nbsp;&lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;br&gt;lm_fit &lt;- fit(lm_spec,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Sale_Price ~ Gr_Liv_Area, &lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames_train&lt;/span&gt;)&lt;br&gt;&lt;br&gt;price_pred &lt;- &lt;span style="background-color:#FED766;color:#FED766"&gt;lm_fit&lt;/span&gt; %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;predict(new_data = &lt;span style="background-color:#FED766;color:#FED766"&gt;ames_test&lt;/span&gt;) %&gt;% &lt;br&gt;&amp;nbsp;&amp;nbsp;mutate(price_truth = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;br&gt;&lt;br&gt;rmse(&lt;span style="background-color:#FED766;color:#FED766"&gt;price_pred&lt;/span&gt;, truth = &lt;span style="background-color:#FED766;color:#FED766"&gt;price_truth&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;estimate = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;/code&gt;
 ]
 
-<div class="countdown" id="timer_608dece4" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608eaaf6" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1583,7 +1589,7 @@ lm_fit &lt;- fit(lm_spec,
               Sale_Price ~ Gr_Liv_Area, 
               data = ames_train)
 
-price_pred  &lt;- lm_fit %&gt;% 
+price_pred &lt;- lm_fit %&gt;% 
   predict(new_data = ames_test) %&gt;% 
   mutate(price_truth = ames_test$Sale_Price)
 
@@ -1735,12 +1741,12 @@ class: your-turn
 .big[
 Write a pipe to create a model that uses the {rpart} package to fit a regression tree and calculate the RMSE.
 
-Compare the `lm()` model. Which is better?
+Compare to the `lm()` model. Which is better?
 ]
 
 *Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
-<div class="countdown" id="timer_608decf1" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608eaafb" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1842,12 +1848,12 @@ class: your-turn
 # Your turn 7
 
 .big[
-Write another pipe to create a model that uses the {kknn} package to fit a K nearest neighbors model. Calculate the RMSE to compare to our other models that use the same formula?
+Write another pipe to create a model that uses the {kknn} package to fit a K nearest neighbors model. Calculate the RMSE to compare to our other models that use the same formula.
 ]
 
 *Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
-<div class="countdown" id="timer_608dec40" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_608ead75" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
