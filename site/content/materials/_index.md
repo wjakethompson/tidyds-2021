@@ -5,4 +5,5 @@ header:
 title: "Workshop materials"
 view: 1
 layout: post
+count: 20
 ---
