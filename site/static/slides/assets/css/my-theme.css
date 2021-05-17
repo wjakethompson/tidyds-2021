@@ -91,6 +91,9 @@
   line-height: 57px;
 }
 
+.remark-slide-content .big p, ul, ol, li {
+  font-size: 125% !important;
+}
 
 .big {
   font-size: 125% !important;
