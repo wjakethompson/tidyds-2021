@@ -8,7 +8,7 @@ hasCJKLanguage: no
 defaultContentLanguageInSubdir: no
 removePathAccents: yes
 summaryLength: 30
-paginate: 10
+paginate: 20
 enableEmoji: yes
 enableRobotsTXT: yes
 footnotereturnlinkcontents: <sup>^</sup>

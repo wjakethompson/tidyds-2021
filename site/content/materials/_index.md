@@ -5,5 +5,4 @@ header:
 title: "Workshop materials"
 view: 1
 layout: post
-paginate: 20
 ---
