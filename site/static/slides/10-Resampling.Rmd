@@ -1201,3 +1201,733 @@ penguins %>%
 ]
 ]
 ]
+
+---
+name: cv
+class: center middle inverse
+
+# Cross-validation
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+1\. Use `initial_split()` to create a training and testing set of the penguins data.
+
+2\. Write a parsnip specification to fit a linear model that uses flipper length to predict bill length.
+
+3\. Use the testing data to calculate the RMSE.
+]
+
+```{r yt-first-rmse-cd, echo = FALSE}
+countdown(minutes = 6)
+```
+
+
+---
+class: your-turn
+
+```{r}
+penguin_split <- initial_split(penguins)
+penguin_train <- training(penguin_split)
+penguin_test <- testing(penguin_split)
+
+lm_spec <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+lm_model <- fit(lm_spec,
+                bill_length_mm ~ flipper_length_mm,
+                data = penguin_train)
+
+lm_preds <- predict(lm_model, new_data = penguin_test) %>%
+  mutate(.truth = penguin_test$bill_length_mm)
+
+rmse(lm_preds, truth = .truth, estimate = .pred)
+```
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+What would happen if you repeated this process? Would you get the same answers?
+
+Rerun the code chunk from the last exercise. Do you get the same answer?
+]
+
+```{r yt-rmse-2, echo = FALSE}
+countdown(minutes = 2)
+```
+
+---
+.pull-left[
+```{r new-split, echo=FALSE, warnings = FALSE, message = FALSE}
+new_split <- initial_split(penguins)
+last_fit(lm_spec,
+         bill_length_mm ~ flipper_length_mm,
+         split = new_split,
+         metrics = metric_set(rmse)) %>%
+  collect_metrics() %>%
+  select(-.config)
+```
+
+```{r ref.label='new-split', echo=FALSE, warnings = FALSE, message = FALSE}
+```
+
+```{r ref.label='new-split', echo=FALSE, warnings = FALSE, message = FALSE}
+```
+
+]
+
+--
+
+.pull-right[
+```{r ref.label='new-split', echo=FALSE, warnings = FALSE, message = FALSE}
+```
+
+```{r ref.label='new-split', echo=FALSE, warnings = FALSE, message = FALSE}
+```
+
+```{r ref.label='new-split', echo=FALSE, warnings = FALSE, message = FALSE}
+```
+
+]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[Why is the new estimate different?]
+
+---
+exclude: true
+
+```{r include=FALSE}
+plot_split <- function(seed = 1, arrow = FALSE) {
+  set.seed(seed)
+  one_split <- slice(penguins, 1:20) %>% 
+    initial_split() %>% 
+    tidy() %>% 
+    add_row(Row = 1:20, Data = "Original") %>% 
+    mutate(Data = case_when(
+      Data == "Analysis" ~ "Training",
+      Data == "Assessment" ~ "Testing",
+      TRUE ~ Data
+    )) %>% 
+    mutate(Data = factor(Data, levels = c("Original", "Training", "Testing")))
+  
+  both_split <-
+    one_split %>% 
+    filter(!Data == "Original") %>% 
+    ggplot(aes(x = Row, y = 1, fill = Data)) + 
+    geom_tile(color = "white",
+              size = 1) + 
+    scale_fill_manual(values = splits_pal[2:3],
+                       guide = "none") +
+    theme_void() +
+    coord_equal() + {
+    # arrow is TRUE
+    if (arrow == TRUE) 
+      annotate("segment", x = 31, xend = 32, y = 1, yend = 1, 
+               colour = assess_color, size=1, arrow=arrow())
+    } + {
+    # arrow is TRUE
+    if (arrow == TRUE)
+        annotate("text", x = 33.5, y = 1, colour = assess_color, size=8, 
+                 label = "RMSE", family="Source Sans Pro")
+    }
+
+  
+  both_split
+}
+```
+
+---
+class: center middle
+
+```{r split1, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center', warning = FALSE, message = FALSE, fig.asp = NA}
+plot_split() +
+  scale_fill_manual(values = rep("gray80", 2),
+                    guide = "none")
+```
+
+--
+
+```{r split2, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 100)
+```
+
+--
+
+```{r split3, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 1)
+```
+
+--
+
+```{r split4, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 10)
+```
+
+--
+
+```{r split5, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 18)
+```
+
+--
+
+```{r split6, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 30)
+```
+
+--
+
+```{r split7, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 31)
+```
+
+--
+
+```{r split8, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 21)
+```
+
+--
+
+```{r split9, fig.asp = NA, echo=FALSE, fig.width = 10, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 321)
+```
+
+---
+
+```{r rmse-split1, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 100, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split2, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 1, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split3, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 10, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split4, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 18, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split5, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 30, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split6, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 31, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split7, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 21, arrow = TRUE)
+```
+
+--
+
+```{r rmse-split8, fig.asp = NA, echo=FALSE, fig.width = 15, fig.height = .5, fig.align = 'center'}
+plot_split(seed = 321, arrow = TRUE)
+```
+
+--
+
+.right[Mean RMSE]
+
+---
+```{r include = FALSE}
+mc_splits <- mc_cv(penguins, times = 10)
+
+rmses <- fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = mc_splits,
+              metrics = metric_set(rmse)) %>%
+  collect_metrics(summarize = FALSE) %>%
+  pull(.estimate)
+```
+
+```{r}
+rmses %>% enframe(name = "rmse")
+
+mean(rmses)
+```
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[Which do you think is more accurate, the best result or the mean of the results? Why?]
+
+---
+# There has to be a better way...
+
+```{r}
+rmses <- vector(length = 10, mode = "double")
+for (i in seq_along(rmses)) {
+  new_split <- initial_split(penguins)
+  penguin_train <- training(new_split)
+  penguin_test <- testing(new_split)
+  
+  lm_model <- fit(lm_spec,
+                  bill_length_mm ~ flipper_length_mm,
+                  data = penguin_train)
+  
+  lm_preds <- predict(lm_model,
+                      new_data = penguin_test) %>%
+    mutate(.truth = penguin_test$bill_length_mm)
+  
+  rmses[i] <- rmse(lm_preds, truth = .truth, estimate = .pred) %>%
+    pull(.estimate)
+}
+```
+
+---
+class: center middle
+
+# V-fold cross-validation
+
+```{r eval = FALSE}
+vfold_cv(data, v = 10, ...)
+```
+
+---
+```{r cv-gif, message = FALSE, warning = FALSE, echo = FALSE, fig.asp = NA, fig.width = 10, fig.height = 5, cache = TRUE}
+library(gganimate)
+set.seed(1)
+folds10 <- slice(penguins, 1:20) %>% 
+  vfold_cv() %>% 
+  tidy()
+
+folds <- ggplot(folds10, aes(x = Row, y = fct_rev(Fold), fill = Data)) + 
+  geom_tile(color = "white",
+            width = 1,
+            size = 1) + 
+  scale_fill_manual(values = c(train_color, assess_color)) +
+  theme(axis.text.x = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.key.size = unit(.4, "cm"),
+        legend.text = element_text(size = rel(1))) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, fill = NULL) 
+
+folds + 
+  theme(axis.text.y = element_blank()) +
+  transition_states(Fold) +
+  shadow_mark(past = TRUE)
+```
+
+---
+# Guess
+
+How many times does an observation/row appear in the assessment set?
+
+```{r print-folds, echo = FALSE, fig.asp = NA, fig.width = 10, fig.height = 5, out.width = "80%"}
+folds
+```
+
+---
+
+```{r sorted-cv, echo=FALSE, fig.asp = NA, fig.height=6, fig.width = 12, fig.align='center', warning=FALSE, message=FALSE}
+test_folds <- tibble(
+  Row = seq(1, 20, 1),
+  Data = "assessment",
+  Fold = rep(1:10, each = 2)
+) 
+
+# i want all 20 rows, for all 10 folds
+all_rows <- tibble(
+  Row = rep(seq(1, 20, 1), 10),
+  Fold = rep(1:10, each = 20)
+)
+
+train_folds <- all_rows %>% 
+  anti_join(test_folds)
+
+all_folds <- test_folds %>% 
+  full_join(train_folds) %>% 
+  mutate(Fold = as.factor(Fold)) %>% 
+  mutate(Data = replace_na(Data, "analysis"))
+
+ggplot(all_folds, aes(x = Row, y = fct_rev(Fold), fill = Data)) + 
+  geom_tile(color = "white",
+            width = 1,
+            size = 1) + 
+  scale_fill_manual(values = c(train_color, assess_color), guide = "none") +
+  theme(axis.text.y = element_blank(),
+        axis.text.x = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.key.size = unit(.4, "cm"),
+        legend.text = element_text(size = rel(.4))) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, fill = NULL) 
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[If we use 10 folds, what percent of our data will end up in the training set and what percent in the testing set for each fold?]
+
+```{r pq-cv-pct-cd, echo = FALSE}
+countdown(minutes = 1)
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[If we use 10 folds, what percent of our data will end up in the training set and what percent in the testing set for each fold?]
+
+.big[
+**90% training**
+
+**10% testing**
+]
+
+---
+class: your-turn
+
+# Your turn `r (yt_counter <- yt_counter + 1)`
+
+Run the code below. What does it return?
+
+```{r yt-cv-ret, results='hide'}
+set.seed(100)
+cv_folds <- vfold_cv(penguins, v = 10, strata = species)
+
+cv_folds
+```
+
+```{r yt-cv-ret-cd, echo = FALSE}
+countdown(minutes = 1)
+```
+
+---
+class: your-turn
+
+```{r}
+cv_folds
+```
+
+???
+
+How does this help us?
+
+---
+class: center middle inverse
+
+# `fit_resamples()`
+
+---
+# `fit_samples()`
+
+Trains and tests a model with cross-validation.
+
+```{r fit-resamples, results = "hide"}
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds)
+```
+
+---
+```{r ref.label="fit-resamples"}
+```
+
+---
+# `collect_metrics()`
+
+Collect metrics from a cross-validation.
+
+```{r include = FALSE}
+cv_results <- fit_resamples(lm_spec,
+                            bill_length_mm ~ flipper_length_mm,
+                            resamples = cv_folds)
+```
+
+
+.pull-left[
+```{r}
+cv_results %>%
+  collect_metrics()
+```
+]
+
+--
+
+.pull-right[
+```{r}
+cv_results %>%
+  collect_metrics(summarize = FALSE)
+```
+]
+
+---
+# `metric_set()`
+
+Specify which metrics you want to get back.
+
+```{r}
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds,
+              metrics = metric_set(rsq)) %>%
+  collect_metrics()
+```
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Modify the code below to estimate the average RMSE for our penguin model
+
+```{r yt-metric-set, eval = FALSE}
+fit(lm_spec,
+    bill_length_mm ~ flipper_length_mm,
+    data = penguins)
+```
+
+```{r yt-metric-set-cd, echo = FALSE}
+countdown(minutes = 3)
+```
+
+---
+class: your-turn
+
+```{r}
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds,
+              metrics = metric_set(rmse)) %>%
+  collect_metrics()
+```
+
+---
+class: center middle inverse
+
+# Comparing Models
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+.big[
+Use `fit_resamples()` and `cv_folds` to estimate to models to predict bill length.
+
+1\. `bill_length_mm ~ flipper_length_mm`
+
+2\. `bill_length_mm ~ species + sex`
+
+Compare the performance of each.
+]
+
+```{r yt-cv-compare-cd, echo = FALSE}
+countdown(minutes = 6)
+```
+
+---
+class: your-turn
+
+```{r}
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds) %>%
+  collect_metrics()
+
+fit_resamples(lm_spec,
+              bill_length_mm ~ species + sex,
+              resamples = cv_folds) %>%
+  collect_metrics()
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[Why should you use the same data splits to compare each model?]
+
+--
+
+.big[`r emo::ji("apple")` to `r emo::ji("apple")`]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[Does cross-validation measure just the accuracy of your model, or your entire workflow?]
+
+--
+
+.big[Your entire workflow]
+
+---
+class: middle, center, inverse
+
+# Other types of cross-validation
+
+---
+class: middle, center
+
+# `vfold_cv()` - V Fold cross-validation
+
+```{r ref.label='print-folds', echo = FALSE, fig.asp = NA, fig.height=6, fig.width = 12, out.width = "80%"}
+```
+
+---
+class: middle, center
+
+# `loo_cv()` - Leave one out CV
+
+```{r loocv, echo=FALSE, fig.asp = NA, fig.height=7, fig.width = 7, fig.align='center'}
+set.seed(1)
+loo10 <- slice(penguins, 1:10) %>% 
+  loo_cv() %>% 
+  tidy() %>% 
+  mutate(Resample = as.factor(parse_number(Resample))) 
+
+loo <- ggplot(loo10, aes(x = Row, 
+                         y = fct_reorder2(Resample, Data, Row), 
+                         fill = Data)) + 
+  geom_tile(color = "white",
+            width = 1,
+            size = 1) + 
+  scale_fill_manual(values = c(train_color, assess_color)) +
+  theme(axis.text.y = element_text(size = rel(2)),
+        axis.text.x = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.key.size = unit(.85, "cm"),
+        legend.text = element_text(size = rel(1))) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, fill = NULL) +
+  scale_y_discrete(labels = rev(seq(1, 10, 1)))
+loo
+```
+
+---
+class: middle, center
+
+# `mc_cv()` - Monte Carlo (random) CV
+
+(Test sets sampled without replacement)
+
+```{r mccv, echo=FALSE, fig.asp = NA, fig.height=6, fig.width = 12, fig.align='center', out.width = "80%"}
+set.seed(1)
+mc10 <- slice(penguins, 1:20) %>% 
+  mc_cv(times = 10) %>% 
+  tidy() 
+
+mc <- ggplot(mc10, aes(x = Row, 
+                         y = fct_rev(Resample), 
+                         fill = Data)) + 
+  geom_tile(color = "white",
+            width = 1,
+            size = 1) + 
+  scale_fill_manual(values = c(train_color, assess_color)) +
+  theme(axis.text.y = element_text(size = rel(2)),
+        axis.text.x = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.key.size = unit(.85, "cm"),
+        legend.text = element_text(size = rel(1))) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, fill = NULL) 
+mc
+```
+
+
+---
+class: middle, center
+
+# `bootstraps()`
+
+(Test sets sampled with replacement)
+
+```{r bootstrap, echo=FALSE, fig.asp = NA, fig.height=6, fig.width = 12, fig.align='center', out.width = "80%"}
+set.seed(15)
+so_boots <- bootstraps(slice(penguins, 1:20), times = 10)
+
+bt_rows <- data.frame(
+  Row = unlist(lapply(so_boots$splits, function(x) sort(x$in_id))),
+  Resample = rep(recipes:::names0(10, "Bootstrap"), 
+                 each = nrow(slice(penguins, 1:20)))) %>% 
+  count(Resample, Row, sort = TRUE) %>% 
+  complete(Resample, Row) %>% 
+  mutate(n = factor(n),
+         Resample = factor(Resample)) 
+
+boots <- ggplot(bt_rows , aes(x = Row, y = fct_rev(Resample), fill = n)) + 
+  geom_tile(color = "white",
+            width = 1,
+            size = 1) + 
+  theme(axis.text.y = element_text(size = rel(2)),
+        axis.text.x = element_blank(),
+        legend.position = "top",
+        panel.grid = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.key.size = unit(.85, "cm"),
+        legend.text = element_text(size = rel(1))) +
+  scale_fill_viridis_d(option = "plasma", begin = 0, end = 0.9,
+                       na.value = "grey80",
+                       labels = c("1", "2", "3", "4", "Assessment")) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, fill = NULL) 
+boots
+```
+
+---
+class: title-slide, center
+
+# `r rmarkdown::metadata$title`
+
+```{r closing-hex, echo = FALSE, out.width = "18%"}
+include_graphics("images/resampling/hex-group.png")
+```
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
