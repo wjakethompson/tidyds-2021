@@ -13,6 +13,14 @@ links:
   icon_pack: fas
   name: slides
   url: /slides/10-Resampling.html
+- icon: dumbbell
+  icon_pack: fas
+  name: Exercises
+  url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/exercises/10-resampling.Rmd
+- icon: check-square
+  icon_pack: far
+  name: Solutions
+  url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/solutions/10-resampling-solutions.Rmd
 ---
 
 ```{r echo=FALSE}
