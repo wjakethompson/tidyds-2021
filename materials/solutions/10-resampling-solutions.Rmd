@@ -1,0 +1,161 @@
+---
+title: "Resampling - Solutions"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(palmerpenguins)
+```
+
+
+# Your Turn 1
+
+Use `bootstraps()` to create 100 bootstrap samples of the `penguins` data. Save the bootstrap samples as `penguin_boot`. Keep `set.seed(100)`!
+
+```{r}
+set.seed(100)
+penguin_boot <- bootstraps(penguins, times = 100)
+penguin_boot
+```
+
+
+# Your Turn 2
+
+Complete the code to calculate the correlation for the fifth bootstrap sample.
+
+```{r}
+boot5 <- penguin_boot$splits[[5]]
+boot_sample <- analysis(boot5)
+cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,
+    use = "complete.obs")
+```
+
+
+# Your Turn 3
+
+Use the mapping functions and `mutate()` to calculate the correlation between bill length and bill depth.
+
+1. Write a function to calculate the correlation from the analysis set of a split.
+
+2. Apply that function to every bootstrap sample using `mutate()` and mapping function.
+
+3. Make a histogram of the bootstrapped correlations.
+
+```{r}
+penguin_cor <- function(split) {
+  boot_sample <- analysis(split)
+  cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,
+      use = "complete.obs")
+}
+
+penguin_boot %>%
+  mutate(corr = map_dbl(splits, penguin_cor)) %>%
+  ggplot(mapping = aes(x = corr)) +
+  geom_histogram()
+```
+
+
+# Your Turn 4
+
+1. Use `initial_split()` to create a training and testing set of the penguins data.
+
+2. Write a parsnip specification to fit a linear model that uses flipper length to predict bill length.
+
+3. Use the testing data to calculate the RMSE.
+
+```{r}
+penguin_split <- initial_split(penguins)
+penguin_train <- training(penguin_split)
+penguin_test <- testing(penguin_split)
+
+lm_spec <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+lm_model <- fit(lm_spec,
+                bill_length_mm ~ flipper_length_mm,
+                data = penguin_train)
+
+lm_preds <- predict(lm_model, new_data = penguin_test) %>%
+  mutate(.truth = penguin_test$bill_length_mm)
+
+rmse(lm_preds, truth = .truth, estimate = .pred)
+```
+
+
+# Your Turn 5
+
+What would happen if you repeated this process? Would you get the same answers?
+
+Rerun the code chunk from the last exercise. Do you get the same answer?
+
+```{r}
+penguin_split <- initial_split(penguins)
+penguin_train <- training(penguin_split)
+penguin_test <- testing(penguin_split)
+
+lm_spec <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+lm_model <- fit(lm_spec,
+                bill_length_mm ~ flipper_length_mm,
+                data = penguin_train)
+
+lm_preds <- predict(lm_model, new_data = penguin_test) %>%
+  mutate(.truth = penguin_test$bill_length_mm)
+
+rmse(lm_preds, truth = .truth, estimate = .pred)
+```
+
+
+# Your Turn 6
+
+Run the code below. What does it return?
+
+```{r}
+set.seed(100)
+cv_folds <- vfold_cv(penguins, v = 10, strata = species)
+
+cv_folds
+```
+
+
+# Your Turn 7
+
+Modify the code below to estimate our model on each of the folds and calculate the average RMSE for our penguin model.
+
+```{r}
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds,
+              metrics = metric_set(rmse)) %>%
+  collect_metrics()
+```
+
+
+# Your Turn 8
+
+Use `fit_resamples()` and `cv_folds` to estimate two models to predict bill length.
+
+1. `bill_length_mm ~ flipper_length_mm`
+
+2. `bill_length_mm ~ species + sex`
+
+Compare the performance of each.
+
+```{r}
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds) %>%
+  collect_metrics()
+
+fit_resamples(lm_spec,
+              bill_length_mm ~ species + sex,
+              resamples = cv_folds) %>%
+  collect_metrics()
+```

@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Resampling</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="W. Jake Thompson" />
+    <meta name="date" content="2021-05-23" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: title-slide, center
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#009FB7;"&gt;10&lt;/strong&gt;
+&lt;/span&gt; 
+
+# Resampling
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+  `$$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$`
+  `$$\require{color}\definecolor{light_blue}{rgb}{0.0392156862745098, 0.870588235294118, 1}$$`
+  `$$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$`
+  `$$\require{color}\definecolor{dark_yellow}{rgb}{0.635294117647059, 0.47843137254902, 0.00392156862745098}$$`
+  `$$\require{color}\definecolor{pink}{rgb}{0.796078431372549, 0.16078431372549, 0.482352941176471}$$`
+  `$$\require{color}\definecolor{light_pink}{rgb}{1, 0.552941176470588, 0.776470588235294}$$`
+  `$$\require{color}\definecolor{grey}{rgb}{0.411764705882353, 0.403921568627451, 0.450980392156863}$$`
+&lt;/div&gt;
+  
+&lt;script type="text/x-mathjax-config"&gt;
+  MathJax.Hub.Config({
+    TeX: {
+      Macros: {
+        blue: ["{\\color{blue}{#1}}", 1],
+        light_blue: ["{\\color{light_blue}{#1}}", 1],
+        yellow: ["{\\color{yellow}{#1}}", 1],
+        dark_yellow: ["{\\color{dark_yellow}{#1}}", 1],
+        pink: ["{\\color{pink}{#1}}", 1],
+        light_pink: ["{\\color{light_pink}{#1}}", 1],
+        grey: ["{\\color{grey}{#1}}", 1]
+      },
+      loader: {load: ['[tex]/color']},
+      tex: {packages: {'[+]': ['color']}}
+    }
+  });
+&lt;/script&gt;
+
+---
+exclude: true
+
+
+
+---
+class: your-turn
+
+# Your Turn 0
+
+.big[
+* Open the R Notebook **materials/exercises/10-resampling.Rmd**
+* Run the setup chunk
+]
+
+<div class="countdown" id="timer_60aa8cbf" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+background-image: url(images/resampling/unicorns-rainbows/joshua-hoehne-wnHeb_pRJBo-unsplash.jpg)
+background-size: cover
+
+
+---
+background-image: url(images/resampling/unicorns-rainbows/unicorns.001.jpeg)
+background-size: cover
+
+---
+background-image: url(images/resampling/unicorns-rainbows/unicorns.002.jpeg)
+background-size: cover
+
+---
+background-image: url(images/resampling/unicorns-rainbows/unicorns.003.jpeg)
+background-size: cover
+
+---
+background-image: url(images/resampling/unicorns-rainbows/unicorns.004.jpeg)
+background-size: cover
+
+---
+background-image: url(images/resampling/unicorns-rainbows/unicorns.005.jpeg)
+background-size: cover
+
+---
+class: frame, middle, center
+
+# Hypothesis
+
+.big[
+As the number of 🦄 increases, so does the number of 🌈.
+]
+
+---
+
+&lt;img src="images/resampling/plots/pop-plot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/pop-plot-lm-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/sample-plot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/sample-plot-lm-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, middle, center
+
+# The Challenge
+
+---
+
+&lt;img src="images/resampling/plots/neg-bias-plot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/neg-bias-plot-lm-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/pos-bias-plot-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/pos-bias-plot-lm-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, center, frame
+
+# The Solution
+
+Random Sampling
+
+---
+
+
+
+
+&lt;img src="images/resampling/plots/plot-resample1-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-resample2-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-resample3-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-resample4-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-many-resamples-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-all-resamples-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, center, frame
+
+# The New Challenge
+
+Sample Variation
+
+---
+
+
+
+&lt;img src="images/resampling/plots/plot-big-resample1-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-big-resample2-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-big-resample3-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-big-resample4-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="images/resampling/plots/plot-many-big-resamples-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-all-big-resamples-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-poly1-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-poly2-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-poly3-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-poly4-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="images/resampling/plots/plot-many-poly-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, center, frame
+
+# The good news
+
+You don't have to collect more data.
+
+You don't have to sacrifice fit for flexibility.
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot1-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot2-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot3-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot4-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot5-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot6-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot7-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/plot-boot8-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle
+
+.pull-left[
+&lt;img src="images/resampling/plots/many-samples-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="images/resampling/plots/many-bootstraps-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+.pull-left[
+&lt;img src="images/resampling/plots/many-big-samples-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="images/resampling/plots/many-big-bootstraps-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+&lt;img src="images/resampling/plots/boot-corr-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://rsample.tidymodels.org/"&gt;
+    &lt;img class="hex" src="images/hex/rsample.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://www.tmwr.org/resampling.html"&gt;
+    &lt;img class="book" src="images/books/tmwr-rsample.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+class: center middle
+
+.large-left[
+# [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/)
+]
+
+.small-right[
+&lt;img src="images/hex/palmerpenguins.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+background-image: url(images/resampling/penguins.png)
+background-size: cover
+
+.footnote[Artwork by [@allison_horst](https://twitter.com/allison_horst)]
+
+???
+[Ah]-dell-ee
+
+---
+.big[What is the correlation between bill length and bill depth?]
+
+
+```r
+library(palmerpenguins)
+penguins
+#&gt; # A tibble: 344 x 8
+#&gt;    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+#&gt;    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+#&gt;  1 Adelie  Torgersen           39.1          18.7               181        3750
+#&gt;  2 Adelie  Torgersen           39.5          17.4               186        3800
+#&gt;  3 Adelie  Torgersen           40.3          18                 195        3250
+#&gt;  4 Adelie  Torgersen           NA            NA                  NA          NA
+#&gt;  5 Adelie  Torgersen           36.7          19.3               193        3450
+#&gt;  6 Adelie  Torgersen           39.3          20.6               190        3650
+#&gt;  7 Adelie  Torgersen           38.9          17.8               181        3625
+#&gt;  8 Adelie  Torgersen           39.2          19.6               195        4675
+#&gt;  9 Adelie  Torgersen           34.1          18.1               193        3475
+#&gt; 10 Adelie  Torgersen           42            20.2               190        4250
+#&gt; # … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+```
+
+---
+class: plain-white
+background-image: url(images/resampling/culmen_depth.png)
+background-size: 90%
+background-position: center middle
+
+.footnote[Artwork by [@allison_horst](https://twitter.com/allison_horst)]
+
+---
+# `bootstraps()`
+
+.big[Create bootstrap samples from a data set.]
+
+
+```r
+set.seed(100) # Important!
+penguin_boot &lt;- bootstraps(penguins, times = 25)
+```
+
+---
+class: your-turn
+
+# Your turn 1
+
+.big[
+Use `bootstraps()` to create 100 bootstrap samples of the `penguins` data.
+
+Save the bootstrap samples as `penguin_boot`.
+
+Keep `set.seed(100)`!
+]
+
+<div class="countdown" id="timer_60aa8e14" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+set.seed(100)
+penguin_boot &lt;- bootstraps(penguins, times = 100)
+penguin_boot
+#&gt; # Bootstrap sampling 
+#&gt; # A tibble: 100 x 2
+#&gt;    splits            id          
+#&gt;    &lt;list&gt;            &lt;chr&gt;       
+#&gt;  1 &lt;split [344/134]&gt; Bootstrap001
+#&gt;  2 &lt;split [344/126]&gt; Bootstrap002
+#&gt;  3 &lt;split [344/124]&gt; Bootstrap003
+#&gt;  4 &lt;split [344/129]&gt; Bootstrap004
+#&gt;  5 &lt;split [344/127]&gt; Bootstrap005
+#&gt;  6 &lt;split [344/124]&gt; Bootstrap006
+#&gt;  7 &lt;split [344/127]&gt; Bootstrap007
+#&gt;  8 &lt;split [344/125]&gt; Bootstrap008
+#&gt;  9 &lt;split [344/128]&gt; Bootstrap009
+#&gt; 10 &lt;split [344/123]&gt; Bootstrap010
+#&gt; # … with 90 more rows
+```
+
+???
+
+What is a `&lt;list&gt;`?
+
+---
+
+
+```r
+penguin_boot
+#&gt; # Bootstrap sampling 
+#&gt; # A tibble: 100 x 2
+#&gt;    splits            id          
+#&gt;    &lt;list&gt;            &lt;chr&gt;       
+#&gt;  1 &lt;split [344/134]&gt; Bootstrap001
+#&gt;  2 &lt;split [344/126]&gt; Bootstrap002
+#&gt;  3 &lt;split [344/124]&gt; Bootstrap003
+#&gt;  4 &lt;split [344/129]&gt; Bootstrap004
+#&gt;  5 &lt;split [344/127]&gt; Bootstrap005
+#&gt;  6 &lt;split [344/124]&gt; Bootstrap006
+#&gt;  7 &lt;split [344/127]&gt; Bootstrap007
+#&gt;  8 &lt;split [344/125]&gt; Bootstrap008
+#&gt;  9 &lt;split [344/128]&gt; Bootstrap009
+#&gt; 10 &lt;split [344/123]&gt; Bootstrap010
+#&gt; # … with 90 more rows
+```
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;penguin_boot$splits&lt;span style="background-color:#FED766;color:#009FB7"&gt;[[1]]&lt;/span&gt;&lt;br&gt;#&gt; &lt;Analysis/Assess/Total&gt;&lt;br&gt;#&gt; &lt;344/134/344&gt;&lt;/code&gt;
+
+---
+# Anatomy of a split
+
+.big[`&lt;344/134/344&gt;`]
+
+--
+
+.big[`&lt;`.yellow-highlight[`344`]`/134/344&gt;` &gt;&gt;&gt; Size of resample (analysis set)]
+
+--
+
+.big[`&lt;344/`.yellow-highlight[`134`]`/344&gt;` &gt;&gt;&gt; Size of holdout/unused data (assessment set)]
+
+--
+
+.big[`&lt;344/134/`.yellow-highlight[`344`]`&gt;` &gt;&gt;&gt; Total size of data set]
+
+---
+# Split data
+
+.smaller[
+
+```r
+boot1 &lt;- penguin_boot$splits[[1]]
+boot1
+#&gt; &lt;Analysis/Assess/Total&gt;
+#&gt; &lt;344/134/344&gt;
+```
+]
+
+--
+
+.pull-left[
+### `analysis()`
+
+.smaller[
+
+```r
+analysis(boot1)
+#&gt; # A tibble: 344 x 8
+#&gt;    species   island    bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+#&gt;    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+#&gt;  1 Gentoo    Biscoe              45.2          15.8              215        5300
+#&gt;  2 Adelie    Biscoe              45.6          20.3              191        4600
+#&gt;  3 Gentoo    Biscoe              50.1          15                225        5000
+#&gt;  4 Adelie    Torgersen           NA            NA                 NA          NA
+#&gt;  5 Chinstrap Dream               49.7          18.6              195        3600
+#&gt;  6 Chinstrap Dream               49.8          17.3              198        3675
+#&gt;  7 Adelie    Dream               40.3          18.5              196        4350
+#&gt;  8 Adelie    Torgersen           38.9          17.8              181        3625
+#&gt;  9 Gentoo    Biscoe              47.3          15.3              222        5250
+#&gt; 10 Chinstrap Dream               43.2          16.6              187        2900
+#&gt; # … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+```
+]
+]
+
+--
+
+.pull-right[
+### `assessment()`
+
+.smaller[
+
+```r
+assessment(boot1)
+#&gt; # A tibble: 134 x 8
+#&gt;    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+#&gt;    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+#&gt;  1 Adelie  Torgersen           36.7          19.3               193        3450
+#&gt;  2 Adelie  Torgersen           39.3          20.6               190        3650
+#&gt;  3 Adelie  Torgersen           39.2          19.6               195        4675
+#&gt;  4 Adelie  Torgersen           34.1          18.1               193        3475
+#&gt;  5 Adelie  Torgersen           42            20.2               190        4250
+#&gt;  6 Adelie  Torgersen           38.7          19                 195        3450
+#&gt;  7 Adelie  Torgersen           42.5          20.7               197        4500
+#&gt;  8 Adelie  Biscoe              37.7          18.7               180        3600
+#&gt;  9 Adelie  Biscoe              38.2          18.1               185        3950
+#&gt; 10 Adelie  Biscoe              40.6          18.6               183        3550
+#&gt; # … with 124 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+```
+]
+]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+Why is the assessment set a different size for each bootstrap resample?
+
+
+```
+#&gt; # Bootstrap sampling 
+#&gt; # A tibble: 100 x 2
+#&gt;    splits            id          
+#&gt;    &lt;list&gt;            &lt;chr&gt;       
+#&gt;  1 &lt;split [344/134]&gt; Bootstrap001
+#&gt;  2 &lt;split [344/126]&gt; Bootstrap002
+#&gt;  3 &lt;split [344/124]&gt; Bootstrap003
+#&gt;  4 &lt;split [344/129]&gt; Bootstrap004
+#&gt;  5 &lt;split [344/127]&gt; Bootstrap005
+#&gt;  6 &lt;split [344/124]&gt; Bootstrap006
+#&gt;  7 &lt;split [344/127]&gt; Bootstrap007
+#&gt;  8 &lt;split [344/125]&gt; Bootstrap008
+#&gt;  9 &lt;split [344/128]&gt; Bootstrap009
+#&gt; 10 &lt;split [344/123]&gt; Bootstrap010
+#&gt; # … with 90 more rows
+```
+
+<div class="countdown" id="timer_60aa8af3" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+# Correlation
+
+To estimate the correlation for a data set, use the `cor()` function.
+
+
+```r
+boot1 &lt;- penguin_boot$splits[[1]]
+boot_sample &lt;- analysis(boot1)
+
+cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm)
+#&gt; [1] NA
+```
+
+--
+
+
+```r
+cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,
+    use = "complete.obs")
+#&gt; [1] -0.1249339
+```
+
+---
+class: your-turn
+
+# Your turn 2
+
+.big[Complete the code to calculate the correlation for the fifth bootstrap sample.]
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;boot5 &lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;boot_sample &lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;(boot5)&lt;br&gt;&lt;br&gt;cor(boot_sample$&lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;, boot_sample$&lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;/code&gt;
+
+<div class="countdown" id="timer_60aa8d60" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+boot5 &lt;- penguin_boot$splits[[5]]
+boot_sample &lt;- analysis(boot5)
+
+cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,
+    use = "complete.obs")
+#&gt; [1] -0.2450851
+```
+
+---
+class: center middle inverse
+
+# Automation
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://purrr.tidyverse.org/"&gt;
+    &lt;img class="hex" src="images/hex/purrr.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://r4ds.had.co.nz/iteration.html"&gt;
+    &lt;img class="book" src="images/books/r4ds-iteration.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+background-image: url(images/resampling/applied-ds-program.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+# `map()` and friends
+
+Applies a function to every element of a list.
+
+
+```r
+map(.x, .f, ...)
+```
+
+--
+
+What output do you expect?
+
+`map_chr()`, `map_dbl()`, `map_int()`, `map_lgl()`, `map_df()`, or the general `map()`
+
+---
+# Building our `map()`
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;map(penguin_boot$splits, &lt;span style="background-color:#FED766;color:#009FB7"&gt;.f&lt;/span&gt;)&lt;/code&gt;
+
+---
+# Custom functions
+
+We need a function that:
+
+1\. Takes in a split
+
+2\. Pull out the analysis set
+
+3\. Calculates the correlation of the analysis set
+
+---
+# Step 1: Create the code
+
+Use our code from earlier
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style="background-color:white"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;boot_sample &lt;- analysis(split)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;&amp;nbsp;&amp;nbsp;cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = "complete.obs")&lt;br&gt;&lt;span style="background-color:white"&gt; &lt;/span&gt;&lt;/code&gt;
+
+---
+# Step 1: Create the code
+
+Use our code from earlier
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style="background-color:white"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;boot_sample &lt;- analysis(&lt;span style="background-color:#FED766;color:#009FB7"&gt;split&lt;/span&gt;)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;&amp;nbsp;&amp;nbsp;cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = "complete.obs")&lt;br&gt;&lt;span style="background-color:white"&gt; &lt;/span&gt;&lt;/code&gt;
+
+---
+# Step 2: Wrap inside of `function()`
+
+The `function()` function defines a new function
+
+
+&lt;code class ='r hljs remark-code'&gt;penguin_cor &lt;- function(split) {&lt;br&gt;&amp;nbsp;&amp;nbsp;boot_sample &lt;- analysis(split)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;&amp;nbsp;&amp;nbsp;cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = "complete.obs")&lt;br&gt;}&lt;/code&gt;
+
+---
+# Step 2: Wrap inside of `function()`
+
+The code gets wrapped inside of the curly braces
+
+
+&lt;code class ='r hljs remark-code'&gt;penguin_cor &lt;- function(split) &lt;span style="background-color:#FED766;color:#009FB7"&gt;{&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;boot_sample &lt;- analysis(split)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;&amp;nbsp;&amp;nbsp;cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = "complete.obs")&lt;br&gt;&lt;span style="background-color:#FED766;color:#009FB7"&gt;}&lt;/span&gt;&lt;/code&gt;
+
+---
+# Step 2: Wrap inside of `function()`
+
+Give the function a name
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style="background-color:#FED766;color:#009FB7"&gt;penguin_cor&lt;/span&gt; &lt;- function(split) {&lt;br&gt;&amp;nbsp;&amp;nbsp;boot_sample &lt;- analysis(split)&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;br&gt;&amp;nbsp;&amp;nbsp;cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = "complete.obs")&lt;br&gt;}&lt;/code&gt;
+
+---
+# Step 3: Verify it works as expected
+
+
+```r
+boot1 &lt;- penguin_boot$splits[[1]]
+boot1_sample &lt;- analysis(boot1)
+cor(boot1_sample$bill_length_mm, boot1_sample$bill_depth_mm,
+    use = "complete.obs")
+#&gt; [1] -0.1249339
+```
+
+--
+
+
+```r
+penguin_cor(boot1)
+#&gt; [1] -0.1249339
+```
+
+---
+# Building our `map()`
+
+
+```r
+map(penguin_boot$splits, penguin_cor)
+#&gt; [[1]]
+#&gt; [1] -0.1249339
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] -0.2541791
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] -0.1991897
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] -0.2478776
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] -0.2450851
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] -0.2792748
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] -0.2776204
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] -0.2045329
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] -0.2431401
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] -0.2745247
+#&gt; 
+#&gt; [[11]]
+#&gt; [1] -0.3171123
+#&gt; 
+#&gt; [[12]]
+#&gt; [1] -0.2259223
+#&gt; 
+#&gt; [[13]]
+#&gt; [1] -0.2044941
+#&gt; 
+#&gt; [[14]]
+#&gt; [1] -0.1027711
+#&gt; 
+#&gt; [[15]]
+#&gt; [1] -0.2506249
+#&gt; 
+#&gt; [[16]]
+#&gt; [1] -0.225205
+#&gt; 
+#&gt; [[17]]
+#&gt; [1] -0.2336472
+#&gt; 
+#&gt; [[18]]
+#&gt; [1] -0.2458328
+#&gt; 
+#&gt; [[19]]
+#&gt; [1] -0.2302427
+#&gt; 
+#&gt; [[20]]
+#&gt; [1] -0.2119384
+#&gt; 
+#&gt; [[21]]
+#&gt; [1] -0.1615742
+#&gt; 
+#&gt; [[22]]
+#&gt; [1] -0.308794
+#&gt; 
+#&gt; [[23]]
+#&gt; [1] -0.08155008
+#&gt; 
+#&gt; [[24]]
+#&gt; [1] -0.2548912
+#&gt; 
+#&gt; [[25]]
+#&gt; [1] -0.244613
+#&gt; 
+#&gt; [[26]]
+#&gt; [1] -0.2485528
+#&gt; 
+#&gt; [[27]]
+#&gt; [1] -0.23714
+#&gt; 
+#&gt; [[28]]
+#&gt; [1] -0.2015473
+#&gt; 
+#&gt; [[29]]
+#&gt; [1] -0.2691933
+#&gt; 
+#&gt; [[30]]
+#&gt; [1] -0.2407836
+#&gt; 
+#&gt; [[31]]
+#&gt; [1] -0.2307748
+#&gt; 
+#&gt; [[32]]
+#&gt; [1] -0.254897
+#&gt; 
+#&gt; [[33]]
+#&gt; [1] -0.2027794
+#&gt; 
+#&gt; [[34]]
+#&gt; [1] -0.2285699
+#&gt; 
+#&gt; [[35]]
+#&gt; [1] -0.164203
+#&gt; 
+#&gt; [[36]]
+#&gt; [1] -0.2912028
+#&gt; 
+#&gt; [[37]]
+#&gt; [1] -0.2936487
+#&gt; 
+#&gt; [[38]]
+#&gt; [1] -0.2951136
+#&gt; 
+#&gt; [[39]]
+#&gt; [1] -0.1986556
+#&gt; 
+#&gt; [[40]]
+#&gt; [1] -0.2981575
+#&gt; 
+#&gt; [[41]]
+#&gt; [1] -0.2325189
+#&gt; 
+#&gt; [[42]]
+#&gt; [1] -0.3074985
+#&gt; 
+#&gt; [[43]]
+#&gt; [1] -0.2465553
+#&gt; 
+#&gt; [[44]]
+#&gt; [1] -0.1778199
+#&gt; 
+#&gt; [[45]]
+#&gt; [1] -0.253044
+#&gt; 
+#&gt; [[46]]
+#&gt; [1] -0.2090783
+#&gt; 
+#&gt; [[47]]
+#&gt; [1] -0.2371913
+#&gt; 
+#&gt; [[48]]
+#&gt; [1] -0.2546507
+#&gt; 
+#&gt; [[49]]
+#&gt; [1] -0.2835118
+#&gt; 
+#&gt; [[50]]
+#&gt; [1] -0.2080868
+#&gt; 
+#&gt; [[51]]
+#&gt; [1] -0.2627895
+#&gt; 
+#&gt; [[52]]
+#&gt; [1] -0.198087
+#&gt; 
+#&gt; [[53]]
+#&gt; [1] -0.214096
+#&gt; 
+#&gt; [[54]]
+#&gt; [1] -0.2348333
+#&gt; 
+#&gt; [[55]]
+#&gt; [1] -0.2161979
+#&gt; 
+#&gt; [[56]]
+#&gt; [1] -0.2515138
+#&gt; 
+#&gt; [[57]]
+#&gt; [1] -0.1813075
+#&gt; 
+#&gt; [[58]]
+#&gt; [1] -0.2178123
+#&gt; 
+#&gt; [[59]]
+#&gt; [1] -0.3049228
+#&gt; 
+#&gt; [[60]]
+#&gt; [1] -0.2239921
+#&gt; 
+#&gt; [[61]]
+#&gt; [1] -0.1970032
+#&gt; 
+#&gt; [[62]]
+#&gt; [1] -0.2332788
+#&gt; 
+#&gt; [[63]]
+#&gt; [1] -0.2436859
+#&gt; 
+#&gt; [[64]]
+#&gt; [1] -0.2748855
+#&gt; 
+#&gt; [[65]]
+#&gt; [1] -0.2315254
+#&gt; 
+#&gt; [[66]]
+#&gt; [1] -0.2064697
+#&gt; 
+#&gt; [[67]]
+#&gt; [1] -0.3404718
+#&gt; 
+#&gt; [[68]]
+#&gt; [1] -0.1539548
+#&gt; 
+#&gt; [[69]]
+#&gt; [1] -0.3189776
+#&gt; 
+#&gt; [[70]]
+#&gt; [1] -0.2708725
+#&gt; 
+#&gt; [[71]]
+#&gt; [1] -0.2243308
+#&gt; 
+#&gt; [[72]]
+#&gt; [1] -0.2800821
+#&gt; 
+#&gt; [[73]]
+#&gt; [1] -0.2363227
+#&gt; 
+#&gt; [[74]]
+#&gt; [1] -0.2387688
+#&gt; 
+#&gt; [[75]]
+#&gt; [1] -0.2112919
+#&gt; 
+#&gt; [[76]]
+#&gt; [1] -0.2377676
+#&gt; 
+#&gt; [[77]]
+#&gt; [1] -0.1885858
+#&gt; 
+#&gt; [[78]]
+#&gt; [1] -0.2639419
+#&gt; 
+#&gt; [[79]]
+#&gt; [1] -0.3930653
+#&gt; 
+#&gt; [[80]]
+#&gt; [1] -0.2140946
+#&gt; 
+#&gt; [[81]]
+#&gt; [1] -0.1766409
+#&gt; 
+#&gt; [[82]]
+#&gt; [1] -0.1848252
+#&gt; 
+#&gt; [[83]]
+#&gt; [1] -0.1868983
+#&gt; 
+#&gt; [[84]]
+#&gt; [1] -0.3049031
+#&gt; 
+#&gt; [[85]]
+#&gt; [1] -0.2336121
+#&gt; 
+#&gt; [[86]]
+#&gt; [1] -0.2459616
+#&gt; 
+#&gt; [[87]]
+#&gt; [1] -0.2671155
+#&gt; 
+#&gt; [[88]]
+#&gt; [1] -0.3290882
+#&gt; 
+#&gt; [[89]]
+#&gt; [1] -0.2258902
+#&gt; 
+#&gt; [[90]]
+#&gt; [1] -0.2425831
+#&gt; 
+#&gt; [[91]]
+#&gt; [1] -0.2154876
+#&gt; 
+#&gt; [[92]]
+#&gt; [1] -0.2990681
+#&gt; 
+#&gt; [[93]]
+#&gt; [1] -0.1735009
+#&gt; 
+#&gt; [[94]]
+#&gt; [1] -0.2217043
+#&gt; 
+#&gt; [[95]]
+#&gt; [1] -0.2614308
+#&gt; 
+#&gt; [[96]]
+#&gt; [1] -0.2955381
+#&gt; 
+#&gt; [[97]]
+#&gt; [1] -0.2524951
+#&gt; 
+#&gt; [[98]]
+#&gt; [1] -0.2194297
+#&gt; 
+#&gt; [[99]]
+#&gt; [1] -0.2214609
+#&gt; 
+#&gt; [[100]]
+#&gt; [1] -0.1783059
+```
+
+---
+# `map()` + `mutate()`
+
+
+```r
+penguin_boot %&gt;%
+  mutate(corr = map(splits, penguin_cor))
+#&gt; # Bootstrap sampling 
+#&gt; # A tibble: 100 x 3
+#&gt;    splits            id           corr     
+#&gt;    &lt;list&gt;            &lt;chr&gt;        &lt;list&gt;   
+#&gt;  1 &lt;split [344/134]&gt; Bootstrap001 &lt;dbl [1]&gt;
+#&gt;  2 &lt;split [344/126]&gt; Bootstrap002 &lt;dbl [1]&gt;
+#&gt;  3 &lt;split [344/124]&gt; Bootstrap003 &lt;dbl [1]&gt;
+#&gt;  4 &lt;split [344/129]&gt; Bootstrap004 &lt;dbl [1]&gt;
+#&gt;  5 &lt;split [344/127]&gt; Bootstrap005 &lt;dbl [1]&gt;
+#&gt;  6 &lt;split [344/124]&gt; Bootstrap006 &lt;dbl [1]&gt;
+#&gt;  7 &lt;split [344/127]&gt; Bootstrap007 &lt;dbl [1]&gt;
+#&gt;  8 &lt;split [344/125]&gt; Bootstrap008 &lt;dbl [1]&gt;
+#&gt;  9 &lt;split [344/128]&gt; Bootstrap009 &lt;dbl [1]&gt;
+#&gt; 10 &lt;split [344/123]&gt; Bootstrap010 &lt;dbl [1]&gt;
+#&gt; # … with 90 more rows
+```
+
+???
+
+What's wrong with this? What could be improved?
+
+---
+# `map_dbl()` + `mutate()`
+
+
+```r
+penguin_boot %&gt;%
+  mutate(corr = map_dbl(splits, penguin_cor))
+#&gt; # Bootstrap sampling 
+#&gt; # A tibble: 100 x 3
+#&gt;    splits            id             corr
+#&gt;    &lt;list&gt;            &lt;chr&gt;         &lt;dbl&gt;
+#&gt;  1 &lt;split [344/134]&gt; Bootstrap001 -0.125
+#&gt;  2 &lt;split [344/126]&gt; Bootstrap002 -0.254
+#&gt;  3 &lt;split [344/124]&gt; Bootstrap003 -0.199
+#&gt;  4 &lt;split [344/129]&gt; Bootstrap004 -0.248
+#&gt;  5 &lt;split [344/127]&gt; Bootstrap005 -0.245
+#&gt;  6 &lt;split [344/124]&gt; Bootstrap006 -0.279
+#&gt;  7 &lt;split [344/127]&gt; Bootstrap007 -0.278
+#&gt;  8 &lt;split [344/125]&gt; Bootstrap008 -0.205
+#&gt;  9 &lt;split [344/128]&gt; Bootstrap009 -0.243
+#&gt; 10 &lt;split [344/123]&gt; Bootstrap010 -0.275
+#&gt; # … with 90 more rows
+```
+
+---
+class: your-turn
+
+# Your turn 3
+
+.big[
+Use the mapping functions and `mutate()` to calculate the correlation between bill length and bill depth.
+
+1\. Write a function to calculate the correlation from the analysis set of a split.
+
+2\. Apply that function to every bootstrap sample using `mutate()` and mapping function.
+
+3\. Make a histogram of the bootstrapped correlations.
+]
+
+<div class="countdown" id="timer_60aa8eca" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Function]
+
+```r
+penguin_cor &lt;- function(split) {
+  boot_sample &lt;- analysis(split)
+  
+  cor(boot_sample$bill_length_mm, boot_sample$bill_depth_mm,
+      use = "complete.obs")
+}
+```
+]
+
+.panel[.panel-name[Code]
+
+```r
+penguin_boot %&gt;%
+  mutate(corr = map_dbl(splits, penguin_cor)) %&gt;%
+  ggplot(mapping = aes(x = corr)) +
+  geom_histogram()
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/resampling/plots/yt-boot-cor-sol-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+# Bootstrap summaries
+
+
+```r
+penguin_boot %&gt;%
+  mutate(corr = map_dbl(splits, penguin_cor)) %&gt;%
+  summarize(avg_corr = mean(corr))
+#&gt; # A tibble: 1 x 1
+#&gt;   avg_corr
+#&gt;      &lt;dbl&gt;
+#&gt; 1   -0.237
+```
+
+---
+# Bootstrap summaries
+
+
+```r
+penguin_boot %&gt;%
+  mutate(corr = map_dbl(splits, penguin_cor)) %&gt;%
+  summarize(interval_95 = quantile(corr, probs = c(0.025, 0.975)),
+            quantile = c(0.025, 0.975))
+#&gt; # A tibble: 2 x 2
+#&gt;   interval_95 quantile
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1      -0.324    0.025
+#&gt; 2      -0.139    0.975
+```
+
+---
+.panelset[
+.panel[.panel-name[Overall]
+&lt;img src="images/resampling/plots/overall-simpson-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.center[
+*r* =  &amp;minus;.24
+]
+]
+
+.panel[.panel-name[By Group]
+&lt;img src="images/resampling/plots/group-simpson-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+.center[
+Adelie *r* = .39; Chinstrap *r* = .65; Gentoo *r* = .64
+]
+]
+]
+
+---
+name: cv
+class: center middle inverse
+
+# Cross-validation
+
+---
+class: your-turn
+
+# Your turn 4
+
+.big[
+1\. Use `initial_split()` to create a training and testing set of the penguins data.
+
+2\. Write a parsnip specification to fit a linear model that uses flipper length to predict bill length.
+
+3\. Use the testing data to calculate the RMSE.
+]
+
+<div class="countdown" id="timer_60aa8bfa" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">06</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+class: your-turn
+
+
+```r
+penguin_split &lt;- initial_split(penguins)
+penguin_train &lt;- training(penguin_split)
+penguin_test &lt;- testing(penguin_split)
+
+lm_spec &lt;- linear_reg() %&gt;%
+  set_engine("lm") %&gt;%
+  set_mode("regression")
+
+lm_model &lt;- fit(lm_spec,
+                bill_length_mm ~ flipper_length_mm,
+                data = penguin_train)
+
+lm_preds &lt;- predict(lm_model, new_data = penguin_test) %&gt;%
+  mutate(.truth = penguin_test$bill_length_mm)
+
+rmse(lm_preds, truth = .truth, estimate = .pred)
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        4.69
+```
+
+---
+class: your-turn
+
+# Your turn 5
+
+.big[
+What would happen if you repeated this process? Would you get the same answers?
+
+Rerun the code chunk from the last exercise. Do you get the same answer?
+]
+
+<div class="countdown" id="timer_60aa8b1e" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+.pull-left[
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        3.66
+```
+
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        3.91
+```
+
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        4.61
+```
+
+]
+
+--
+
+.pull-right[
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        4.16
+```
+
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        4.01
+```
+
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;   .metric .estimator .estimate
+#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 rmse    standard        3.88
+```
+
+]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[Why is the new estimate different?]
+
+---
+exclude: true
+
+
+
+---
+class: center middle
+
+&lt;img src="images/resampling/plots/split1-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split2-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split3-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split5-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split6-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split7-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split8-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/split9-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/rmse-split1-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split2-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split3-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split4-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split5-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split6-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split7-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="images/resampling/plots/rmse-split8-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+
+--
+
+.right[Mean RMSE]
+
+---
+
+
+
+```r
+rmses %&gt;% enframe(name = "rmse")
+#&gt; # A tibble: 10 x 2
+#&gt;     rmse value
+#&gt;    &lt;int&gt; &lt;dbl&gt;
+#&gt;  1     1  3.72
+#&gt;  2     2  3.65
+#&gt;  3     3  4.70
+#&gt;  4     4  4.31
+#&gt;  5     5  3.82
+#&gt;  6     6  4.39
+#&gt;  7     7  4.08
+#&gt;  8     8  4.85
+#&gt;  9     9  4.57
+#&gt; 10    10  4.08
+
+mean(rmses)
+#&gt; [1] 4.216917
+```
+
+---
+class: pop-quiz
+
+# Consider
+
+.big[Which do you think is more accurate, the best result or the mean of the results? Why?]
+
+---
+# There has to be a better way...
+
+
+```r
+rmses &lt;- vector(length = 10, mode = "double")
+for (i in seq_along(rmses)) {
+  new_split &lt;- initial_split(penguins)
+  penguin_train &lt;- training(new_split)
+  penguin_test &lt;- testing(new_split)
+  
+  lm_model &lt;- fit(lm_spec,
+                  bill_length_mm ~ flipper_length_mm,
+                  data = penguin_train)
+  
+  lm_preds &lt;- predict(lm_model,
+                      new_data = penguin_test) %&gt;%
+    mutate(.truth = penguin_test$bill_length_mm)
+  
+  rmses[i] &lt;- rmse(lm_preds, truth = .truth, estimate = .pred) %&gt;%
+    pull(.estimate)
+}
+```
+
+---
+class: center middle
+
+# V-fold cross-validation
+
+
+```r
+vfold_cv(data, v = 10, ...)
+```
+
+---
+&lt;img src="images/resampling/plots/cv-gif-1.gif" style="display: block; margin: auto;" /&gt;
+
+---
+# Guess
+
+How many times does an observation/row appear in the assessment set?
+
+&lt;img src="images/resampling/plots/print-folds-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="images/resampling/plots/sorted-cv-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[If we use 10 folds, what percent of our data will end up in the training set and what percent in the testing set for each fold?]
+
+<div class="countdown" id="timer_60aa8d6c" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[If we use 10 folds, what percent of our data will end up in the training set and what percent in the testing set for each fold?]
+
+.big[
+**90% training**
+
+**10% testing**
+]
+
+---
+class: your-turn
+
+# Your turn 6
+
+Run the code below. What does it return?
+
+
+```r
+set.seed(100)
+cv_folds &lt;- vfold_cv(penguins, v = 10, strata = species)
+
+cv_folds
+```
+
+<div class="countdown" id="timer_60aa8e44" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+cv_folds
+#&gt; #  10-fold cross-validation using stratification 
+#&gt; # A tibble: 10 x 2
+#&gt;    splits           id    
+#&gt;    &lt;list&gt;           &lt;chr&gt; 
+#&gt;  1 &lt;split [308/36]&gt; Fold01
+#&gt;  2 &lt;split [308/36]&gt; Fold02
+#&gt;  3 &lt;split [309/35]&gt; Fold03
+#&gt;  4 &lt;split [309/35]&gt; Fold04
+#&gt;  5 &lt;split [310/34]&gt; Fold05
+#&gt;  6 &lt;split [310/34]&gt; Fold06
+#&gt;  7 &lt;split [310/34]&gt; Fold07
+#&gt;  8 &lt;split [310/34]&gt; Fold08
+#&gt;  9 &lt;split [311/33]&gt; Fold09
+#&gt; 10 &lt;split [311/33]&gt; Fold10
+```
+
+???
+
+How does this help us?
+
+---
+class: center middle inverse
+
+# `fit_resamples()`
+
+---
+# `fit_samples()`
+
+Trains and tests a model with cross-validation.
+
+
+```r
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds)
+```
+
+---
+
+```r
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds)
+#&gt; # Resampling results
+#&gt; # 10-fold cross-validation using stratification 
+#&gt; # A tibble: 10 x 4
+#&gt;    splits           id     .metrics             .notes              
+#&gt;    &lt;list&gt;           &lt;chr&gt;  &lt;list&gt;               &lt;list&gt;              
+#&gt;  1 &lt;split [308/36]&gt; Fold01 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  2 &lt;split [308/36]&gt; Fold02 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  3 &lt;split [309/35]&gt; Fold03 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  4 &lt;split [309/35]&gt; Fold04 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  5 &lt;split [310/34]&gt; Fold05 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  6 &lt;split [310/34]&gt; Fold06 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  7 &lt;split [310/34]&gt; Fold07 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  8 &lt;split [310/34]&gt; Fold08 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt;  9 &lt;split [311/33]&gt; Fold09 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+#&gt; 10 &lt;split [311/33]&gt; Fold10 &lt;tibble[,4] [2 × 4]&gt; &lt;tibble[,1] [0 × 1]&gt;
+```
+
+---
+# `collect_metrics()`
+
+Collect metrics from a cross-validation.
+
+
+
+
+.pull-left[
+
+```r
+cv_results %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 2 x 6
+#&gt;   .metric .estimator  mean     n std_err .config             
+#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 rmse    standard   4.11     10  0.158  Preprocessor1_Model1
+#&gt; 2 rsq     standard   0.444    10  0.0422 Preprocessor1_Model1
+```
+]
+
+--
+
+.pull-right[
+
+```r
+cv_results %&gt;%
+  collect_metrics(summarize = FALSE)
+#&gt; # A tibble: 20 x 5
+#&gt;    id     .metric .estimator .estimate .config             
+#&gt;    &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+#&gt;  1 Fold01 rmse    standard       3.77  Preprocessor1_Model1
+#&gt;  2 Fold01 rsq     standard       0.451 Preprocessor1_Model1
+#&gt;  3 Fold02 rmse    standard       4.43  Preprocessor1_Model1
+#&gt;  4 Fold02 rsq     standard       0.295 Preprocessor1_Model1
+#&gt;  5 Fold03 rmse    standard       3.83  Preprocessor1_Model1
+#&gt;  6 Fold03 rsq     standard       0.315 Preprocessor1_Model1
+#&gt;  7 Fold04 rmse    standard       4.16  Preprocessor1_Model1
+#&gt;  8 Fold04 rsq     standard       0.496 Preprocessor1_Model1
+#&gt;  9 Fold05 rmse    standard       4.16  Preprocessor1_Model1
+#&gt; 10 Fold05 rsq     standard       0.560 Preprocessor1_Model1
+#&gt; 11 Fold06 rmse    standard       5.11  Preprocessor1_Model1
+#&gt; 12 Fold06 rsq     standard       0.220 Preprocessor1_Model1
+#&gt; 13 Fold07 rmse    standard       4.24  Preprocessor1_Model1
+#&gt; 14 Fold07 rsq     standard       0.594 Preprocessor1_Model1
+#&gt; 15 Fold08 rmse    standard       4.45  Preprocessor1_Model1
+#&gt; 16 Fold08 rsq     standard       0.387 Preprocessor1_Model1
+#&gt; 17 Fold09 rmse    standard       3.56  Preprocessor1_Model1
+#&gt; 18 Fold09 rsq     standard       0.593 Preprocessor1_Model1
+#&gt; 19 Fold10 rmse    standard       3.39  Preprocessor1_Model1
+#&gt; 20 Fold10 rsq     standard       0.528 Preprocessor1_Model1
+```
+]
+
+---
+# `metric_set()`
+
+Specify which metrics you want to get back.
+
+
+```r
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds,
+              metrics = metric_set(rsq)) %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 1 x 6
+#&gt;   .metric .estimator  mean     n std_err .config             
+#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 rsq     standard   0.444    10  0.0422 Preprocessor1_Model1
+```
+
+---
+class: your-turn
+
+# Your Turn 7
+
+Modify the code below to estimate our model on each of the folds and calculate the average RMSE for our penguin model.
+
+
+```r
+fit(lm_spec,
+    bill_length_mm ~ flipper_length_mm,
+    data = penguins)
+```
+
+<div class="countdown" id="timer_60aa8e80" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds,
+              metrics = metric_set(rmse)) %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 1 x 6
+#&gt;   .metric .estimator  mean     n std_err .config             
+#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 rmse    standard    4.11    10   0.158 Preprocessor1_Model1
+```
+
+---
+class: center middle inverse
+
+# Comparing Models
+
+---
+class: your-turn
+
+# Your Turn 8
+
+.big[
+Use `fit_resamples()` and `cv_folds` to estimate to models two predict bill length.
+
+1\. `bill_length_mm ~ flipper_length_mm`
+
+2\. `bill_length_mm ~ species + sex`
+
+Compare the performance of each.
+]
+
+<div class="countdown" id="timer_60aa8d9e" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">06</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+fit_resamples(lm_spec,
+              bill_length_mm ~ flipper_length_mm,
+              resamples = cv_folds) %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 2 x 6
+#&gt;   .metric .estimator  mean     n std_err .config             
+#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 rmse    standard   4.11     10  0.158  Preprocessor1_Model1
+#&gt; 2 rsq     standard   0.444    10  0.0422 Preprocessor1_Model1
+
+fit_resamples(lm_spec,
+              bill_length_mm ~ species + sex,
+              resamples = cv_folds) %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 2 x 6
+#&gt;   .metric .estimator  mean     n std_err .config             
+#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 rmse    standard   2.33     10  0.118  Preprocessor1_Model1
+#&gt; 2 rsq     standard   0.833    10  0.0130 Preprocessor1_Model1
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[Why should you use the same data splits to compare each model?]
+
+--
+
+.big[🍎 to 🍎]
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+.big[Does cross-validation measure just the accuracy of your model, or your entire workflow?]
+
+--
+
+.big[Your entire workflow]
+
+---
+class: middle, center, inverse
+
+# Other types of cross-validation
+
+---
+class: middle, center
+
+# `vfold_cv()` - V Fold cross-validation
+
+&lt;img src="images/resampling/plots/unnamed-chunk-40-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, center
+
+# `loo_cv()` - Leave one out CV
+
+&lt;img src="images/resampling/plots/loocv-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, center
+
+# `mc_cv()` - Monte Carlo (random) CV
+
+(Test sets sampled without replacement)
+
+&lt;img src="images/resampling/plots/mccv-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: middle, center
+
+# `bootstraps()`
+
+(Test sets sampled with replacement)
+
+&lt;img src="images/resampling/plots/bootstrap-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: title-slide, center
+
+# Resampling
+
+&lt;img src="images/resampling/hex-group.png" width="18%" style="display: block; margin: auto;" /&gt;
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

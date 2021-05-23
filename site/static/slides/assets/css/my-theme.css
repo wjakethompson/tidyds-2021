@@ -58,6 +58,12 @@
   color: #FED766;
 }
 
+.yellow-highlight {
+  background-color: #FED766;
+  color: #009FB7;
+}
+
+
 .footnote {
 	bottom: 1em;
 	font-size: 75%;
@@ -91,9 +97,6 @@
   line-height: 57px;
 }
 
-.remark-slide-content .big p, ul, ol, li {
-  font-size: 125% !important;
-}
 
 .big {
   font-size: 125% !important;
@@ -196,6 +199,11 @@ a:hover, a:active, a:focus {
 
 .hljs-solarized-light .hljs {
   color: #2B3D43;
+}
+
+.plain-white {
+  background-color: #FFFFFF;
+  text-shadow: none;
 }
 
 .inverse {
