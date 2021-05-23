@@ -1100,7 +1100,7 @@ class: your-turn
 # Your turn `r (yt_counter <- yt_counter + 1)`
 
 .big[
-Use the mapping functions and mutate to calculate the correlation between bill length and bill depth.
+Use the mapping functions and `mutate()` to calculate the correlation between bill length and bill depth.
 
 1\. Write a function to calculate the correlation from the analysis set of a split.
 
@@ -1711,7 +1711,7 @@ class: your-turn
 
 # Your Turn `r (yt_counter <- yt_counter + 1)`
 
-Modify the code below to estimate the average RMSE for our penguin model
+Modify the code below to estimate our model on each of the folds and calculate the average RMSE for our penguin model.
 
 ```{r yt-metric-set, eval = FALSE}
 fit(lm_spec,
@@ -1745,7 +1745,7 @@ class: your-turn
 # Your Turn `r (yt_counter <- yt_counter + 1)`
 
 .big[
-Use `fit_resamples()` and `cv_folds` to estimate to models to predict bill length.
+Use `fit_resamples()` and `cv_folds` to estimate to models two predict bill length.
 
 1\. `bill_length_mm ~ flipper_length_mm`
 
