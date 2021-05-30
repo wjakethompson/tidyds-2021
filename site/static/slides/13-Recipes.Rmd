@@ -1,5 +1,5 @@
 ---
-title: "Recipes"
+title: "Feature Engineering"
 subtitle: "Tidy Data Science with the Tidyverse and Tidymodels"
 session: 13
 author: W. Jake Thompson
