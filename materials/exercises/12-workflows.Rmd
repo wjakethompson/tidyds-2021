@@ -1,0 +1,98 @@
+---
+title: "Workflows"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(AmesHousing)
+library(tidymodels)
+
+ames <- make_ames() %>% 
+  dplyr::select(-matches("Qu"))
+
+set.seed(100)
+ames_split <- initial_split(ames)
+ames_train <- training(ames_split)
+ames_test <- testing(ames_split)
+```
+
+
+# Your Turn 1
+
+Build a workflow that uses a linear model to predict `Sale_Price` with `Bedrooms_AbvGr`, `Full_Bath` and `Half_Bath` in `ames`. Save it as `bb_wf`.
+
+```{r}
+lm_spec <- 
+  ___________ %>% 
+  ___________
+
+bb_wf <- 
+  ___________ %>% 
+  ___________ %>% 
+  ___________
+```
+
+
+# Your Turn 2
+
+Test the linear model that predicts `Sale_Price` with everything else in `ames`. Use cross validation to estimate the RMSE.
+
+1. Create a new workflow by updating `bb_wf`.
+
+1. Use `vfold_cv()` to create a 10-fold cross validation of `ames_train`.
+
+1. Fit the workflow
+
+1. Use `collect_metrics()` to estimate the RMSE.
+
+```{r}
+all_wf <- 
+  bb_wf %>% 
+  ___________
+
+ames_folds <- vfold_cv(___________, v = ___________)
+
+___________(all_wf, resamples = ___________) %>% 
+  collect_metrics()
+```
+
+
+# Your Turn 3
+
+Fill in the blanks to test the regression tree model that predicts `Sale_Price` with _everything else in `ames`_ on `ames_folds`. What RMSE do you get?
+
+*Hint: Create a new workflow by updating `all_wf`.*
+
+```{r}
+rt_spec <- 
+  ___________() %>%          
+  set_engine(engine = "___________") %>% 
+  set_mode("___________")
+
+rt_wf <- 
+  ___________ %>% 
+  ___________
+
+___________ %>% 
+  collect_metrics()
+```
+
+
+# Your Turn 4
+
+But what about the predictions of our model? Save the fitted object from your regression tree, and use `collect_predictions()` to see the predictions generated from the test data.
+
+```{r}
+all_fitwf <-
+  fit_resamples(
+    ___________,
+    resamples = ames_folds,
+    control = control_resamples(save_pred = TRUE)
+  )
+
+___________ %>% 
+  ___________
+```
