@@ -148,3 +148,13 @@ countdown(minutes = 1, seconds = 0,
           color_finished_background = yellow,
           color_finished_text = blue)
 ```
+
+---
+<div class="hex-book">
+  <a href="https://recipes.tidymodels.org">
+    <img class="hex" src="images/hex/recipes.png">
+  </a>
+  <a href="https://www.tmwr.org/recipes.html">
+    <img class="book" src="images/books/tmwr-recipes.png">
+  </a>
+</div>
