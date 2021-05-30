@@ -17,7 +17,7 @@ xaringanExtra::style_panelset_tabs(font_family = "inherit")
 
 ### Day 1
 
-```{r day-1, echo = FALSE}
+```{r day-1, echo = FALSE, warning = FALSE}
 tribble(
   ~When, ~What,
   "09:00-09:30", "Preliminaries",
@@ -44,7 +44,7 @@ tribble(
 
 ### Day 2
 
-```{r day-2, echo = FALSE}
+```{r day-2, echo = FALSE, warning = FALSE}
 tribble(
   ~When, ~What,
   "09:00-10:15", "Data Types",
@@ -70,7 +70,7 @@ tribble(
 
 ### Day 3
 
-```{r day-3, echo = FALSE}
+```{r day-3, echo = FALSE, warning = FALSE}
 tribble(
   ~When, ~What,
   "09:00-10:00", "Case Study",
@@ -96,14 +96,14 @@ tribble(
 
 ### Day 4
 
-```{r day-4, echo = FALSE}
+```{r day-4, echo = FALSE, warning = FALSE}
 tribble(
   ~When, ~What,
-  "09:00-10:00", "Resampling with <a href='https://rsample.tidymodels.org'>rsample</a>",
-  "10:00-10:15", glue("<em>Break</em> {emo::ji('coffee')}"),
-  "10:15-12:00", "Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
+  "09:00-10:15", "Resampling with <a href='https://rsample.tidymodels.org'>rsample</a>",
+  "10:15-10:30", glue("<em>Break</em> {emo::ji('coffee')}"),
+  "10:30-12:00", "Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
   "12:00-01:30", glue("<em>Lunch</em> {emo::ji('salad')}"),
-  "01:30-02:30", "Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a>",
+  "01:30-02:30", "Ensembling with <a href='https://parsnip.tidymodels.org'>parsnip</a>",
   "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
   "02:45-03:30", "Modeling Pipelines with <a href='https://workflows.tidymodels.org'>workflows</a>",
   "03:30-04:30", "<em>Office Hours</em> (sign-up required)"
@@ -122,12 +122,12 @@ tribble(
 
 ### Day 5
 
-```{r day-5, echo = FALSE}
+```{r day-5, echo = FALSE, warning = FALSE}
 tribble(
   ~When, ~What,
-  "09:00-10:00", "Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a>",
+  "09:00-10:00", "Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a>",
   "10:00-10:15", glue("<em>Break</em> {emo::ji('coffee')}"),
-  "10:15-12:00", "Reproducible Writing with <a href='https://rmarkdown.rstudio.com'>rmarkdown</a>",
+  "10:15-12:00", "Model Tuning with <a href='https://tune.tidymodels.org'>tune</a>",
   "12:00-01:30", glue("<em>Lunch</em> {emo::ji('burger')}"),
   "01:30-02:30", "Case Study",
   "02:30-02:45", glue("<em>Break</em> {emo::ji('tea')}"),
