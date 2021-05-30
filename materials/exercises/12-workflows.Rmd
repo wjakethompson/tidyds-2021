@@ -1,14 +1,14 @@
 ---
-title: "05-Workflows"
-output: html_document
+title: "Workflows"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(AmesHousing)
 library(tidymodels)
-library(tune)
-library(workflows)
 
 ames <- make_ames() %>% 
   dplyr::select(-matches("Qu"))
@@ -17,30 +17,8 @@ set.seed(100)
 ames_split <- initial_split(ames)
 ames_train <- training(ames_split)
 ames_test <- testing(ames_split)
-
-fit_data <- function(object, model, data, ...) {
-  if (inherits(object, "formula")) {
-    object <- add_model(add_formula(workflow(), object, blueprint = hardhat::default_formula_blueprint(indicators = FALSE, ...)))
-  }
-  fit(object, data, ...)
-}
-
-fit_split <- function(object, model, split, ...) {
-  if (inherits(object, "formula")) {
-    object <- add_model(add_formula(workflow(), object, blueprint = hardhat::default_formula_blueprint(indicators = FALSE)), model)
-  }
-  tune::last_fit(object, split, ...)
-}
-
-# pca_rec <- 
-#   recipe(Sale_Price ~ ., data = ames) %>%
-#     step_novel(all_nominal()) %>%
-#     step_dummy(all_nominal()) %>%
-#     step_zv(all_predictors()) %>%
-#     step_center(all_predictors()) %>%
-#     step_scale(all_predictors()) %>%
-#     step_pca(all_predictors(), num_comp = 5)
 ```
+
 
 # Your Turn 1
 
@@ -48,7 +26,6 @@ Build a workflow that uses a linear model to predict `Sale_Price` with `Bedrooms
 
 ```{r}
 lm_spec <- 
-  ___________ %>% 
   ___________ %>% 
   ___________
 
@@ -61,22 +38,31 @@ bb_wf <-
 
 # Your Turn 2
 
-Test the linear model that predicts `Sale_Price` with _everything else in `ames`_ on `ames_split`. What RMSE do you get?
+Test the linear model that predicts `Sale_Price` with everything else in `ames`. Use cross validation to estimate the RMSE.
 
-Hint: Create a new workflow by updating `bb_wf`.
+1. Create a new workflow by updating `bb_wf`.
+
+1. Use `vfold_cv()` to create a 10-fold cross validation of `ames_train`.
+
+1. Fit the workflow
+
+1. Use `collect_metrics()` to estimate the RMSE.
 
 ```{r}
 all_wf <- 
   bb_wf %>% 
   ___________
 
-___________(all_wf, split = ___________) %>% 
+ames_folds <- vfold_cv(___________, v = ___________)
+
+___________(all_wf, resamples = ___________) %>% 
   collect_metrics()
 ```
 
+
 # Your Turn 3
 
-Fill in the blanks to test the regression tree model that predicts `Sale_Price` with _everything else in `ames`_ on `ames_split`. What RMSE do you get?
+Fill in the blanks to test the regression tree model that predicts `Sale_Price` with _everything else in `ames`_ on `ames_folds`. What RMSE do you get?
 
 *Hint: Create a new workflow by updating `all_wf`.*
 
@@ -100,10 +86,13 @@ ___________ %>%
 But what about the predictions of our model? Save the fitted object from your regression tree, and use `collect_predictions()` to see the predictions generated from the test data.
 
 ```{r}
-all_fitwf <- ___________
+all_fitwf <-
+  fit_resamples(
+    ___________,
+    resamples = ames_folds,
+    control = control_resamples(save_pred = TRUE)
+  )
 
 ___________ %>% 
   ___________
 ```
-
-
