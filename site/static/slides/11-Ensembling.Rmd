@@ -248,6 +248,8 @@ countdown(minutes = 2)
 ```
 
 ---
+class: your-turn
+
 ```{r}
 set.seed(100)
 so_folds <- vfold_cv(so_train, strata = remote)
