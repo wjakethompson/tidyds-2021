@@ -1805,7 +1805,7 @@ class: middle, center
 
 # `vfold_cv()` - V Fold cross-validation
 
-```{r ref.label='print-folds', echo = FALSE, fig.asp = NA, fig.height=6, fig.width = 12, out.width = "80%"}
+```{r print-folds2, ref.label='print-folds', echo = FALSE, fig.asp = NA, fig.height=6, fig.width = 12, out.width = "80%"}
 ```
 
 ---
