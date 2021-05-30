@@ -1,5 +1,5 @@
 ---
-title: "04-Ensembling"
+title: "Ensembling"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
