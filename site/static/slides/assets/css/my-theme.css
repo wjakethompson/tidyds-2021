@@ -12,6 +12,10 @@
 	font-weight: bold;
 }
 
+.remark-slide-content.frame h1 {
+  margin-bottom: 1.0em !important;
+}
+
 .remark-slide table {
   border-top: none;
   border-bottom: none;
