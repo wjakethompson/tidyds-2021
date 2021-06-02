@@ -1,0 +1,144 @@
+---
+title: "Recipes"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(AmesHousing)
+library(tidymodels)
+library(themis)
+
+ames <- make_ames() %>% 
+  dplyr::select(-matches("Qu"))
+
+set.seed(100)
+ames_split <- initial_split(ames)
+ames_train <- training(ames_split)
+ames_test <- testing(ames_split)
+
+set.seed(100)
+ames_folds <- vfold_cv(ames_train)
+
+lm_spec <- 
+  linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
+```
+
+
+# Your Turn 1
+
+Write a recipe for the `Sale_Price ~ `. variables that:
+
+1. Adds a novel level to all factors
+2. Converts all factors to dummy variables
+3. Catches any zero variance variables
+4. Centers all of the predictors
+5. Scales all of the predictors
+6. Computes the first 5 principal components
+
+Save the result as `pca_rec`  
+
+```{r}
+
+```
+
+
+# Your Turn 2
+
+Make a workflow that combines `pca_rec` and with `lm_spec`.
+
+```{r}
+
+```
+
+
+# Your Turn 3
+
+Try our PCA workflow on `ames_folds`. What is the estimated RMSE?
+
+```{r}
+
+```
+
+
+# Your Turn 4
+
+Modify the code to build a new PCA recipe that uses a BoxCox transformation instead of centering and scaling the data. 
+
+Then update `pca_wf` to use the new recipe.
+
+*Hint: Guess. Use tab completion. Or visit https://recipes.tidymodels.org/reference/index.html.*
+
+```{r eval = FALSE}
+bc_rec <- 
+  recipe(Sale_Price ~ ., data = ames) %>%
+    step_novel(all_nominal()) %>%
+    step_dummy(all_nominal()) %>%
+    step_zv(all_predictors()) %>%
+    ____________ %>%
+    step_pca(all_predictors(), num_comp = 5)
+
+bc_wf <- 
+  pca_wf %>% 
+  ____________(bc_rec)
+```
+
+
+# Pop quiz!
+
+Name that package!
+
+```{r}
+library(modeldata)
+data(stackoverflow)
+
+set.seed(100) # Important!
+so_split <- initial_split(stackoverflow, strata = Remote)
+so_train <- training(so_split)
+so_test  <- testing(so_split)
+
+tree_spec <- 
+  decision_tree() %>%         
+  set_engine("rpart") %>%      
+  set_mode("classification") 
+
+so_rec <- recipe(Remote ~ ., data = so_train) %>% 
+  step_dummy(all_nominal(), -all_outcomes()) %>% 
+  step_lincomb(all_predictors())
+
+so_wf <- workflow() %>% 
+  add_model(tree_spec) %>% 
+  add_recipe(so_rec)
+
+so_metric_set <- metric_set(accuracy, roc_auc, sens, spec)
+```
+
+# Your Turn 5
+
+Add a recipe step to downsample the remote variable majority class in the training set prior to model training. Edit your workflow, then re-fit the model and examine the metrics. Is the ROC AUC better than chance (.5)?
+
+```{r}
+so_down <- recipe(Remote ~ ., data = so_train) %>%
+  step_dummy(all_nominal(), -all_outcomes()) %>%
+  step_lincomb(all_predictors()) %>%
+  ____________
+
+so_downwf <- so_wf %>%
+  ____________(so_down)
+
+set.seed(1980)
+so_downfit <- so_downwf %>%
+  ____________(data = so_train)
+
+so_downpreds <- bind_cols(
+  predict(so_downfit, new_data = ____________, type = "class"),
+  predict(so_downfit, new_data = ____________, type = "prob")
+) %>%
+  mutate(truth = so_test$Remote)
+
+so_metric_set(____________, truth = ____________, .pred_Remote, .pred_class)
+```

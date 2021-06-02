@@ -399,7 +399,7 @@ class: middle, center
 ```{r day-5, echo = FALSE, warning = FALSE}
 tribble(
   ~When, ~What,
-  "09:00-10:00", "Modeling Pipelines with <a href='https://recipes.tidymodels.org'>recipes</a>",
+  "09:00-10:00", "Feature Engineering with <a href='https://recipes.tidymodels.org'>recipes</a>",
   "10:00-10:15", glue("<em>Break</em> {emo::ji('coffee')}"),
   "10:15-12:00", "Model Tuning with <a href='https://tune.tidymodels.org'>tune</a>",
   "12:00-01:30", glue("<em>Lunch</em> {emo::ji('burger')}"),
