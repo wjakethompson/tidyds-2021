@@ -1,5 +1,5 @@
 ---
-title: "Recipes"
+title: "Recipes - Solutions"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
@@ -43,7 +43,14 @@ Write a recipe for the `Sale_Price ~ `. variables that:
 Save the result as `pca_rec`  
 
 ```{r}
-
+pca_rec <- 
+  recipe(Sale_Price ~ ., data = ames) %>%
+  step_novel(all_nominal()) %>%
+  step_dummy(all_nominal()) %>%
+  step_zv(all_predictors()) %>%
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors()) %>%
+  step_pca(all_predictors(), num_comp = 5)
 ```
 
 
@@ -52,7 +59,12 @@ Save the result as `pca_rec`
 Make a workflow that combines `pca_rec` and with `lm_spec`.
 
 ```{r}
+pca_wf <-
+  workflow() %>%
+  add_recipe(pca_rec) %>%
+  add_model(lm_spec)
 
+pca_wf
 ```
 
 
@@ -61,7 +73,9 @@ Make a workflow that combines `pca_rec` and with `lm_spec`.
 Try our PCA workflow on `ames_folds`. What is the estimated RMSE?
 
 ```{r}
-
+pca_wf %>%
+  fit_resamples(resamples = ames_folds) %>%
+  collect_metrics()
 ```
 
 
@@ -79,12 +93,12 @@ bc_rec <-
     step_novel(all_nominal()) %>%
     step_dummy(all_nominal()) %>%
     step_zv(all_predictors()) %>%
-    ____________ %>%
+    step_BoxCox(all_predictors()) %>%
     step_pca(all_predictors(), num_comp = 5)
 
 bc_wf <- 
   pca_wf %>% 
-  ____________(bc_rec)
+  update_recipe(bc_rec)
 ```
 
 
@@ -125,20 +139,20 @@ Add a recipe step to downsample the remote variable majority class in the traini
 so_down <- recipe(Remote ~ ., data = so_train) %>%
   step_dummy(all_nominal(), -all_outcomes()) %>%
   step_lincomb(all_predictors()) %>%
-  ____________
+  step_downsample(all_outcomes())
 
 so_downwf <- so_wf %>%
-  ____________(so_down)
+  update_recipe(so_down)
 
 set.seed(1980)
 so_downfit <- so_downwf %>%
-  ____________(data = so_train)
+  fit(data = so_train)
 
 so_downpreds <- bind_cols(
-  predict(so_downfit, new_data = ____________, type = "class"),
-  predict(so_downfit, new_data = ____________, type = "prob")
+  predict(so_downfit, new_data = so_test, type = "class"),
+  predict(so_downfit, new_data = so_test, type = "prob")
 ) %>%
   mutate(truth = so_test$Remote)
 
-so_metric_set(____________, truth = ____________, .pred_Remote, .pred_class)
+so_metric_set(so_downpreds, truth = truth, .pred_Remote, .pred_class)
 ```
