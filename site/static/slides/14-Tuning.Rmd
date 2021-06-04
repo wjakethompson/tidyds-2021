@@ -77,8 +77,17 @@ ames_split  <- initial_split(ames)
 ames_train  <- training(ames_split)
 ames_test   <- testing(ames_split)
 
+# for figures
+splits_pal <- c(blue, yellow, green)
+
+lm_spec <- 
+  linear_reg() %>% 
+  set_engine("lm") %>% 
+  set_mode("regression")
+
 set.seed(100)
-ames_folds <- vfold_cv(ames_train)
+cv_folds <- 
+    vfold_cv(ames, v= 10, strata = Sale_Price, breaks = 4)
 
 theme_set(wjake::theme_wjake(base_family = "Source Sans Pro",
                              base_size = 14,
@@ -162,3 +171,406 @@ countdown(minutes = 1, seconds = 0,
     <img class="book" src="images/books/tmwr-tuning.png">
   </a>
 </div>
+
+---
+class: center middle inverse
+
+# KNN
+
+---
+# `nearest_neighbor()`
+
+Specifies a model that uses K Nearest Neighbors
+
+```{r eval = FALSE}
+nearest_neighbor(neighbors = 1)
+```
+
+--
+
+k = .display[neighbors] (PLURAL)
+
+--
+
+.footnote[regression and classification modes]
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Here's a new recipe (also in your .Rmd)...
+
+```{r normalize-rec}
+normalize_rec <-
+  recipe(Sale_Price ~ ., data = ames) %>% 
+    step_novel(all_nominal()) %>% 
+    step_dummy(all_nominal()) %>% 
+    step_zv(all_predictors()) %>% 
+    step_center(all_predictors()) %>% 
+    step_scale(all_predictors())
+```
+
+---
+class: your-turn
+
+# Your Turn `r yt_counter`
+
+...and a new model. Can you tell what type of model this is?
+
+```{r knn-spec}
+knn5_spec <- 
+  nearest_neighbor(neighbors = 5) %>% 
+  set_engine("kknn") %>% 
+  set_mode("regression")
+```
+
+```{r echo = FALSE}
+countdown(minutes = 1)
+```
+
+---
+class: your-turn
+
+# Your Turn `r yt_counter`
+
+Combine the recipe and model into a new workflow named `knn_wf`. Fit the workflow to `cv_folds` and collect its RMSE.
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+```{r yt-knn5-sol, cache = TRUE}
+knn5_wf <-
+  workflow() %>%
+  add_recipe(normalize_rec) %>%
+  add_model(knn5_spec)
+
+knn5_wf %>%
+  fit_resamples(resamples = cv_folds) %>%
+  collect_metrics()
+```
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Repeat the process in Your Turn 1 with a similar workflow that uses `neighbors = 10`. Does the RMSE change?
+
+```{r echo = FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+```{r yt-knn10-sol, cache = TRUE}
+knn10_spec <- nearest_neighbor(neighbors = 10) %>% 
+    set_engine("kknn") %>% 
+    set_mode("regression")
+
+knn10_wf <- 
+  knn5_wf %>% 
+  update_model(knn10_spec)
+
+knn10_wf %>%
+  fit_resamples(resamples = cv_folds) %>% 
+  collect_metrics()
+```
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+How can you find the best value of `neighbors`/`k`?
+
+--
+
+Compare all the separate values/models
+
+---
+class: center middle inverse
+
+# `tune_grid()`
+
+---
+# tune 
+
+Functions for fitting and tuning models
+
+<https://tune.tidymodels.org/>
+
+```{r echo=FALSE, out.width="100%"}
+knitr::include_url("https://tune.tidymodels.org/")
+```
+
+---
+# `tune()`
+
+A placeholder for hyper-parameters to be "tuned"
+
+```{r eval = FALSE}
+nearest_neighbor(neighbors = tune())
+```
+
+---
+# `tune_grid()`
+
+A version of `fit_resamples()` that performs a grid search for the best combination of tuned hyper-parameters.
+
+.pull-left[
+```{r eval = FALSE}
+tune_grid(
+  object,
+  resamples,
+  ...,
+  grid = 10,
+  metrics = NULL,
+  control = control_grid()
+)
+```
+]
+
+---
+# `tune_grid()`
+
+A version of `fit_resamples()` that performs a grid search for the best combination of tuned hyper-parameters.
+
+.pull-left[
+```{r eval = FALSE}
+tune_grid(
+  object, #<<
+  resamples,
+  ...,
+  grid = 10,
+  metrics = NULL,
+  control = control_grid()
+)
+```
+]
+
+--
+ 
+.pull-right[
+One of:
+
+* a `workflow`
+* a formula
+* a `recipe`
+] 
+
+---
+# `tune_grid()`
+
+A version of `fit_resamples()` that performs a grid search for the best combination of tuned hyper-parameters.
+
+.pull-left[
+```{r eval = FALSE}
+tune_grid(
+  object, #<<
+  preprocessor, #<<
+  resamples,
+  ...,
+  grid = 10,
+  metrics = NULL,
+  control = control_grid()
+)
+```
+]
+ 
+.pull-right[
+One of:
+
+* formula + `model`
+* `recipe` + `model`
+] 
+
+---
+# `tune_grid()`
+
+A version of `fit_resamples()` that performs a grid search for the best combination of tuned hyper-parameters.
+
+.pull-left[
+```{r eval = FALSE}
+tune_grid(
+  object,
+  resamples,
+  ...,
+  grid = 10, #<<
+  metrics = NULL,
+  control = control_grid()
+)
+```
+]
+
+.pull-right[
+One of:
+
+* A positive integer
+* A data frame of tuning combinations
+] 
+
+---
+# `tune_grid()`
+
+A version of `fit_resamples()` that performs a grid search for the best combination of tuned hyper-parameters.
+
+.pull-left[
+```{r eval = FALSE}
+tune_grid(
+  object,
+  resamples,
+  ...,
+  grid = 10, #<<
+  metrics = NULL,
+  control = control_grid()
+)
+```
+]
+
+.pull-right[
+Number of candidate parameter sets to be created automatically.
+]
+
+---
+# `tune_grid()`
+
+A version of `fit_resamples()` that performs a grid search for the best combination of tuned hyper-parameters.
+
+.pull-left[
+```{r eval = FALSE}
+tune_grid(
+  object,
+  resamples,
+  ...,
+  grid = 10, #<<
+  metrics = NULL,
+  control = control_grid()
+)
+```
+]
+
+.pull-right[
+A data frame of tuning combinations.
+]
+
+---
+# `expand_grid()`
+
+Takes one or more vectors, and returns a data frame holding all combinations of their values.
+
+```{r}
+expand_grid(neighbors = c(1,2), foo = 3:5)
+```
+
+--
+
+.footnote[tidyr package; see also base `expand.grid()`]
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Use `expand_grid()` to create a grid of values for neighbors that spans from 10 to 20. Save the result as `k10_20`.
+
+```{r echo=FALSE}
+countdown(minutes = 2)
+```
+
+---
+class: your-turn
+
+```{r}
+k10_20 <- expand_grid(neighbors = 10:20)
+k10_20
+```
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Create a knn workflow that tunes over neighbors. 
+
+Then use `tune_grid()`, `cv_folds` and `k10_20` to find the best value of neighbors. 
+
+Save the output of `tune_grid()` as `knn_results`.
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+```{r yt-knn-tune-sol, cache = TRUE, results='hide'}
+knn_tuner <- 
+  nearest_neighbor(neighbors = tune()) %>% 
+  set_engine("kknn") %>% 
+  set_mode("regression")
+
+knn_twf <-
+  workflow() %>% 
+  add_recipe(normalize_rec) %>% 
+  add_model(knn_tuner)
+
+knn_results <- 
+  knn_twf %>%
+  tune_grid(resamples = cv_folds, 
+            grid = k10_20) 
+
+knn_results %>% 
+  collect_metrics() %>% 
+  filter(.metric == "rmse")
+```
+]
+
+.panel[.panel-name[Metrics]
+```{r}
+knn_results %>% 
+  collect_metrics() %>% 
+  filter(.metric == "rmse")
+```
+]
+]
+
+---
+name: show-best
+
+# `show_best()`
+
+Shows the .display[n] most optimum combinations of hyper-parameters
+
+```{r show-best, results='hide'}
+knn_results %>% 
+  show_best(metric = "rmse", n = 5)
+```
+
+---
+template: show-best
+
+```{r ref.label='show-best', echo=FALSE}
+```
+
+---
+# `autoplot()`
+
+.panelset[
+```{r knn-plot, panelset = c(source = "Code", output = "Plot"), out.width = "70%"}
+knn_results %>% autoplot()
+```
+]
+
+???
+
+Quickly visualize tuning results
+
+---
