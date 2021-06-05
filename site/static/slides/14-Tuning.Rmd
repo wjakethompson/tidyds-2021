@@ -80,11 +80,6 @@ ames_test   <- testing(ames_split)
 # for figures
 splits_pal <- c(blue, yellow, green)
 
-lm_spec <- 
-  linear_reg() %>% 
-  set_engine("lm") %>% 
-  set_mode("regression")
-
 set.seed(100)
 cv_folds <- 
     vfold_cv(ames, v= 10, strata = Sale_Price, breaks = 4)
@@ -574,3 +569,341 @@ knn_results %>% autoplot()
 Quickly visualize tuning results
 
 ---
+class: center middle inverse
+
+# You can tune models *and* recipes
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Modify our PCA workflow provided to find the best value for `num_comp` on the grid provided. Which is it? Use `show_best()` to see. Save the output of the fit function as `pca_results`.
+
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Workflow]
+```{r pca-sol-wf, results='hide'}
+pca_tuner <- recipe(Sale_Price ~ ., data = ames) %>%
+    step_novel(all_nominal()) %>%
+    step_dummy(all_nominal()) %>%
+    step_zv(all_predictors()) %>%
+    step_center(all_predictors()) %>%
+    step_scale(all_predictors()) %>%
+    step_pca(all_predictors(), num_comp = tune()) #<<
+
+pca_twf <- workflow() %>% 
+    add_recipe(pca_tuner) %>% 
+    add_model(lm_spec)
+```
+]
+
+.panel[.panel-name[Tuning]
+```{r pca-sol-results, cache = TRUE}
+nc10_40 <- expand_grid(num_comp = c(10,20,30,40))
+
+pca_results <- pca_twf %>% 
+    tune_grid(resamples = cv_folds, grid = nc10_40)
+
+pca_results %>%
+  show_best(metric = "rmse")
+```
+]
+]
+
+---
+```{r}
+library(modeldata)
+data(stackoverflow)
+
+# split the data
+set.seed(100) # Important!
+so_split <- initial_split(stackoverflow, strata = Remote)
+so_train <- training(so_split)
+so_test <- testing(so_split)
+
+set.seed(100) # Important!
+so_folds <- vfold_cv(so_train, v = 10, strata = Remote)
+```
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Here's a new recipe (also in your .Rmd)...
+
+```{r}
+so_rec <- recipe(Remote ~ ., data = so_train) %>% 
+  step_dummy(all_nominal(), -all_outcomes()) %>% 
+  step_lincomb(all_predictors()) %>% 
+  step_downsample(Remote)
+```
+
+---
+class: your-turn
+
+# Your Turn `r yt_counter`
+
+...and a new model plus workflow. Can you tell what type of model this is?
+
+```{r}
+rf_spec <- 
+  rand_forest() %>% 
+  set_engine("ranger") %>% 
+  set_mode("classification")
+
+rf_wf <-
+  workflow() %>% 
+  add_recipe(so_rec) %>% 
+  add_model(rf_spec)
+```
+
+---
+class: your-turn
+
+# Your Turn `r yt_counter`
+
+Here is the output from `fit_resamples()`...
+
+```{r yt-so-rf-resamples, cache = TRUE}
+rf_results <-
+  rf_wf %>% 
+  fit_resamples(resamples = so_folds,
+                metrics = metric_set(roc_auc))
+
+rf_results %>% 
+  collect_metrics(summarize = TRUE)
+```
+
+---
+class: your-turn
+
+# Your Turn `r yt_counter`
+
+Edit the random forest model to tune the `mtry` and `min_n` hyper-parameters; call the new model spec `rf_tuner`. 
+
+Update the model for your workflow; save it as `rf_twf`.
+
+Tune the workflow to so_folds and show the best combination of hyper-parameters to maximize `roc_auc`. 
+
+How does it compare to the average ROC AUC across folds from `fit_resamples()`?
+
+```{r echo=FALSE}
+countdown(minutes = 10)
+```
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Tuning]
+```{r yt-so-rf-tune, cache = TRUE, results='hide', messages = FALSE, warning = FALSE}
+rf_tuner <- 
+  rand_forest(mtry = tune(),
+              min_n = tune()) %>% 
+    set_engine("ranger") %>% 
+    set_mode("classification")
+
+rf_twf <-
+  rf_wf %>% 
+    update_model(rf_tuner)
+
+rf_twf_results <-
+  rf_twf %>% 
+    tune_grid(resamples = so_folds,
+              metrics = metric_set(roc_auc))
+```
+]
+
+.panel[.panel-name[Metrics]
+```{r}
+rf_twf_results %>%
+  collect_metrics()
+```
+]
+]
+
+---
+class: center middle inverse
+
+# What next?
+
+---
+# `show_best()`
+
+Shows the `n` most optimum combinations of hyper-parameters.
+
+```{r}
+rf_twf_results %>%
+  show_best(metric = "roc_auc")
+```
+
+---
+name: select-best
+
+# `select_best()`
+
+Shows the .display[top] combination of hyper-parameters.
+
+```{r select-best, results = "hide"}
+so_best <-
+  rf_twf_results %>%
+  select_best(metric = "roc_auc")
+
+so_best
+```
+
+---
+template: select-best
+
+```{r ref.label="select-best", echo = FALSE}
+```
+
+---
+# `finalize_workflow()`
+
+Replaces `tune()` placeholders in a model/recipe/workflow with a set of hyper-parameter values.
+
+```{r}
+so_wfl_final <- 
+  rf_twf %>%
+  finalize_workflow(so_best) #<<
+```
+
+---
+class: center middle
+
+# The test set
+
+Remember me?
+
+---
+# `fit()` and `predict()`
+
+Remember me?
+
+```{r results ='hide'}
+so_test_results <-
+  so_wfl_final %>%
+  fit(data = so_train)
+
+predict(so_test_results, new_data = so_test, type = "class")
+predict(so_test_results, new_data = so_test, type = "prob")
+```
+
+---
+name: last-fit
+
+# `last_fit()`
+
+A better way.
+
+```{r last-fit, results='hide'}
+so_test_results <-
+  so_wfl_final %>%
+  last_fit(so_split) #<<
+```
+
+---
+template: last-fit
+
+```{r ref.label="last-fit", echo = FALSE}
+```
+
+---
+class: your-turn
+
+# Your Turn `r (yt_counter <- yt_counter + 1)`
+
+Use `select_best()`, `finalize_workflow()`, and `last_fit()` to take the best combination of hyper-parameters from `rf_results` and use them to predict the test set.
+
+How does our actual test ROC AUC compare to our cross-validated estimate?
+
+```{r echo=FALSE}
+countdown(minutes = 5)
+```
+
+---
+class: your-turn
+
+```{r results = "hide"}
+so_best <-
+  rf_twf_results %>%
+  select_best(metric = "roc_auc")
+
+so_wfl_final <-
+  rf_twf %>%
+  finalize_workflow(so_best)
+
+so_test_results <-
+  so_wfl_final %>%
+  last_fit(split = so_split)
+
+so_test_results %>%
+  collect_metrics()
+```
+
+---
+class: center middle inverse
+
+# final final final
+
+---
+# Final metrics
+
+```{r}
+so_test_results %>%
+  collect_metrics()
+```
+
+---
+# Predict the test set
+
+```{r}
+so_test_results %>%
+  collect_predictions()
+```
+
+---
+.panelset[
+.panel[.panel-name[Code]
+```{r so-roc, fig.show='hide'}
+roc_values <-
+  so_test_results %>%
+  collect_predictions() %>%
+  roc_curve(truth = Remote, estimate = .pred_Remote)
+
+autoplot(roc_values)
+```
+]
+
+.panel[.panel-name[Plot]
+```{r show-roc, ref.label="so-roc", echo = FALSE, out.width = "50%", fig.asp = NA}
+```
+]
+]
+
+---
+class: title-slide, center
+
+# `r rmarkdown::metadata$title`
+
+```{r closing-hex, echo = FALSE, out.width = "20%"}
+include_graphics("images/hex/tune.png")
+```
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]

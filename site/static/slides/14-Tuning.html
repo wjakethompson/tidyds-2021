@@ -4,7 +4,7 @@
     <title>Model Tuning</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-06-03" />
+    <meta name="date" content="2021-06-04" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -87,7 +87,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_60b99bd2" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60bade14" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -157,7 +157,7 @@ knn5_spec &lt;-
   set_mode("regression")
 ```
 
-<div class="countdown" id="timer_60b99b86" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60badd48" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -168,7 +168,7 @@ class: your-turn
 
 Combine the recipe and model into a new workflow named `knn_wf`. Fit the workflow to `cv_folds` and collect its RMSE.
 
-<div class="countdown" id="timer_60b99b61" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60badd12" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -199,7 +199,7 @@ class: your-turn
 
 Repeat the process in Your Turn 1 with a similar workflow that uses `neighbors = 10`. Does the RMSE change?
 
-<div class="countdown" id="timer_60b99aec" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60badc4d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -438,7 +438,7 @@ class: your-turn
 
 Use `expand_grid()` to create a grid of values for neighbors that spans from 10 to 20. Save the result as `k10_20`.
 
-<div class="countdown" id="timer_60b99b8e" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60baddc8" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -476,7 +476,7 @@ Then use `tune_grid()`, `cv_folds` and `k10_20` to find the best value of neighb
 
 Save the output of `tune_grid()` as `knn_results`.
 
-<div class="countdown" id="timer_60b99c19" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60badd1f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -578,6 +578,420 @@ knn_results %&gt;% autoplot()
 
 ]
 ]
+
+???
+
+Quickly visualize tuning results
+
+---
+class: center middle inverse
+
+# You can tune models *and* recipes
+
+---
+class: your-turn
+
+# Your Turn 5
+
+Modify our PCA workflow provided to find the best value for `num_comp` on the grid provided. Which is it? Use `show_best()` to see. Save the output of the fit function as `pca_results`.
+
+
+<div class="countdown" id="timer_60baddf5" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Workflow]
+
+```r
+pca_tuner &lt;- recipe(Sale_Price ~ ., data = ames) %&gt;%
+    step_novel(all_nominal()) %&gt;%
+    step_dummy(all_nominal()) %&gt;%
+    step_zv(all_predictors()) %&gt;%
+    step_center(all_predictors()) %&gt;%
+    step_scale(all_predictors()) %&gt;%
+*   step_pca(all_predictors(), num_comp = tune())
+
+pca_twf &lt;- workflow() %&gt;% 
+    add_recipe(pca_tuner) %&gt;% 
+    add_model(lm_spec)
+```
+]
+
+.panel[.panel-name[Tuning]
+
+```r
+nc10_40 &lt;- expand_grid(num_comp = c(10,20,30,40))
+
+pca_results &lt;- pca_twf %&gt;% 
+    tune_grid(resamples = cv_folds, grid = nc10_40)
+
+pca_results %&gt;%
+  show_best(metric = "rmse")
+#&gt; # A tibble: 4 x 7
+#&gt;   num_comp .metric .estimator   mean     n std_err .config             
+#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1       40 rmse    standard   32384.    10   2184. Preprocessor4_Model1
+#&gt; 2       30 rmse    standard   33549.    10   2089. Preprocessor3_Model1
+#&gt; 3       20 rmse    standard   33997.    10   2063. Preprocessor2_Model1
+#&gt; 4       10 rmse    standard   36081.    10   1881. Preprocessor1_Model1
+```
+]
+]
+
+---
+
+```r
+library(modeldata)
+data(stackoverflow)
+
+# split the data
+set.seed(100) # Important!
+so_split &lt;- initial_split(stackoverflow, strata = Remote)
+so_train &lt;- training(so_split)
+so_test &lt;- testing(so_split)
+
+set.seed(100) # Important!
+so_folds &lt;- vfold_cv(so_train, v = 10, strata = Remote)
+```
+
+---
+class: your-turn
+
+# Your Turn 6
+
+Here's a new recipe (also in your .Rmd)...
+
+
+```r
+so_rec &lt;- recipe(Remote ~ ., data = so_train) %&gt;% 
+  step_dummy(all_nominal(), -all_outcomes()) %&gt;% 
+  step_lincomb(all_predictors()) %&gt;% 
+  step_downsample(Remote)
+```
+
+---
+class: your-turn
+
+# Your Turn 6
+
+...and a new model plus workflow. Can you tell what type of model this is?
+
+
+```r
+rf_spec &lt;- 
+  rand_forest() %&gt;% 
+  set_engine("ranger") %&gt;% 
+  set_mode("classification")
+
+rf_wf &lt;-
+  workflow() %&gt;% 
+  add_recipe(so_rec) %&gt;% 
+  add_model(rf_spec)
+```
+
+---
+class: your-turn
+
+# Your Turn 6
+
+Here is the output from `fit_resamples()`...
+
+
+```r
+rf_results &lt;-
+  rf_wf %&gt;% 
+  fit_resamples(resamples = so_folds,
+                metrics = metric_set(roc_auc))
+
+rf_results %&gt;% 
+  collect_metrics(summarize = TRUE)
+#&gt; # A tibble: 1 x 6
+#&gt;   .metric .estimator  mean     n std_err .config             
+#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 roc_auc binary     0.702    10  0.0151 Preprocessor1_Model1
+```
+
+---
+class: your-turn
+
+# Your Turn 6
+
+Edit the random forest model to tune the `mtry` and `min_n` hyper-parameters; call the new model spec `rf_tuner`. 
+
+Update the model for your workflow; save it as `rf_twf`.
+
+Tune the workflow to so_folds and show the best combination of hyper-parameters to maximize `roc_auc`. 
+
+How does it compare to the average ROC AUC across folds from `fit_resamples()`?
+
+<div class="countdown" id="timer_60badf0e" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Tuning]
+
+```r
+rf_tuner &lt;- 
+  rand_forest(mtry = tune(),
+              min_n = tune()) %&gt;% 
+    set_engine("ranger") %&gt;% 
+    set_mode("classification")
+
+rf_twf &lt;-
+  rf_wf %&gt;% 
+    update_model(rf_tuner)
+
+rf_twf_results &lt;-
+  rf_twf %&gt;% 
+    tune_grid(resamples = so_folds,
+              metrics = metric_set(roc_auc))
+#&gt; i Creating pre-processing data to finalize unknown parameter: mtry
+```
+]
+
+.panel[.panel-name[Metrics]
+
+```r
+rf_twf_results %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 10 x 8
+#&gt;     mtry min_n .metric .estimator  mean     n std_err .config              
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt;  1     9    16 roc_auc binary     0.692    10  0.0160 Preprocessor1_Model01
+#&gt;  2     1     9 roc_auc binary     0.707    10  0.0143 Preprocessor1_Model02
+#&gt;  3    16    23 roc_auc binary     0.687    10  0.0166 Preprocessor1_Model03
+#&gt;  4    22    10 roc_auc binary     0.670    10  0.0161 Preprocessor1_Model04
+#&gt;  5    13    29 roc_auc binary     0.693    10  0.0157 Preprocessor1_Model05
+#&gt;  6     5     5 roc_auc binary     0.696    10  0.0157 Preprocessor1_Model06
+#&gt;  7    20    38 roc_auc binary     0.692    10  0.0153 Preprocessor1_Model07
+#&gt;  8    12    27 roc_auc binary     0.694    10  0.0154 Preprocessor1_Model08
+#&gt;  9    18    35 roc_auc binary     0.691    10  0.0155 Preprocessor1_Model09
+#&gt; 10     7    21 roc_auc binary     0.701    10  0.0163 Preprocessor1_Model10
+```
+]
+]
+
+---
+class: center middle inverse
+
+# What next?
+
+---
+# `show_best()`
+
+Shows the `n` most optimum combinations of hyper-parameters.
+
+
+```r
+rf_twf_results %&gt;%
+  show_best(metric = "roc_auc")
+#&gt; # A tibble: 5 x 8
+#&gt;    mtry min_n .metric .estimator  mean     n std_err .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1     1     9 roc_auc binary     0.707    10  0.0143 Preprocessor1_Model02
+#&gt; 2     7    21 roc_auc binary     0.701    10  0.0163 Preprocessor1_Model10
+#&gt; 3     5     5 roc_auc binary     0.696    10  0.0157 Preprocessor1_Model06
+#&gt; 4    12    27 roc_auc binary     0.694    10  0.0154 Preprocessor1_Model08
+#&gt; 5    13    29 roc_auc binary     0.693    10  0.0157 Preprocessor1_Model05
+```
+
+---
+name: select-best
+
+# `select_best()`
+
+Shows the .display[top] combination of hyper-parameters.
+
+
+```r
+so_best &lt;-
+  rf_twf_results %&gt;%
+  select_best(metric = "roc_auc")
+
+so_best
+```
+
+---
+template: select-best
+
+
+```
+#&gt; # A tibble: 1 x 3
+#&gt;    mtry min_n .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                
+#&gt; 1     1     9 Preprocessor1_Model02
+```
+
+---
+# `finalize_workflow()`
+
+Replaces `tune()` placeholders in a model/recipe/workflow with a set of hyper-parameter values.
+
+
+```r
+so_wfl_final &lt;- 
+  rf_twf %&gt;%
+* finalize_workflow(so_best)
+```
+
+---
+class: center middle
+
+# The test set
+
+Remember me?
+
+---
+# `fit()` and `predict()`
+
+Remember me?
+
+
+```r
+so_test_results &lt;-
+  so_wfl_final %&gt;%
+  fit(data = so_train)
+
+predict(so_test_results, new_data = so_test, type = "class")
+predict(so_test_results, new_data = so_test, type = "prob")
+```
+
+---
+name: last-fit
+
+# `last_fit()`
+
+A better way.
+
+
+```r
+so_test_results &lt;-
+  so_wfl_final %&gt;%
+* last_fit(so_split)
+```
+
+---
+template: last-fit
+
+
+
+---
+class: your-turn
+
+# Your Turn 7
+
+Use `select_best()`, `finalize_workflow()`, and `last_fit()` to take the best combination of hyper-parameters from `rf_results` and use them to predict the test set.
+
+How does our actual test ROC AUC compare to our cross-validated estimate?
+
+<div class="countdown" id="timer_60badda6" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+so_best &lt;-
+  rf_twf_results %&gt;%
+  select_best(metric = "roc_auc")
+
+so_wfl_final &lt;-
+  rf_twf %&gt;%
+  finalize_workflow(so_best)
+
+so_test_results &lt;-
+  so_wfl_final %&gt;%
+  last_fit(split = so_split)
+
+so_test_results %&gt;%
+  collect_metrics()
+```
+
+---
+class: center middle inverse
+
+# final final final
+
+---
+# Final metrics
+
+
+```r
+so_test_results %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 2 x 4
+#&gt;   .metric  .estimator .estimate .config             
+#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 accuracy binary         0.642 Preprocessor1_Model1
+#&gt; 2 roc_auc  binary         0.666 Preprocessor1_Model1
+```
+
+---
+# Predict the test set
+
+
+```r
+so_test_results %&gt;%
+  collect_predictions()
+#&gt; # A tibble: 1,397 x 7
+#&gt;    id        .pred_Remote `.pred_Not remot…  .row .pred_class Remote  .config   
+#&gt;    &lt;chr&gt;            &lt;dbl&gt;             &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;   &lt;chr&gt;     
+#&gt;  1 train/te…        0.552             0.448     2 Remote      Remote  Preproces…
+#&gt;  2 train/te…        0.566             0.434     9 Remote      Not re… Preproces…
+#&gt;  3 train/te…        0.450             0.550    10 Not remote  Not re… Preproces…
+#&gt;  4 train/te…        0.555             0.445    17 Remote      Not re… Preproces…
+#&gt;  5 train/te…        0.620             0.380    23 Remote      Not re… Preproces…
+#&gt;  6 train/te…        0.466             0.534    27 Not remote  Not re… Preproces…
+#&gt;  7 train/te…        0.489             0.511    28 Not remote  Not re… Preproces…
+#&gt;  8 train/te…        0.440             0.560    45 Not remote  Not re… Preproces…
+#&gt;  9 train/te…        0.397             0.603    46 Not remote  Not re… Preproces…
+#&gt; 10 train/te…        0.488             0.512    48 Not remote  Not re… Preproces…
+#&gt; # … with 1,387 more rows
+```
+
+---
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+roc_values &lt;-
+  so_test_results %&gt;%
+  collect_predictions() %&gt;%
+  roc_curve(truth = Remote, estimate = .pred_Remote)
+
+autoplot(roc_values)
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/tuning/plots/show-roc-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: title-slide, center
+
+# Model Tuning
+
+&lt;img src="images/hex/tune.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
