@@ -491,7 +491,7 @@ class: your-turn
 
 # Your Turn `r (yt_counter <- yt_counter + 1)`
 
-Create a knn workflow that tunes over neighbors. 
+Create a knn workflow that tunes over `neighbors` and uses your `normalize_rec` recipe.
 
 Then use `tune_grid()`, `cv_folds` and `k10_20` to find the best value of neighbors. 
 
@@ -692,7 +692,7 @@ Edit the random forest model to tune the `mtry` and `min_n` hyper-parameters; ca
 
 Update the model for your workflow; save it as `rf_twf`.
 
-Tune the workflow to so_folds and show the best combination of hyper-parameters to maximize `roc_auc`. 
+Tune the workflow to `so_folds` and show the best combination of hyper-parameters to maximize `roc_auc`. 
 
 How does it compare to the average ROC AUC across folds from `fit_resamples()`?
 
@@ -730,6 +730,16 @@ rf_twf_results %>%
 ```
 ]
 ]
+
+???
+
+defaults:
+
+`mtry` = sqrt(# predictors) = sqrt(20) = `r floor(sqrt(20))`
+
+`min_n` = 1
+
+roc_auc = .702
 
 ---
 class: center middle inverse
@@ -815,7 +825,8 @@ so_test_results <-
 ---
 template: last-fit
 
-```{r ref.label="last-fit", echo = FALSE}
+```{r echo = FALSE}
+so_test_results
 ```
 
 ---
@@ -834,7 +845,7 @@ countdown(minutes = 5)
 ---
 class: your-turn
 
-```{r results = "hide"}
+```{r}
 so_best <-
   rf_twf_results %>%
   select_best(metric = "roc_auc")
@@ -850,6 +861,28 @@ so_test_results <-
 so_test_results %>%
   collect_metrics()
 ```
+
+---
+# Comparing performance
+
+**Resampling**
+```{r echo = FALSE}
+rf_twf_results %>%
+  show_best(metric = "roc_auc", n = 1)
+```
+
+--
+
+**Test Set**
+```{r echo = FALSE}
+so_test_results %>%
+  collect_metrics() %>%
+  filter(.metric == "roc_auc")
+```
+
+???
+
+Ideally, performance estimated from resampling should be similar to what is seen in the test set. If performance from resampling higher, there may be concerns about overfitting.
 
 ---
 class: center middle inverse

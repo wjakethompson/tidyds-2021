@@ -1,6 +1,8 @@
 ---
-title: "08-Tune"
-output: html_document
+title: "Tune"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -18,20 +20,11 @@ ames_split <- initial_split(ames)
 ames_train <- training(ames_split)
 ames_test <- testing(ames_split)
 
-fit_data <- function(object, model, data, ...) {
-  if (inherits(object, "formula")) {
-    object <- add_model(add_formula(workflow(), object, blueprint = hardhat::default_formula_blueprint(indicators = FALSE, ...)))
-  }
-  fit(object, data, ...)
-}
-
-fit_split <- function(object, model, split, ...) {
-  if (inherits(object, "formula")) {
-    object <- add_model(add_formula(workflow(), object, blueprint = hardhat::default_formula_blueprint(indicators = FALSE)), model)
-  }
-  tune::last_fit(object, split, ...)
-}
+set.seed(100)
+cv_folds <- 
+  vfold_cv(ames, v= 10, strata = Sale_Price, breaks = 4)
 ```
+
 
 # Your Turn 1
 
@@ -75,7 +68,7 @@ Use `expand_grid()` to create a grid of values for `neighbors` that spans from 1
 
 # Your Turn 4
 
-Create a knn workflow that tunes over `neighbors` and uses your `normalize_rec` recipe. Then use `tune_grid`, `cv_folds` and `k10_20` to find the best value of `neighbors`. Save the output of `tune_grid`.
+Create a knn workflow that tunes over `neighbors` and uses your `normalize_rec` recipe. Then use `tune_grid`, `cv_folds` and `k10_20` to find the best value of `neighbors`. Save the output as `knn_results`.
 
 ```{r}
 ___________ <- 
@@ -85,17 +78,18 @@ ___________ <-
 
 knn_twf <-
   ___________ %>% 
-    ___________ %>% 
-    ___________
+  ___________ %>% 
+  ___________
 
 knn_results <- 
   knn_twf %>%
-    ___________
+  ___________
 
 knn_results %>% 
   ___________ %>% 
   filter(.metric == "rmse")
 ```
+
 
 # Your Turn 5
 
@@ -108,25 +102,20 @@ lm_spec <-
 
 pca_rec <- 
   recipe(Sale_Price ~ ., data = ames) %>%
-    step_novel(all_nominal()) %>%
-    step_dummy(all_nominal()) %>%
-    step_zv(all_predictors()) %>%
-    step_center(all_predictors()) %>%
-    step_scale(all_predictors()) %>%
-    step_pca(all_predictors(), num_comp = 5)
+  step_novel(all_nominal()) %>%
+  step_dummy(all_nominal()) %>%
+  step_zv(all_predictors()) %>%
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors()) %>%
+  step_pca(all_predictors(), num_comp = 5)
 
 pca_wf <-
   workflow() %>% 
-    add_recipe(pca_rec) %>% 
-    add_model(lm_spec)
+  add_recipe(pca_rec) %>% 
+  add_model(lm_spec)
 
 nc10_40 <- expand_grid(num_comp = c(10,20,30,40))
 ```
-
-```{r}
-
-```
-
 
 
 # Switch to Stackoverflow data
@@ -154,47 +143,45 @@ Update the model for your workflow; save it as `rf_twf`.
 
 Tune the workflow to `so_folds` and show the best combination of hyper-parameters to maximize `roc_auc`.
 
-How does it compare to the average ROC AUC across folds from fit_resamples()?
+How does it compare to the average ROC AUC across folds from `fit_resamples()`?
 
 ```{r}
-so_rec <- recipe(Remote ~ ., 
-                 data = so_train) %>% 
+so_rec <- recipe(Remote ~ ., data = so_train) %>% 
   step_dummy(all_nominal(), -all_outcomes()) %>% 
   step_lincomb(all_predictors()) %>% 
   step_downsample(Remote)
 
 rf_spec <- 
   rand_forest() %>% 
-    set_engine("ranger") %>% 
-    set_mode("classification")
+  set_engine("ranger") %>% 
+  set_mode("classification")
 
 rf_wf <-
   workflow() %>% 
-    add_recipe(so_rec) %>% 
-    add_model(rf_spec)
+  add_recipe(so_rec) %>% 
+  add_model(rf_spec)
 ```
 
 
 # Your Turn 7
 
-Use `select_best()`, `finalize_workflow()`, and `fit_split()` to take the best combination of hyper-parameters from `rf_results` and use them to predict the test set.
+Use `select_best()`, `finalize_workflow()`, and `last_fit()` to take the best combination of hyper-parameters from `rf_results` and use them to predict the test set.
 
 How does our actual test ROC AUC compare to our cross-validated estimate?
 
 ```{r}
 so_best <-
   ___________ %>% 
-    ___________
+  ___________
 
 so_wfl_final <- 
   rf_twf %>%
-    ___________
+  ___________
 
 so_test_results <-
   ___________ %>% 
-    ___________(split = so_split)
+  ___________(split = so_split)
 
 so_test_results %>% 
   ___________
 ```
-
