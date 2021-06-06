@@ -1,5 +1,5 @@
 ---
-title: 'Session 13: Recipes'
+title: 'Session 13: Feature Engineering'
 draft: true
 date: 2021-06-13
 slug: 13-recipes
