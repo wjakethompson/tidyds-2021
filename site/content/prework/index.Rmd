@@ -18,7 +18,8 @@ Please have a computer or laptop that has the following installed:
 ```{r eval = FALSE}
 install.packages(c("tidyverse", "tidymodels", "fivethirtyeight", "ggthemes",
                    "babynames", "nycflights13", "skimr", "AmesHousing",
-                   "rpart", "ranger", "kknn", "palmerpenguins", "vip", "themis", "modeldata"),
+                   "rpart", "ranger", "kknn", "palmerpenguins", "vip", "themis",
+                   "modeldata", "parallel", "doFuture"),
                  dependencies = TRUE)
 ```
 
