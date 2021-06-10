@@ -1,0 +1,28 @@
+---
+title: 'Session 15: Case Study 2'
+draft: true
+date: 2021-06-13
+slug: 15-case-study-2
+categories: []
+tags: []
+featured: no
+projects: []
+weight: 1
+links:
+- icon: images
+  icon_pack: fas
+  name: slides
+  url: /slides/15-Case-Study-2.html
+- icon: dumbbell
+  icon_pack: fas
+  name: Exercises
+  url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/exercises/15-case-study-2.Rmd
+- icon: check-square
+  icon_pack: far
+  name: Solutions
+  url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/solutions/15-case-study-2-solutions.Rmd
+---
+
+```{r echo=FALSE}
+knitr::include_url("/slides/15-Case-Study-2.html")
+```
