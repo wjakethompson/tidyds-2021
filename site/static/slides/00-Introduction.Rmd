@@ -132,6 +132,10 @@ Workshop content is based on the prior work of:
 ]
 
 ---
+background-image: url(images/intro/zoom-etiquette.png)
+background-size: cover
+
+---
 class: middle, center
 
 .pull-left[
@@ -427,5 +431,21 @@ knitr::include_graphics("images/intro/hex-day5.png")
 ]
 
 ---
-background-image: url(images/intro/zoom-etiquette.png)
-background-size: cover
+# Office Hours
+
+* One-on-one consulting
+  * Ask questions
+  
+  * Problem solving
+
+  * Consultation on projects
+  
+* Sign-up required
+
+---
+background-image: url(images/intro/calendly.png)
+background-size: 70%
+background-position: 50% 70%
+class: center
+
+.big[https://calendly.com/wjakethompson/srmc-consulting]
