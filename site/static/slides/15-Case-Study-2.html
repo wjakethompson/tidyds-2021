@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Case Study</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="W. Jake Thompson" />
+    <meta name="date" content="2021-06-10" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, center
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#009FB7;"&gt;15&lt;/strong&gt;
+&lt;/span&gt; 
+
+# Case Study
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+  `$$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$`
+  `$$\require{color}\definecolor{light_blue}{rgb}{0.0392156862745098, 0.870588235294118, 1}$$`
+  `$$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$`
+  `$$\require{color}\definecolor{dark_yellow}{rgb}{0.635294117647059, 0.47843137254902, 0.00392156862745098}$$`
+  `$$\require{color}\definecolor{pink}{rgb}{0.796078431372549, 0.16078431372549, 0.482352941176471}$$`
+  `$$\require{color}\definecolor{light_pink}{rgb}{1, 0.552941176470588, 0.776470588235294}$$`
+  `$$\require{color}\definecolor{grey}{rgb}{0.411764705882353, 0.403921568627451, 0.450980392156863}$$`
+&lt;/div&gt;
+  
+&lt;script type="text/x-mathjax-config"&gt;
+  MathJax.Hub.Config({
+    TeX: {
+      Macros: {
+        blue: ["{\\color{blue}{#1}}", 1],
+        light_blue: ["{\\color{light_blue}{#1}}", 1],
+        yellow: ["{\\color{yellow}{#1}}", 1],
+        dark_yellow: ["{\\color{dark_yellow}{#1}}", 1],
+        pink: ["{\\color{pink}{#1}}", 1],
+        light_pink: ["{\\color{light_pink}{#1}}", 1],
+        grey: ["{\\color{grey}{#1}}", 1]
+      },
+      loader: {load: ['[tex]/color']},
+      tex: {packages: {'[+]': ['color']}}
+    }
+  });
+&lt;/script&gt;
+
+
+---
+background-image: url(images/case-study-2/all-hex.png)
+background-position: center middle
+background-size: 70%
+
+---
+class: your-turn
+
+# Your Turn 0
+
+.big[
+* Open the R Notebook **materials/exercises/15-case-study-2.Rmd**
+* Run the setup chunk
+]
+
+<div class="countdown" id="timer_60c2223d" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.001.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.002.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.003.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.004.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.005.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.006.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.007.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.008.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.009.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.010.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.011.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.012.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.013.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.014.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.015.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.016.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.017.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.018.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.019.png)
+background-size: cover
+
+---
+# Hotel bookings
+
+* Data from [Antonio, Almeida, &amp; Nunes (2019)](https://doi.org/10.1016/j.dib.2018.11.126)
+
+* We're using a slightly modified version that includes only *hotel stays*
+
+--
+
+.big[
+* **Which hotel stays included children and/or babies?**
+]
+
+* Two methods:
+    * Logistic regression
+    * Random forest
+
+.footnote[
+Based on tidymodels [case study](https://www.tidymodels.org/start/case-study/).
+]
+
+???
+
+In paper authors caution that distributions of some variables were different for canceled vs. not canceled. This makes sense because much of that information is gathered (or gathered again more accurately) when guests check in for their stay, so canceled bookings are likely to have more missing data than non-canceled bookings, and/or to have different characteristics when data is not missing
+
+---
+# `hotels`
+
+
+
+
+```r
+glimpse(hotels)
+#&gt; Rows: 50,000
+#&gt; Columns: 23
+#&gt; $ hotel                          &lt;fct&gt; City_Hotel, City_Hotel, Resort_Hotel, R…
+#&gt; $ lead_time                      &lt;dbl&gt; 217, 2, 95, 143, 136, 67, 47, 56, 80, 6…
+#&gt; $ stays_in_weekend_nights        &lt;dbl&gt; 1, 0, 2, 2, 1, 2, 0, 0, 0, 2, 1, 0, 1, …
+#&gt; $ stays_in_week_nights           &lt;dbl&gt; 3, 1, 5, 6, 4, 2, 2, 3, 4, 2, 2, 1, 2, …
+#&gt; $ adults                         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 1, 2, …
+#&gt; $ children                       &lt;fct&gt; none, none, none, none, none, none, chi…
+#&gt; $ meal                           &lt;fct&gt; BB, BB, BB, HB, HB, SC, BB, BB, BB, BB,…
+#&gt; $ country                        &lt;fct&gt; DEU, PRT, GBR, ROU, PRT, GBR, ESP, ESP,…
+#&gt; $ market_segment                 &lt;fct&gt; Offline_TA/TO, Direct, Online_TA, Onlin…
+#&gt; $ distribution_channel           &lt;fct&gt; TA/TO, Direct, TA/TO, TA/TO, Direct, TA…
+#&gt; $ is_repeated_guest              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ previous_cancellations         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ previous_bookings_not_canceled &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ reserved_room_type             &lt;fct&gt; A, D, A, A, F, A, C, B, D, A, A, D, A, …
+#&gt; $ assigned_room_type             &lt;fct&gt; A, K, A, A, F, A, C, A, D, A, D, D, A, …
+#&gt; $ booking_changes                &lt;dbl&gt; 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ deposit_type                   &lt;fct&gt; No_Deposit, No_Deposit, No_Deposit, No_…
+#&gt; $ days_in_waiting_list           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ customer_type                  &lt;fct&gt; Transient-Party, Transient, Transient, …
+#&gt; $ average_daily_rate             &lt;dbl&gt; 80.75, 170.00, 8.00, 81.00, 157.60, 49.…
+#&gt; $ required_car_parking_spaces    &lt;fct&gt; none, none, none, none, none, none, non…
+#&gt; $ total_of_special_requests      &lt;dbl&gt; 1, 3, 2, 1, 4, 1, 1, 1, 1, 1, 0, 1, 0, …
+#&gt; $ arrival_date                   &lt;date&gt; 2016-09-01, 2017-08-25, 2016-11-19, 20…
+```
+
+---
+class: your-turn
+
+# Your turn 1
+
+Look at our outcome variable, `children`.
+
+* What are the levels?
+
+* What proportion of cases are in each level?
+
+<div class="countdown" id="timer_60c220ca" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+hotels %&gt;%
+  count(children) %&gt;%
+  mutate(prop = n / sum(n))
+#&gt; # A tibble: 2 x 3
+#&gt;   children     n   prop
+#&gt;   &lt;fct&gt;    &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 children  4038 0.0808
+#&gt; 2 none     45962 0.919
+```
+
+???
+
+With such a large class imbalance, we may consider upsampling or downsampling. For now, let's use the data as is.
+
+---
+class: your-turn
+
+# Your turn 2
+
+Create an initial split of our data to create a training and a testing set. Call the split `splits`.
+
+Because of the class imbalance, stratify the split by our outcome variable, `children`.
+
+Extract the training data as `hotel_other` and the testing data as `hotel_test`.
+
+Keep `set.seed(123)` in your code!
+
+<div class="countdown" id="timer_60c221e1" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+set.seed(123)
+
+splits &lt;- initial_split(hotels, strata = children)
+splits
+#&gt; &lt;Analysis/Assess/Total&gt;
+#&gt; &lt;37500/12500/50000&gt;
+
+hotel_other &lt;- training(splits)
+hotel_test &lt;- testing(splits)
+```
+
+---
+
+```r
+hotel_other %&gt;%
+  count(children) %&gt;%
+  mutate(prop = n / sum(n))
+#&gt; # A tibble: 2 x 3
+#&gt;   children     n   prop
+#&gt;   &lt;fct&gt;    &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 children  3048 0.0813
+#&gt; 2 none     34452 0.919
+
+hotel_test %&gt;%
+  count(children) %&gt;%
+  mutate(prop = n / sum(n))
+#&gt; # A tibble: 2 x 3
+#&gt;   children     n   prop
+#&gt;   &lt;fct&gt;    &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 children   990 0.0792
+#&gt; 2 none     11510 0.921
+```
+
+---
+class: your-turn
+
+# Your turn 3
+
+How to choose a prediction model? Let's use resampling to evaluate our potential models.
+
+Create a 10-fold cross validation, stratified by `children`. Call it `folds`. 
+
+<div class="countdown" id="timer_60c2218b" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+set.seed(789)
+
+folds &lt;- vfold_cv(hotel_other, v = 10, strata = children)
+folds
+#&gt; #  10-fold cross-validation using stratification 
+#&gt; # A tibble: 10 x 2
+#&gt;    splits               id    
+#&gt;    &lt;list&gt;               &lt;chr&gt; 
+#&gt;  1 &lt;split [33750/3750]&gt; Fold01
+#&gt;  2 &lt;split [33750/3750]&gt; Fold02
+#&gt;  3 &lt;split [33750/3750]&gt; Fold03
+#&gt;  4 &lt;split [33750/3750]&gt; Fold04
+#&gt;  5 &lt;split [33750/3750]&gt; Fold05
+#&gt;  6 &lt;split [33750/3750]&gt; Fold06
+#&gt;  7 &lt;split [33750/3750]&gt; Fold07
+#&gt;  8 &lt;split [33750/3750]&gt; Fold08
+#&gt;  9 &lt;split [33750/3750]&gt; Fold09
+#&gt; 10 &lt;split [33750/3750]&gt; Fold10
+```
+
+---
+# Model 1: Penalized logistic regression
+
+* Can be estimated in R using the {glmnet} package.
+
+* A *penalty* is applied to slope parameters to pull less relevant predictors toward zero.
+
+* What size penalty should be used?
+
+
+???
+
+Similar to Lasso regression, where slopes can actually be set to 0 if there is a large enough penalty.
+
+---
+class: your-turn
+
+# Your turn 4
+
+Build a model specification for the penalized logistic regression, called `lr_mod`.
+
+Define the model so that the `penalty` for the model can be tuned.
+
+Use `glmnet` as the model engine.
+
+<div class="countdown" id="timer_60c2211d" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+lr_mod &lt;- 
+  logistic_reg(penalty = tune(), mixture = 1) %&gt;%
+  set_engine("glmnet")
+```
+
+???
+
+Mixture = 1 means that the glmnet model will potentially remove irrelevant predictors and choose a simpler model.
+
+---
+# Model 1 recipe
+
+---
+class: pop-quiz
+
+# Pop quiz!
+
+What date-based predictors might be useful related to arrival date?
+
+--
+
+Year, month, day
+
+--
+
+Holidays
+
+---
+# Model 1 recipe
+
+
+
+
+* Date-based predictors
+    * [`step_date()`](https://recipes.tidymodels.org/reference/step_date.html)
+    * [`step_holiday()`](https://recipes.tidymodels.org/reference/step_holiday.html)
+
+* Convert factors to dummy coded variables
+
+* Remove variables that have only 1 value
+
+* Center and scale numeric variables
+
+---
+class: your-turn
+
+# Your turn 5
+
+Using the provided list of holidays, create a recipe, called `lr_recipe`, for the logistic regression model that:
+
+1. Creates `year`, `month`, and `day` variables from `arrival_date`.
+2. Creates holiday indicators based on the `arrival_date`.
+3. Remove `arrival_date` (not necessary with other features).
+4. Create dummy variables from all predictors that are factors.
+5. Remove all variables have only one value.
+6. Center and scale all predictors.
+
+<div class="countdown" id="timer_60c22218" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+class: your-turn
+
+
+```r
+holidays &lt;- c("AllSouls", "AshWednesday", "ChristmasEve", "Easter", 
+              "ChristmasDay", "GoodFriday", "NewYearsDay", "PalmSunday")
+
+lr_recipe &lt;- 
+  recipe(children ~ ., data = hotel_other) %&gt;% 
+  step_date(arrival_date) %&gt;% 
+  step_holiday(arrival_date, holidays = holidays) %&gt;% 
+  step_rm(arrival_date) %&gt;% 
+  step_dummy(all_nominal(), -all_outcomes()) %&gt;% 
+  step_zv(all_predictors()) %&gt;% 
+  step_normalize(all_predictors())
+```
+
+---
+class: your-turn
+
+# Your turn 6
+
+Create an `lr_workflow` from the model specification and recipe you just created.
+
+<div class="countdown" id="timer_60c22184" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+lr_workflow &lt;-
+  workflow() %&gt;%
+  add_model(lr_mod) %&gt;%
+  add_recipe(lr_recipe)
+```
+
+---
+class: your-turn
+
+# Your turn 7
+
+Tune the logistic regression workflow. Use the provided grid of tuning parameter values.
+
+Which penalty value provides the best area under the ROC curve?
+
+Create a plot showing `penalty` on the x-axis and area under the ROC curve on the y-axis.
+
+<div class="countdown" id="timer_60c21f1a" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Tune Workflow]
+
+```r
+lr_reg_grid &lt;- tibble(penalty = 10^seq(-4, -1, length.out = 30))
+
+lr_res &lt;-
+  lr_workflow %&gt;%
+  tune_grid(folds,
+            grid = lr_reg_grid,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc))
+
+lr_res %&gt;%
+  show_best()
+#&gt; # A tibble: 5 x 7
+#&gt;    penalty .metric .estimator  mean     n std_err .config              
+#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1 0.00137  roc_auc binary     0.875    10 0.00303 Preprocessor1_Model12
+#&gt; 2 0.00174  roc_auc binary     0.875    10 0.00300 Preprocessor1_Model13
+#&gt; 3 0.00108  roc_auc binary     0.875    10 0.00310 Preprocessor1_Model11
+#&gt; 4 0.000853 roc_auc binary     0.875    10 0.00315 Preprocessor1_Model10
+#&gt; 5 0.00221  roc_auc binary     0.875    10 0.00299 Preprocessor1_Model14
+```
+]
+
+.panel[.panel-name[Create Plot]
+
+```r
+lr_res %&gt;%
+  collect_metrics() %&gt;%
+  ggplot(aes(x = penalty, y = mean)) +
+  geom_point() +
+  geom_line() +
+  labs(y = "Area under the ROC Curve") +
+  scale_x_log10(labels = scales::label_number())
+```
+
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/case-study-2/plots/show-lr-roc-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+???
+
+What does this show us? Performance is better at the smaller penalty values, suggesting that the majority of the predictors are important. We also see a steep drop in the area under the ROC curve towards the highest penalty values. This happens because a large enough penalty will remove all predictors from the model, and not surprisingly predictive accuracy plummets with no predictors in the model (recall that an ROC AUC value of 0.50 means that the model does no better than chance at predicting the correct class).
+
+---
+
+```r
+top_models &lt;- lr_res %&gt;%
+  show_best("roc_auc", n = 15) %&gt;%
+  arrange(penalty)
+top_models
+#&gt; # A tibble: 15 x 7
+#&gt;     penalty .metric .estimator  mean     n std_err .config              
+#&gt;       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt;  1 0.0001   roc_auc binary     0.873    10 0.00322 Preprocessor1_Model01
+#&gt;  2 0.000127 roc_auc binary     0.873    10 0.00326 Preprocessor1_Model02
+#&gt;  3 0.000161 roc_auc binary     0.873    10 0.00329 Preprocessor1_Model03
+#&gt;  4 0.000204 roc_auc binary     0.874    10 0.00330 Preprocessor1_Model04
+#&gt;  5 0.000259 roc_auc binary     0.874    10 0.00331 Preprocessor1_Model05
+#&gt;  6 0.000329 roc_auc binary     0.874    10 0.00328 Preprocessor1_Model06
+#&gt;  7 0.000418 roc_auc binary     0.874    10 0.00324 Preprocessor1_Model07
+#&gt;  8 0.000530 roc_auc binary     0.875    10 0.00322 Preprocessor1_Model08
+#&gt;  9 0.000672 roc_auc binary     0.875    10 0.00319 Preprocessor1_Model09
+#&gt; 10 0.000853 roc_auc binary     0.875    10 0.00315 Preprocessor1_Model10
+#&gt; 11 0.00108  roc_auc binary     0.875    10 0.00310 Preprocessor1_Model11
+#&gt; 12 0.00137  roc_auc binary     0.875    10 0.00303 Preprocessor1_Model12
+#&gt; 13 0.00174  roc_auc binary     0.875    10 0.00300 Preprocessor1_Model13
+#&gt; 14 0.00221  roc_auc binary     0.875    10 0.00299 Preprocessor1_Model14
+#&gt; 15 0.00281  roc_auc binary     0.874    10 0.00299 Preprocessor1_Model15
+```
+
+???
+
+Our model performance seems to plateau at the smaller penalty values, so going by the `roc_auc` metric alone could lead us to multiple options for the “best” value for this hyperparameter.
+
+---
+# Which is best?
+
+
+```r
+lr_best &lt;- lr_res %&gt;%
+  select_best()
+lr_best
+#&gt; # A tibble: 1 x 2
+#&gt;   penalty .config              
+#&gt;     &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1 0.00137 Preprocessor1_Model12
+```
+
+---
+&lt;img src="images/case-study-2/plots/lr-select-best-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+
+&lt;img src="images/case-study-2/plots/lr-select-pick-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+???
+
+We may want to choose a penalty value further along the x-axis, closer to where we start to see the decline in model performance. For example, candidate model 14 with a penalty value of 0.00221 has effectively the same performance as the numerically best model, but might eliminate more predictors. This penalty value is marked by the solid line above. In general, fewer irrelevant predictors is better. If performance is about the same, we’d prefer to choose a higher penalty value.
+
+---
+
+```r
+lr_best &lt;- lr_res %&gt;%
+  collect_metrics() %&gt;%
+  arrange(penalty) %&gt;%
+  slice(13)
+
+lr_best
+#&gt; # A tibble: 1 x 7
+#&gt;   penalty .metric .estimator  mean     n std_err .config              
+#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1 0.00174 roc_auc binary     0.875    10 0.00300 Preprocessor1_Model13
+```
+
+---
+class: your-turn
+
+# Your turn 8
+
+Create an ROC curve for the selected `penalty` value.
+
+1. Use `collect_predictions()` with `parameters = lr_best` to only get predictions for our selected penalty value.
+
+2. Use the predictions and `roc_curve()` to make the data for the curve.
+
+3. Add an additional variable called `model` that has the value `"Logistic Regression"`. We'll need this later.
+
+4. Plot the ROC curve.
+
+<div class="countdown" id="timer_60c21ecd" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+lr_auc &lt;- lr_res %&gt;%
+  collect_predictions(parameters = lr_best) %&gt;%
+  roc_curve(truth = children, estimate = .pred_children) %&gt;%
+  mutate(model = "Logistic Regression")
+
+autoplot(lr_auc)
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/case-study-2/plots/unnamed-chunk-22-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+???
+
+ROC of 0.8752802 is good, but maybe we can do better with a non-liner model. Let's try a random forest!
+
+---
+# Model 2: Random forest
+
+* Several packages, but we'll use {ranger}.
+
+* More flexible than logistic regression.
+
+* Ensemble of many decision trees.
+
+---
+class: your-turn
+
+# Your turn 9
+
+Build a model specification for the random forest model, called `rf_mod`.
+
+Define the model so that the `mtry` and `min_n` for the model can be tuned.
+
+Use `ranger` as the model engine.
+
+Remember to set the mode!
+
+<div class="countdown" id="timer_60c21efc" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+rf_mod &lt;-
+  rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %&gt;%
+  set_engine("ranger") %&gt;%
+  set_mode("classification")
+```
+
+---
+# Model 2 recipe
+
+* Random forests do not require dummy or normalized predictors.
+
+* We still want our date-based features.
+
+---
+class: your-turn
+
+# Your turn 10
+
+Using the same list of holidays, create a recipe, called `rf_recipe`, for the random forest model that:
+
+1. Creates `year`, `month`, and `day` variables from `arrival_date`.
+2. Creates holiday indicators based on the `arrival_date`.
+3. Remove `arrival_date` (not necessary with other features).
+
+<div class="countdown" id="timer_60c22178" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+class: your-turn
+
+
+```r
+rf_recipe &lt;-
+  recipe(children ~ ., data = hotel_other) %&gt;%
+  step_date(arrival_date) %&gt;% 
+  step_holiday(arrival_date, holidays = holidays) %&gt;% 
+  step_rm(arrival_date)
+```
+
+---
+class: your-turn
+
+# Your turn 11
+
+Create an `rf_workflow` from the model sepcification and the recipe you just created.
+
+<div class="countdown" id="timer_60c22243" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+rf_workflow &lt;- 
+  workflow() %&gt;%
+  add_model(rf_mod) %&gt;%
+  add_recipe(rf_recipe)
+```
+
+---
+# Tune the workflow
+
+---
+class: center middle inverse
+
+# ⚠️ Warning ⚠️
+
+--
+
+Tuning this model will take a **long** time (&gt; 1 hour)
+
+---
+# Tune the workflow
+
+
+```r
+set.seed(345)
+
+rf_res &lt;- rf_workflow %&gt;%
+  tune_grid(folds,
+            grid = 25,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc))
+```
+
+--
+
+
+```r
+rf_res &lt;- read_rds(here("materials", "data", "hotels-rf-tune.rds"))
+```
+
+
+---
+class: your-turn
+
+# Your turn 12
+
+Which `mtry` and `min_n` values provide the best area under the ROC curve?
+
+<div class="countdown" id="timer_60c21fc4" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Tune Workflow]
+
+```r
+all_cores &lt;- parallel::detectCores(logical = FALSE)
+
+library(doParallel)
+cl &lt;- makePSOCKcluster(all_cores)
+registerDoParallel(cl)
+
+set.seed(345)
+
+rf_res &lt;- rf_workflow %&gt;%
+  tune_grid(folds,
+            grid = 25,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc))
+```
+]
+
+.panel[.panel-name[Results]
+
+```r
+rf_res %&gt;%
+  show_best(metric = "roc_auc")
+#&gt; # A tibble: 5 x 8
+#&gt;    mtry min_n .metric .estimator  mean     n std_err .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1     7    11 roc_auc binary     0.925    10 0.00192 Preprocessor1_Model09
+#&gt; 2     4     5 roc_auc binary     0.925    10 0.00176 Preprocessor1_Model22
+#&gt; 3     9    10 roc_auc binary     0.924    10 0.00189 Preprocessor1_Model24
+#&gt; 4     7    15 roc_auc binary     0.924    10 0.00181 Preprocessor1_Model07
+#&gt; 5    12     6 roc_auc binary     0.923    10 0.00203 Preprocessor1_Model23
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/case-study-2/plots/rf-tune-plot-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+???
+
+Plotting the results of the tuning process highlights that both mtry (number of predictors at each node) and min_n (minimum number of data points required to keep splitting) should be fairly small to optimize performance. However, the range of the y-axis indicates that the model is very robust to the choice of these parameter values---all but one of the ROC AUC values are greater than 0.90.
+
+---
+
+```r
+rf_best &lt;- rf_res %&gt;%
+  select_best(metric = "roc_auc")
+
+rf_best
+#&gt; # A tibble: 1 x 3
+#&gt;    mtry min_n .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                
+#&gt; 1     7    11 Preprocessor1_Model09
+```
+
+---
+class: your-turn
+
+# Your turn 13
+
+Create an ROC curve for the selected `mtry` and `min_n` values.
+
+1. Use `collect_predictions()` with `parameters = rf_best` to only get predictions for our selected penalty value.
+
+2. Use the predictions and `roc_curve()` to make the data for the curve.
+
+3. Add an additional variable called `model` that has the value `"Random Forest"`. We'll need this later.
+
+4. Plot the ROC curve.
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+rf_auc &lt;- rf_res %&gt;%
+  collect_predictions(parameters = rf_best) %&gt;%
+  roc_curve(truth = children, estimate = .pred_children) %&gt;%
+  mutate(model = "Random Forest")
+
+autoplot(rf_auc)
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/case-study-2/plots/unnamed-chunk-34-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: your-turn
+
+# Your turn 14
+
+Compare the area under the ROC curves for our selected logistic regression and random forest models.
+
+1. Which model provides the best ROC AUC?
+
+2. Plot both ROC curves together. Is one model uniformly better?
+
+Which model should we select as our final model?
+
+<div class="countdown" id="timer_60c2203f" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+.panelset[
+.panel[.panel-name[Code]
+
+```r
+lr_best
+#&gt; # A tibble: 1 x 7
+#&gt;   penalty .metric .estimator  mean     n std_err .config              
+#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1 0.00174 roc_auc binary     0.875    10 0.00300 Preprocessor1_Model13
+
+show_best(rf_res, n = 1)
+#&gt; # A tibble: 1 x 8
+#&gt;    mtry min_n .metric .estimator  mean     n std_err .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1     7    11 roc_auc binary     0.925    10 0.00192 Preprocessor1_Model09
+
+bind_rows(lr_auc, rf_auc) %&gt;%
+  ggplot(aes(x = 1 - specificity, y = sensitivity, color = model)) +
+  geom_line(size = 1.5, alpha = 0.8) +
+  geom_abline(linetype = "dotted") +
+  scale_color_viridis_d(option = "plasma", end = 0.6) +
+  coord_equal()
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="images/case-study-2/plots/rocauc-compare-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+class: center middle inverse
+
+# Now what?
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.007.png)
+background-size: cover
+
+---
+background-image: url(images/case-study-2/tm-process/tmprocess.010.png)
+background-size: cover
+
+---
+class: your-turn
+
+# Your turn 15
+
+Create a new random forest model specification that uses our tuned values of `mtry` and `min_n`. Use `ranger` as the engine, with `importance = "impurity"`.
+
+Create a new workflow, called `last_rf_workflow`, that is based on our original random forest workflow, but updated with the new model specification.
+
+<div class="countdown" id="timer_60c221ea" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+rf_best
+#&gt; # A tibble: 1 x 3
+#&gt;    mtry min_n .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                
+#&gt; 1     7    11 Preprocessor1_Model09
+
+last_rf_mod &lt;-
+  rand_forest(mtry = 7, min_n = 11, trees = 1000) %&gt;%
+  set_engine("ranger", importance = "impurity") %&gt;%
+  set_mode("classification")
+
+last_rf_workflow &lt;-
+  rf_workflow %&gt;%
+  update_model(last_rf_mod)
+```
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
