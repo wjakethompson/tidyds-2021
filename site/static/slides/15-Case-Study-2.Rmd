@@ -858,6 +858,11 @@ Create an ROC curve for the selected `mtry` and `min_n` values.
 
 4. Plot the ROC curve.
 
+```{r echo = FALSE}
+countdown(minutes = 3)
+```
+
+
 ---
 class: your-turn
 
@@ -983,9 +988,68 @@ set.seed(345)
 
 last_rf_fit <-
   last_rf_workflow %>%
-  last_fit(splits)
+  last_fit(splits) #<<
 
 last_rf_fit %>%
   collect_metrics()
 ```
 
+---
+class: center middle inverse
+
+# final looks
+
+---
+# Performance Comparison
+
+```{r}
+show_best(rf_res, metric = "roc_auc", n = 1)
+
+collect_metrics(last_rf_fit)
+```
+
+---
+.panelset[
+```{r last-roc, panelset = c(source = "ROC Curve", output = "Plot"), out.width = "50%", fig.asp = NA}
+last_rf_fit %>%
+  collect_predictions() %>%
+  roc_curve(children, .pred_children) %>%
+  mutate(model = "Final") %>%
+  bind_rows(rf_auc, lr_auc) %>%
+  mutate(model = factor(model, levels = c("Logistic Regression", "Random Forest", "Final"))) %>%
+  ggplot(aes(x = 1 - specificity, y = sensitivity, color = model)) +
+  geom_line(size = 1.5, alpha = 0.8) +
+  geom_abline(linetype = "dotted") +
+  scale_color_manual(values = c("Random Forest" = light_pink,
+                                "Logistic Regression" = light_blue,
+                                "Final" = pink)) +
+  coord_equal()
+```
+]
+
+---
+.panelset[
+```{r last-vip, panelset = c(source = "Variable Importance", output = "Plot"), out.width = "80%"}
+last_rf_fit %>%
+  pluck(".workflow", 1) %>%
+  pull_workflow_fit() %>%
+  vip(num_features = 20)
+```
+]
+
+---
+class: title-slide, center
+
+# `r rmarkdown::metadata$title`
+
+```{r closing-hex, echo = FALSE, out.width = "20%"}
+include_graphics("images/hex/tidymodels.png")
+```
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]

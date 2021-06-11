@@ -93,7 +93,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_60c2223d" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c87a" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -244,7 +244,7 @@ Look at our outcome variable, `children`.
 
 * What proportion of cases are in each level?
 
-<div class="countdown" id="timer_60c220ca" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c6ec" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -280,7 +280,7 @@ Extract the training data as `hotel_other` and the testing data as `hotel_test`.
 
 Keep `set.seed(123)` in your code!
 
-<div class="countdown" id="timer_60c221e1" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2ca87" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -331,7 +331,7 @@ How to choose a prediction model? Let's use resampling to evaluate our potential
 
 Create a 10-fold cross validation, stratified by `children`. Call it `folds`. 
 
-<div class="countdown" id="timer_60c2218b" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c985" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -385,7 +385,7 @@ Define the model so that the `penalty` for the model can be tuned.
 
 Use `glmnet` as the model engine.
 
-<div class="countdown" id="timer_60c2211d" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2ca27" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -451,7 +451,7 @@ Using the provided list of holidays, create a recipe, called `lr_recipe`, for th
 5. Remove all variables have only one value.
 6. Center and scale all predictors.
 
-<div class="countdown" id="timer_60c22218" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c910" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -481,7 +481,7 @@ class: your-turn
 
 Create an `lr_workflow` from the model specification and recipe you just created.
 
-<div class="countdown" id="timer_60c22184" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c725" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -507,7 +507,7 @@ Which penalty value provides the best area under the ROC curve?
 
 Create a plot showing `penalty` on the x-axis and area under the ROC curve on the y-axis.
 
-<div class="countdown" id="timer_60c21f1a" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c9cc" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -652,7 +652,7 @@ Create an ROC curve for the selected `penalty` value.
 
 4. Plot the ROC curve.
 
-<div class="countdown" id="timer_60c21ecd" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c7a3" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -703,7 +703,7 @@ Use `ranger` as the model engine.
 
 Remember to set the mode!
 
-<div class="countdown" id="timer_60c21efc" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c870" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -736,7 +736,7 @@ Using the same list of holidays, create a recipe, called `rf_recipe`, for the ra
 2. Creates holiday indicators based on the `arrival_date`.
 3. Remove `arrival_date` (not necessary with other features).
 
-<div class="countdown" id="timer_60c22178" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c795" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -760,7 +760,7 @@ class: your-turn
 
 Create an `rf_workflow` from the model sepcification and the recipe you just created.
 
-<div class="countdown" id="timer_60c22243" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c898" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -816,7 +816,7 @@ class: your-turn
 
 Which `mtry` and `min_n` values provide the best area under the ROC curve?
 
-<div class="countdown" id="timer_60c21fc4" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c6bd" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -896,6 +896,11 @@ Create an ROC curve for the selected `mtry` and `min_n` values.
 
 4. Plot the ROC curve.
 
+<div class="countdown" id="timer_60c2ca4e" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
 ---
 class: your-turn
 
@@ -913,7 +918,7 @@ autoplot(rf_auc)
 ]
 
 .panel[.panel-name[Plot]
-&lt;img src="images/case-study-2/plots/unnamed-chunk-34-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/case-study-2/plots/unnamed-chunk-35-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -930,7 +935,7 @@ Compare the area under the ROC curves for our selected logistic regression and r
 
 Which model should we select as our final model?
 
-<div class="countdown" id="timer_60c2203f" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c9da" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -989,7 +994,7 @@ Create a new random forest model specification that uses our tuned values of `mt
 
 Create a new workflow, called `last_rf_workflow`, that is based on our original random forest workflow, but updated with the new model specification.
 
-<div class="countdown" id="timer_60c221ea" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60c2c883" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1014,6 +1019,124 @@ last_rf_workflow &lt;-
   update_model(last_rf_mod)
 ```
 
+---
+class: your-turn
+
+# Your turn 16
+
+Using our final workflow, fit the random forest model to our entire training set. Then using predictions from the test set, find the area under the ROC curve for our final model.
+
+<div class="countdown" id="timer_60c2c8ac" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+class: your-turn
+
+
+```r
+set.seed(345)
+
+last_rf_fit &lt;-
+  last_rf_workflow %&gt;%
+* last_fit(splits)
+
+last_rf_fit %&gt;%
+  collect_metrics()
+#&gt; # A tibble: 2 x 4
+#&gt;   .metric  .estimator .estimate .config             
+#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 accuracy binary         0.945 Preprocessor1_Model1
+#&gt; 2 roc_auc  binary         0.923 Preprocessor1_Model1
+```
+
+---
+class: center middle inverse
+
+# final looks
+
+---
+# Performance Comparison
+
+
+```r
+show_best(rf_res, metric = "roc_auc", n = 1)
+#&gt; # A tibble: 1 x 8
+#&gt;    mtry min_n .metric .estimator  mean     n std_err .config              
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+#&gt; 1     7    11 roc_auc binary     0.925    10 0.00192 Preprocessor1_Model09
+
+collect_metrics(last_rf_fit)
+#&gt; # A tibble: 2 x 4
+#&gt;   .metric  .estimator .estimate .config             
+#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+#&gt; 1 accuracy binary         0.945 Preprocessor1_Model1
+#&gt; 2 roc_auc  binary         0.923 Preprocessor1_Model1
+```
+
+---
+.panelset[
+.panel[.panel-name[ROC Curve]
+
+```r
+last_rf_fit %&gt;%
+  collect_predictions() %&gt;%
+  roc_curve(children, .pred_children) %&gt;%
+  mutate(model = "Final") %&gt;%
+  bind_rows(rf_auc, lr_auc) %&gt;%
+  mutate(model = factor(model, levels = c("Logistic Regression", "Random Forest", "Final"))) %&gt;%
+  ggplot(aes(x = 1 - specificity, y = sensitivity, color = model)) +
+  geom_line(size = 1.5, alpha = 0.8) +
+  geom_abline(linetype = "dotted") +
+  scale_color_manual(values = c("Random Forest" = light_pink,
+                                "Logistic Regression" = light_blue,
+                                "Final" = pink)) +
+  coord_equal()
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/case-study-2/plots/last-roc-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+.panelset[
+.panel[.panel-name[Variable Importance]
+
+```r
+last_rf_fit %&gt;%
+  pluck(".workflow", 1) %&gt;%
+  pull_workflow_fit() %&gt;%
+  vip(num_features = 20)
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+&lt;img src="images/case-study-2/plots/last-vip-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+class: title-slide, center
+
+# Case Study
+
+&lt;img src="images/hex/tidymodels.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
