@@ -47,7 +47,12 @@ The course will be taught over Zoom, so make sure you have stable internet conne
   - The R packages we will use, which you can install by connecting to
     the internet, opening RStudio, and running at the command line:
     
-        install.packages(c("tidyverse", "tidymodels"))
+        install.packages(c("tidyverse", "tidymodels", "fivethirtyeight",
+                           "ggthemes", "babynames", "nycflights13", "skimr",
+                           "AmesHousing", "rpart", "ranger", "kknn",
+                           "palmerpenguins", "vip", "themis", "modeldata",
+                           "parallel", "doParallel", "reprex"),
+                         dependencies = TRUE)
         
 And don’t forget your power cord\!
 
