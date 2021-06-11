@@ -1,0 +1,116 @@
+---
+title: "Wrap-Up"
+subtitle: "Tidy Data Science with the Tidyverse and Tidymodels"
+session: 16
+author: W. Jake Thompson
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "assets/css/my-theme.css", "assets/css/my-fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      # autoplay: 5000
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      slideNumberFormat: "" 
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "https://platform.twitter.com/widgets.js"
+    includes:
+      in_header: [assets/header.html]
+params:
+  site_link: "https://bit.ly/tidyds-2021"
+  class_link: "https://tidyds-2021.wjakethompson.com"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 3,
+                      fig.path = "images/wrap-up/plots/",
+                      fig.align = "center",
+                      fig.asp = 0.618,
+                      comment = "#>")
+
+xaringanExtra::use_share_again()
+xaringanExtra::use_panelset()
+xaringanExtra::use_extra_styles(hover_code_line = TRUE,
+                                mute_unhighlighted_code = FALSE)
+xaringanExtra::use_scribble(pen_color = "#009FB7")
+
+yt_counter <- 0
+library(countdown)
+library(tidyverse)
+library(tidymodels)
+library(flair)
+library(here)
+library(knitr)
+library(downlit)
+library(vip)
+library(themis)
+
+library(xaringancolor)
+blue <- "#009FB7"
+light_blue <- "#0ADEFF"
+yellow <- "#FED766"
+dark_yellow <- "#A27A01"
+pink <- "#CB297B"
+light_pink <- "#FF8DC6"
+green <- "#5FAD56"
+dark_green <- "#3C6E35"
+grey <- "#696773"
+
+theme_set(wjake::theme_wjake(base_family = "Source Sans Pro",
+                             base_size = 14,
+                             axis_title_size = 12))
+```
+
+
+class: title-slide, center
+
+<span class="fa-stack fa-4x">
+  <i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"></i>
+  <strong class="fa-stack-1x" style="color:#009FB7;">`r rmarkdown::metadata$session`</strong>
+</span> 
+
+# `r rmarkdown::metadata$title`
+
+## `r rmarkdown::metadata$subtitle`
+
+### `r rmarkdown::metadata$author`
+
+#### [`r params$class_link`](`r params$class_link`) &#183; [`r params$site_link`](`r params$site_link`)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
+<div style = "position:fixed; visibility: hidden">
+  $$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$
+  $$\require{color}\definecolor{light_blue}{rgb}{0.0392156862745098, 0.870588235294118, 1}$$
+  $$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$
+  $$\require{color}\definecolor{dark_yellow}{rgb}{0.635294117647059, 0.47843137254902, 0.00392156862745098}$$
+  $$\require{color}\definecolor{pink}{rgb}{0.796078431372549, 0.16078431372549, 0.482352941176471}$$
+  $$\require{color}\definecolor{light_pink}{rgb}{1, 0.552941176470588, 0.776470588235294}$$
+  $$\require{color}\definecolor{grey}{rgb}{0.411764705882353, 0.403921568627451, 0.450980392156863}$$
+</div>
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      Macros: {
+        blue: ["{\\color{blue}{#1}}", 1],
+        light_blue: ["{\\color{light_blue}{#1}}", 1],
+        yellow: ["{\\color{yellow}{#1}}", 1],
+        dark_yellow: ["{\\color{dark_yellow}{#1}}", 1],
+        pink: ["{\\color{pink}{#1}}", 1],
+        light_pink: ["{\\color{light_pink}{#1}}", 1],
+        grey: ["{\\color{grey}{#1}}", 1]
+      },
+      loader: {load: ['[tex]/color']},
+      tex: {packages: {'[+]': ['color']}}
+    }
+  });
+</script>
