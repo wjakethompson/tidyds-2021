@@ -1,0 +1,324 @@
+---
+title: "Case Study 2 - Solutions"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(tidymodels)
+
+hotels <- 
+  read_csv('https://tidymodels.org/start/case-study/hotels.csv') %>%
+  mutate(across(where(is.character), as.factor))
+```
+
+
+# Your Turn 1
+
+Look at our outcome variable, `children`.
+
+* What are the levels?
+* What proportion of cases are in each level?
+
+```{r}
+hotels %>%
+  count(children) %>%
+  mutate(prop = n / sum(n))
+```
+
+
+# Your Turn 2
+
+Create an initial split of our data to create a training and a testing set. Call the split `splits`.
+
+Because of the class imbalance, stratify the split by our outcome variable, `children`.
+
+Extract the training data as `hotel_other` and the testing data as `hotel_test`.
+
+Keep `set.seed(123)` in your code!
+
+```{r}
+set.seed(123)
+
+splits <- initial_split(hotels, strata = children)
+splits
+
+hotel_other <- training(splits)
+hotel_test <- testing(splits)
+```
+
+
+# Your Turn 3
+
+How to choose a prediction model? Let's use resampling to evaluate our potential models.
+
+Create a 10-fold cross validation, stratified by `children`. Call it `folds`. 
+
+```{r}
+set.seed(789)
+
+folds <- vfold_cv(hotel_other, v = 10, strata = children)
+folds
+```
+
+
+# Your Turn 4
+
+Build a model specification for the penalized logistic regression, called `lr_mod`.
+
+Define the model so that the `penalty` for the model can be tuned.
+
+Use `glmnet` as the model engine.
+
+```{r}
+lr_mod <-
+  logistic_reg(penalty = tune(), mixture = 1) %>%
+  set_engine("glmnet")
+```
+
+
+# Your Turn 5
+
+Using the provided list of holidays, create a recipe, called `lr_recipe`, for the logistic regression model that:
+
+1. Creates `year`, `month`, and `day` variables from `arrival_date`.
+2. Creates holiday indicators based on the `arrival_date`.
+3. Remove `arrival_date` (not necessary with other features).
+4. Create dummy variables from all predictors that are factors.
+5. Remove all variables have only one value.
+6. Center and scale all predictors.
+
+```{r}
+holidays <- c("AllSouls", "AshWednesday", "ChristmasEve", "Easter", 
+              "ChristmasDay", "GoodFriday", "NewYearsDay", "PalmSunday")
+
+lr_recipe <-
+  recipe(children ~ ., data = hotel_other) %>% 
+  step_date(arrival_date) %>% 
+  step_holiday(arrival_date, holidays = holidays) %>% 
+  step_rm(arrival_date) %>% 
+  step_dummy(all_nominal(), -all_outcomes()) %>% 
+  step_zv(all_predictors()) %>% 
+  step_normalize(all_predictors())
+```
+
+
+# Your Turn 6
+
+Create an `lr_workflow` from the model specification and recipe you just created.
+
+```{r}
+lr_workflow <-
+  workflow() %>%
+  add_model(lr_mod) %>%
+  add_recipe(lr_recipe)
+```
+
+
+# Your Turn 7
+
+Tune the logistic regression workflow. Use the provided grid of tuning parameter values.
+
+Which penalty value provides the best area under the ROC curve?
+
+Create a plot showing `penalty` on the x-axis and area under the ROC curve on the y-axis.
+
+```{r}
+lr_reg_grid <- tibble(penalty = 10^seq(-4, -1, length.out = 30))
+
+r_res <-
+  lr_workflow %>%
+  tune_grid(folds,
+            grid = lr_reg_grid,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc))
+
+lr_res %>%
+  show_best()
+
+lr_res %>%
+  collect_metrics() %>%
+  ggplot(aes(x = penalty, y = mean)) +
+  geom_point() +
+  geom_line() +
+  labs(y = "Area under the ROC Curve") +
+  scale_x_log10(labels = scales::label_number())
+```
+
+
+# Your Turn 8
+
+Create an ROC curve for the selected `penalty` value.
+
+1. Use `collect_predictions()` with `parameters = lr_best` to only get predictions for our selected penalty value.
+
+2. Use the predictions and `roc_curve()` to make the data for the curve.
+
+3. Add an additional variable called `model` that has the value `"Logistic Regression"`. We'll need this later.
+
+4. Plot the ROC curve.
+
+```{r}
+lr_auc <- lr_res %>%
+  collect_predictions(parameters = lr_best) %>%
+  roc_curve(truth = children, estimate = .pred_children) %>%
+  mutate(model = "Logistic Regression")
+
+autoplot(lr_auc)
+```
+
+
+# Your Turn 9
+
+Build a model specification for the random forest model, called `rf_mod`.
+
+Define the model so that the `mtry` and `min_n` for the model can be tuned.
+
+Use `ranger` as the model engine.
+
+Remember to set the mode!
+
+```{r}
+rf_mod <-
+  rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>%
+  set_engine("ranger") %>%
+  set_mode("classification")
+```
+
+
+# Your Turn 10
+
+Using the same list of holidays, create a recipe, called `rf_recipe`, for the random forest model that:
+
+1. Creates `year`, `month`, and `day` variables from `arrival_date`.
+2. Creates holiday indicators based on the `arrival_date`.
+3. Remove `arrival_date` (not necessary with other features).
+
+```{r}
+rf_recipe <-
+  recipe(children ~ ., data = hotel_other) %>%
+  step_date(arrival_date) %>% 
+  step_holiday(arrival_date, holidays = holidays) %>% 
+  step_rm(arrival_date)
+```
+
+
+# Your Turn 11
+
+Create an `rf_workflow` from the model sepcification and the recipe you just created.
+
+```{r}
+rf_workflow <- 
+  workflow() %>%
+  add_model(rf_mod) %>%
+  add_recipe(rf_recipe)
+```
+
+
+# WARNING: Tuning takes a long time (>1 hour)
+
+```{r}
+# set.seed(345)
+# 
+# rf_res <- rf_workflow %>%
+#   tune_grid(folds,
+#             grid = 25,
+#             control = control_grid(save_pred = TRUE),
+#             metrics = metric_set(roc_auc))
+
+rf_res <- read_rds(here("materials", "data", "hotels-rf-tune.rds"))
+```
+
+
+# Your Turn 12
+
+Which `mtry` and `min_n` values provide the best area under the ROC curve?
+
+```{r}
+rf_res %>%
+  show_best(metric = "roc_auc")
+
+autoplot(rf_res)
+```
+
+
+# Your Turn 13
+
+Create an ROC curve for the selected `mtry` and `min_n` values.
+
+1. Use `collect_predictions()` with `parameters = rf_best` to only get predictions for our selected penalty value.
+
+2. Use the predictions and `roc_curve()` to make the data for the curve.
+
+3. Add an additional variable called `model` that has the value `"Random Forest"`. We'll need this later.
+
+4. Plot the ROC curve.
+
+```{r}
+rf_auc <- rf_res %>%
+  collect_predictions(parameters = rf_best) %>%
+  roc_curve(truth = children, estimate = .pred_children) %>%
+  mutate(model = "Random Forest")
+
+autoplot(rf_auc)
+```
+
+
+# Your Turn 14
+
+Compare the area under the ROC curves for our selected logistic regression and random forest models.
+
+1. Which model provides the best ROC AUC?
+
+2. Plot both ROC curves together. Is one model uniformly better?
+
+Which model should we select as our final model?
+
+```{r}
+lr_best
+
+show_best(rf_res, n = 1)
+
+bind_rows(lr_auc, rf_auc) %>%
+  ggplot(aes(x = 1 - specificity, y = sensitivity, color = model)) +
+  geom_line(size = 1.5, alpha = 0.8) +
+  geom_abline(linetype = "dotted") +
+  scale_color_viridis_d(option = "plasma", end = 0.6) +
+  coord_equal()
+```
+
+
+# Your Turn 15
+
+Create a new random forest model specification that uses our tuned values of `mtry` and `min_n`. Use `ranger` as the engine, with `importance = "impurity"`.
+
+Create a new workflow, called `last_rf_workflow`, that is based on our original random forest workflow, but updated with the new model specification.
+
+```{r}
+last_rf_mod <-
+  rand_forest(mtry = 7, min_n = 11, trees = 1000) %>%
+  set_engine("ranger", importance = "impurity") %>%
+  set_mode("classification")
+
+last_rf_workflow <-
+  rf_workflow %>%
+  update_model(last_rf_mod)
+```
+
+
+# Your Turn 16
+
+Using our final workflow, fit the random forest model to our entire training set. Then using predictions from the test set, find the area under the ROC curve for our final model.
+
+```{r}
+set.seed(345)
+
+last_rf_fit <-
+  last_rf_workflow %>%
+  last_fit(splits)
+
+last_rf_fit %>%
+  collect_metrics()
+```
