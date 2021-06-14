@@ -114,3 +114,143 @@ class: title-slide, center
     }
   });
 </script>
+
+---
+background-image: url(images/wrap-up/applied-ds.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/wrap-up/applied-ds-hex.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/wrap-up/tm.png)
+background-size: cover
+
+---
+background-image: url(images/wrap-up/tm-hex.png)
+background-size: cover
+
+---
+background-image: url(images/wrap-up/hex-wall.png)
+background-size: contain
+
+
+---
+background-image: url(images/wrap-up/hex-wall-reprex.png)
+background-size: contain
+
+---
+<div class="hex-book">
+  <a href="https://reprex.tidyverse.org/">
+    <img class="hex" src="images/hex/reprex.png">
+  </a>
+  <a href="https://r4ds.had.co.nz/introduction.html#getting-help-and-learning-more">
+    <img class="book" src="images/books/r4ds-reprex.png">
+  </a>
+</div>
+
+---
+# Please help!
+
+.center[
+![](https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif)
+]
+
+--
+
+.center.big[
+Create a .display[repr]oducible .display[ex]ample (.display[reprex])
+]
+
+---
+# reprex
+
+**Goal**: create the *simplest example possible* to illustrate the problem/question, that anyone can run on their own machine
+
+* Can't use data stored on your computer (others won't have that)
+
+* Can't assume options or settings are the same across computers
+
+--
+
+.display[reprex] to the rescue!
+
+---
+# Example
+
+**Question**: How do I sort by a sum and then all component columns?
+
+--
+
+.center[
+![](https://media.giphy.com/media/t6WvtUluR8V2NSxLlk/giphy.gif)
+]
+
+---
+# My use case
+
+```{r include = FALSE}
+n <- 50
+
+set.seed(123)
+dat3 <- tibble(student_id = sample(1000:9999, n),
+               skill_1 = sample(0:1, n, replace = TRUE),
+               skill_2 = sample(0:1, n, replace = TRUE),
+               skill_3 = sample(0:1, n, replace = TRUE))
+
+dat4 <- tibble(student_id = sample(1000:9999, n),
+               skill_1 = sample(0:1, n, replace = TRUE),
+               skill_2 = sample(0:1, n, replace = TRUE),
+               skill_3 = sample(0:1, n, replace = TRUE),
+               skill_4 = sample(0:1, n, replace = TRUE))
+```
+
+.pull-left[
+.small[
+```{r}
+dat3
+```
+]
+]
+
+.pull-right[
+.small[
+```{r}
+dat4
+```
+]
+]
+
+???
+
+I have some data that shows which of 3 skills each student has mastered. I want to sort the data by the total number of skills mastered, and then by each skill. But the number of skills can change. How can I write a solution that will work for any number of skills?
+
+---
+# Include data
+
+**Question**: How do I sort by total skills and then each component skill?
+
+.pull-left[
+.smallish[
+```{r}
+dat3
+```
+]
+]
+
+--
+
+.pull-right[
+![](https://media.giphy.com/media/1QhmDy91F9veMRLpvK/giphy.gif)
+]
+
+???
+
+You can't do anything with this. You don't have `dat3` on your computer, and you can't copy/paste this df into an R object. Would have to build it by hand.

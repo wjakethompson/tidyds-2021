@@ -4,7 +4,7 @@
     <title>Wrap-Up</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-06-10" />
+    <meta name="date" content="2021-06-13" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -74,6 +74,173 @@ class: title-slide, center
     }
   });
 &lt;/script&gt;
+
+---
+background-image: url(images/wrap-up/applied-ds.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/wrap-up/applied-ds-hex.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/wrap-up/tm.png)
+background-size: cover
+
+---
+background-image: url(images/wrap-up/tm-hex.png)
+background-size: cover
+
+---
+background-image: url(images/wrap-up/hex-wall.png)
+background-size: contain
+
+
+---
+background-image: url(images/wrap-up/hex-wall-reprex.png)
+background-size: contain
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://reprex.tidyverse.org/"&gt;
+    &lt;img class="hex" src="images/hex/reprex.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://r4ds.had.co.nz/introduction.html#getting-help-and-learning-more"&gt;
+    &lt;img class="book" src="images/books/r4ds-reprex.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+# Please help!
+
+.center[
+![](https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif)
+]
+
+--
+
+.center.big[
+Create a .display[repr]oducible .display[ex]ample (.display[reprex])
+]
+
+---
+# reprex
+
+**Goal**: create the *simplest example possible* to illustrate the problem/question, that anyone can run on their own machine
+
+* Can't use data stored on your computer (others won't have that)
+
+* Can't assume options or settings are the same across computers
+
+--
+
+.display[reprex] to the rescue!
+
+---
+# Example
+
+**Question**: How do I sort by a sum and then all component columns?
+
+--
+
+.center[
+![](https://media.giphy.com/media/t6WvtUluR8V2NSxLlk/giphy.gif)
+]
+
+---
+# My use case
+
+
+
+.pull-left[
+.small[
+
+```r
+dat3
+#&gt; # A tibble: 50 x 4
+#&gt;    student_id skill_1 skill_2 skill_3
+#&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt;  1       3462       0       0       1
+#&gt;  2       3510       1       1       1
+#&gt;  3       9717       1       0       1
+#&gt;  4       3985       0       1       0
+#&gt;  5       2841       1       0       1
+#&gt;  6       4370       1       0       1
+#&gt;  7       5760       0       0       1
+#&gt;  8       7745       0       0       0
+#&gt;  9       3756       0       0       1
+#&gt; 10       6106       1       0       1
+#&gt; # … with 40 more rows
+```
+]
+]
+
+.pull-right[
+.small[
+
+```r
+dat4
+#&gt; # A tibble: 50 x 5
+#&gt;    student_id skill_1 skill_2 skill_3 skill_4
+#&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt;  1       1472       0       1       1       1
+#&gt;  2       7097       0       1       0       1
+#&gt;  3       2148       0       1       1       0
+#&gt;  4       3036       0       1       0       1
+#&gt;  5       3312       1       1       1       1
+#&gt;  6       8740       0       1       0       0
+#&gt;  7       9649       0       1       1       1
+#&gt;  8       2077       0       0       0       1
+#&gt;  9       6014       0       1       0       0
+#&gt; 10       6657       1       0       0       1
+#&gt; # … with 40 more rows
+```
+]
+]
+
+???
+
+I have some data that shows which of 3 skills each student has mastered. I want to sort the data by the total number of skills mastered, and then by each skill. But the number of skills can change. How can I write a solution that will work for any number of skills?
+
+---
+# Include data
+
+**Question**: How do I sort by total skills and then each component skill?
+
+.pull-left[
+.smallish[
+
+```r
+dat3
+#&gt; # A tibble: 50 x 4
+#&gt;    student_id skill_1 skill_2 skill_3
+#&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt;  1       3462       0       0       1
+#&gt;  2       3510       1       1       1
+#&gt;  3       9717       1       0       1
+#&gt;  4       3985       0       1       0
+#&gt;  5       2841       1       0       1
+#&gt;  6       4370       1       0       1
+#&gt;  7       5760       0       0       1
+#&gt;  8       7745       0       0       0
+#&gt;  9       3756       0       0       1
+#&gt; 10       6106       1       0       1
+#&gt; # … with 40 more rows
+```
+]
+]
+
+--
+
+.pull-right[
+![](https://media.giphy.com/media/1QhmDy91F9veMRLpvK/giphy.gif)
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
