@@ -1437,10 +1437,14 @@ class: your-turn
 .big[
 Use **`%>%`** to write a sequence of functions that:
 
-1. Filter `babynames` to just the femalte that were born in 2015.
+1. Filter `babynames` to just the females that were born in 2015.
 2. Select the **`name`** and **`n`** columns.
 3. Arrange the results so that the most popular names are at the top.
 ]
+
+```{r yt-pop-2015-cd, echo = FALSE}
+countdown(minutes = 4)
+```
 
 
 ---
@@ -1467,6 +1471,10 @@ Combine your new data skills to make a plot showing the popularity of your name 
 2. Trim the result to just the columns that are needed for your plot.
 3. Plot the results as a line graph with **`year`** on the x-axis and **`prop`** on the y-axis, colored **`sex`**.
 ]
+
+```{r yt-your-name-cd, echo = FALSE}
+countdown(minutes = 4)
+```
 
 ---
 class: your-turn
