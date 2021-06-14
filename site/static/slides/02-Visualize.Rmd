@@ -285,20 +285,20 @@ ggplot(dat, aes(x = jitter_x, y = y)) +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank()) -> b7
 
-ggsave2(b1, "build1.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
-ggsave2(b2, "build2.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
-ggsave2(b3, "build3.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
-ggsave2(b4, "build4.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
-ggsave2(b5, "build5.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
-ggsave2(b6, "build6.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
-ggsave2(b7, "build7.png", type = "cairo", width = 4, height = 3.66,
-        path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b1, "build1.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b2, "build2.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b3, "build3.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b4, "build4.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b5, "build5.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b6, "build6.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
+# ggsave2(b7, "build7.png", type = "cairo", width = 4, height = 3.66,
+#         path = here("site/static/slides/images/visualize/build-comp"))
 ```
 
 
@@ -1302,7 +1302,7 @@ class: your-turn
 decorate("need-pos", eval = FALSE)
 ```
 
-```{r yt-need-pos-fig, cho = FALSE, out.width = "40%"}
+```{r yt-need-pos-fig, echo = FALSE, out.width = "40%"}
 include_graphics(fig_chunk("need-pos", ".png"))
 ```
 
