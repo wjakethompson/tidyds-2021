@@ -382,7 +382,7 @@ Download course materials
 
 .smallish[
 ```r
-usethis::use_course(bit.ly/tidyds-2021)
+usethis::use_course(bit.ly/tidyds-2021-materials)
 ```
 ]
 ]
