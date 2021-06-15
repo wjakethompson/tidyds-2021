@@ -17,7 +17,7 @@ Please have a computer or laptop that has the following installed:
 
 ```{r eval = FALSE}
 install.packages(c("tidyverse", "tidymodels", "fivethirtyeight", "ggthemes",
-                   "babynames", "nycflights13", "skimr", "AmesHousing",
+                   "babynames", "nycflights13", "skimr", "here", "AmesHousing",
                    "rpart", "ranger", "kknn", "palmerpenguins", "vip", "themis",
                    "modeldata", "parallel", "doParallel", "reprex"),
                  dependencies = TRUE)
