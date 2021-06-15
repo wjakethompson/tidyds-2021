@@ -235,7 +235,7 @@ I have some data that shows which of 3 skills each student has mastered. I want 
 ---
 # Include data
 
-**Question**: How do I sort by total skills and then each component skill?
+**Question**: How do I sort a data frame by total skills and then each component skill?
 
 .pull-left[
 .smallish[
@@ -254,3 +254,202 @@ dat3
 ???
 
 You can't do anything with this. You don't have `dat3` on your computer, and you can't copy/paste this df into an R object. Would have to build it by hand.
+
+---
+# Include .display[repr]oducible .display[ex]ample data
+
+```{r}
+library(tidyverse)
+
+ex_data <- tibble(stu     = c(1, 2, 3, 4, 5),
+                  skill_1 = c(0, 0, 1, 1, 1),
+                  skill_2 = c(1, 1, 0, 0, 0),
+                  skill_3 = c(0, 1, 0, 1, 1))
+
+ex_data
+```
+
+---
+# Asking questions
+
+**Bad**: How do I sort by a sum and then all component columns?
+
+--
+
+**Better**: How can I sort a data frame by total skills and then each component skill?
+
+--
+
+**Best**: Provide an example of what you want (including the **better** question), and solutions you've tried.
+
+---
+```{r}
+# What I want:
+ex_data %>%
+  mutate(total = skill_1 + skill_2 + skill_3) %>%
+  arrange(total, desc(skill_1, skill_2, skill_3))
+```
+
+But without specifying each skill individually, because the number of skills may change.
+
+---
+```{r error = TRUE}
+# What I've tried
+
+ex_data %>%
+  rowwise() %>%
+  mutate(total = sum(c_across(starts_with("skill")))) %>%
+  ungroup() %>%
+  arrange(total, desc(everything()))
+```
+
+---
+# Anatomy of a good question
+
+* __*Brief*__ description of what you're doing
+
+* Reproducible data
+
+* What you've tried
+
+* What you've gotten
+
+* What you want to get
+
+---
+# Anatomy of a good question
+
+.fade[
+* __*Brief*__ description of what you're doing
+]
+
+* Reproducible data
+
+* What you've tried
+
+* What you've gotten
+
+.fade[
+* What you want to get
+]
+
+???
+
+reprex makes this part easier
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+```{r reprex, eval = FALSE, include = FALSE}
+reprex(x = NULL, venue, session_info, style)
+```
+
+```{r reprex-flair, echo = FALSE}
+decorate("reprex", eval = FALSE)
+```
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+```{r reprex-flair-x, echo = FALSE}
+decorate("reprex", eval = FALSE) %>%
+  flair("x = NULL", background = yellow, color = blue)
+```
+
+???
+
+The reprex. Looks first on the clipboard.
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+```{r reprex-flair-venue, echo = FALSE}
+decorate("reprex", eval = FALSE) %>%
+  flair("venue", background = yellow, color = blue)
+```
+
+???
+
+Where is the question being posted.
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+```{r reprex-flair-si, echo = FALSE}
+decorate("reprex", eval = FALSE) %>%
+  flair("session_info", background = yellow, color = blue)
+```
+
+???
+
+Whether or not to include session information.
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+```{r reprex-flair-style, echo = FALSE}
+decorate("reprex", eval = FALSE) %>%
+  flair("style", background = yellow, color = blue)
+```
+
+???
+
+Whether or not to format code in tidy style.
+
+---
+class: center middle inverse
+
+# Demo
+
+---
+# Where to get help
+
+* [RStudio Community](https://community.rstudio.com/)
+
+* [StackOverflow](https://stackoverflow.com/)
+
+* GitHub (if there is a bug in a package)
+
+---
+class: center middle
+
+<a href="https://twitter.com/JohnHolbein1/status/1348646618501885952">
+    <img src="images/wrap-up/google-tweet.png" width = "800px">
+</a>
+
+---
+class: center middle inverse
+
+# What's Next
+
+---
+class: center
+
+# Data Science
+
+.columns[
+
+.left-col[
+<a href="https://r4ds.had.co.nz/">
+  <img src="images/books/r4ds.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.middle-col[
+
+]
+
+.right-col[
+
+]
+]
