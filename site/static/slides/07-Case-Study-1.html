@@ -4,7 +4,7 @@
     <title>Case Study</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-04-19" />
+    <meta name="date" content="2021-06-16" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -86,7 +86,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_607e2918" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca6619" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -139,7 +139,7 @@ class: your-turn
 &lt;img src="images/case-study-1/538-graphic.png" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
-<div class="countdown" id="timer_607e2815" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca6727" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -223,7 +223,7 @@ class: your-turn
 * Extract data for just the 6th, 13th, and 20th of each month.
 ]
 
-<div class="countdown" id="timer_607e27e9" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca6371" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -289,7 +289,7 @@ Which arrangement is tidy?
 
 **Hint**: Think about our next step, *"Find the percentage difference between the 13th and the average of the 6th and 20th."* In which layout will this be easier using our tidy tools?
 
-<div class="countdown" id="timer_607e2990" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca65d0" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -341,7 +341,7 @@ Tidy the filtered data to have the days in columns.
 #&gt; 1  1994     1 Thurs       11406 11212 11682
 ```
 
-<div class="countdown" id="timer_607e27a5" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca6617" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -386,7 +386,7 @@ Now use **`mutate()`** to add columns for:
 **Hint:** You need to use backticks,`` ` ``, around the days, e.g.,`` `6` ``,`` `13` ``, and`` `20` `` to specify the column names.
 ]
 
-<div class="countdown" id="timer_607e293f" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca6723" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -475,7 +475,7 @@ Then recreate a bar graph to mimic the FiveThirtyEight plot.
 &lt;img src="images/case-study-1/538-graphic.png" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
-<div class="countdown" id="timer_607e29c0" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca6582" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -514,7 +514,7 @@ ggplot(births_13, mapping = aes(x = day_of_week, y = avg_diff_13)) +
 ]
 
 .panel[.panel-name[Plot]
-&lt;img src="images/case-study-1/plots/yt-sum-diff-plot-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/case-study-1/plots/yt-sum-diff-plot-create-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -575,13 +575,10 @@ births_13 %&gt;%
   geom_col(mapping = aes(fill = friday), show.legend = FALSE) +
   scale_fill_manual(values = c("#F2B5ED", "#F200DF"))
 ```
-
 ]
 
 .panel[.panel-name[Plot]
-
-&lt;img src="images/case-study-1/plots/new-colors-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="images/case-study-1/plots/new-colors-create-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -669,7 +666,7 @@ background-size: 85%
 
 ---
 .pull-left[
-&lt;img src="images/case-study-1/plots/refine-axes-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/case-study-1/plots/refine-axes-print-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -753,7 +750,7 @@ Color adjustment in the theme.
 
 ---
 .pull-left[
-&lt;img src="images/case-study-1/plots/refine-colors-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/case-study-1/plots/refine-colors-compare-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -771,7 +768,7 @@ If you wanted to use the **`US_births_2000_2014`** data instead, what would you 
 Try not removing the date column. At what point in the pipeline does it cause problems? Why?
 ]
 
-<div class="countdown" id="timer_607e28fa" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ca647e" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

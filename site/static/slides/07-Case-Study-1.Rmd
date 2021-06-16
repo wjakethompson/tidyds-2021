@@ -465,7 +465,9 @@ ggplot(births_13, mapping = aes(x = day_of_week, y = avg_diff_13)) +
 ]
 
 .panel[.panel-name[Plot]
-```{r yt-sum-diff-plot, echo = FALSE, out.width = "80%"}
+```{r yt-sum-diff-plot-create, echo = FALSE, out.width = "80%"}
+ggplot(births_13, mapping = aes(x = day_of_week, y = avg_diff_13)) +
+  geom_col()
 ```
 ]
 ]
@@ -508,7 +510,8 @@ Reorder x-axis, map fill to `friday`.
 
 ---
 .panelset[
-```{r new-colors, panelset = c(source = "Code", output = "Plot"), out.width = "80%"}
+.panel[.panel-name[Code]
+```{r new-colors, fig.show = "hide"}
 births_13 %>%
   mutate(day_of_week = fct_relevel(day_of_week, "Mon", "Tues", "Wed", "Thurs",
                                    "Fri", "Sat", "Sun"),
@@ -517,6 +520,19 @@ births_13 %>%
   geom_col(mapping = aes(fill = friday), show.legend = FALSE) +
   scale_fill_manual(values = c("#F2B5ED", "#F200DF"))
 ```
+]
+
+.panel[.panel-name[Plot]
+```{r new-colors-create, echo = FALSE, out.width = "80%"}
+births_13 %>%
+  mutate(day_of_week = fct_relevel(day_of_week, "Mon", "Tues", "Wed", "Thurs",
+                                   "Fri", "Sat", "Sun"),
+         friday = day_of_week == "Fri") %>%
+  ggplot(mapping = aes(x = day_of_week, y = avg_diff_13)) +
+  geom_col(mapping = aes(fill = friday), show.legend = FALSE) +
+  scale_fill_manual(values = c("#F2B5ED", "#F200DF"))
+```
+]
 ]
 
 ???
@@ -585,7 +601,7 @@ background-size: 85%
 
 ---
 .pull-left[
-```{r refine-axes, echo = FALSE, out.width = "100%", fig.asp = 1}
+```{r refine-axes-print, ref.label="refine-axes", echo = FALSE, out.width = "100%", fig.asp = 1}
 ```
 ]
 
@@ -651,7 +667,7 @@ Color adjustment in the theme.
 
 ---
 .pull-left[
-```{r refine-colors, echo = FALSE, out.width = "100%", fig.asp = 1}
+```{r refine-colors-compare, ref.label="refine-colors", echo = FALSE, out.width = "100%", fig.asp = 1}
 ```
 ]
 
