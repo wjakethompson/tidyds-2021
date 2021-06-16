@@ -644,9 +644,9 @@ class: middle, frame
 # .center[Specify a model with `parsnip`]
 
 ```{r eval = FALSE}
-nearest_neighbor() %>%              
-  set_engine("kknn") %>%             
-  set_mode("regression") %>%        
+nearest_neighbor() %>%
+  set_engine("kknn") %>%
+  set_mode("regression")
 ```
 
 ---
