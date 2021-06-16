@@ -446,10 +446,206 @@ class: center
 ]
 
 .middle-col[
-
+<a href="https://mdsr-book.github.io/mdsr2e/">
+  <img src="images/books/mdsr.png" width="100%" style="display: block; margin: auto;">
+</a>
 ]
 
 .right-col[
+<a href="https://moderndive.com/">
+  <img src="images/books/md.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+]
 
+???
+
+R4DS: Expanding on this workshop. Much more to learn!
+
+MDSR: beginning to end- data management, programming, statistics, machine learning, special topics in DS
+
+MD: More statistics (more regression, hypothesis testing, confidence intervals, etc.)
+
+---
+class: center
+
+# R Programming
+
+.columns[
+
+.left-col[
+<a href="https://adv-r.hadley.nz/">
+  <img src="images/books/adv-r.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.middle-col[
+<a href="https://r-pkgs.org/">
+  <img src="images/books/r-pkg.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.right-col[
+<a href="https://rstudio-education.github.io/hopr/">
+  <img src="images/books/hopr.jpg" width="100%" style="display: block; margin: auto;">
+</a>
+]
+]
+
+???
+
+AdvR: How R works (environments, data structures, meta programming)
+
+R Packages: How to make your own package!
+2nd edition work in progress
+
+HOPR: Intro to R as a programming language, in the context of data science/data analysis
+
+---
+class: center
+
+# Data Visualization
+
+.columns[
+
+.left-col[
+<a href="https://socviz.co/">
+  <img src="images/books/dv-kh.jpg" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.middle-col[
+<a href="https://r-graphics.org/">
+  <img src="images/books/rgcb.jpg" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.right-col[
+<a href="https://clauswilke.com/dataviz/">
+  <img src="images/books/fdv.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+]
+
+???
+
+SocViz: Intro to good looking graphics with ggplot2
+
+Cookbook: Basic recipes for creating and customizing plots
+
+Fundamentals: Made with ggplot2 & Rmd, but no code in book. Focus is on what makes a graphic informative, and appealing.
+
+---
+class: center
+
+# Machine Learning
+
+.columns[
+
+.left-col[
+<a href="https://www.tmwr.org/">
+  <img src="images/books/tmwr-template.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.middle-col[
+<a href="http://www.feat.engineering/">
+  <img src="images/books/feat-eng.jpg" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.right-col[
+<a href="https://bradleyboehmke.github.io/HOML/">
+  <img src="images/books/homlr.jpg" width="100%" style="display: block; margin: auto;">
+</a>
+]
+]
+
+???
+
+TMWR: How to use tidymodels, best practices, etc.
+
+FEATENG: Recipes -- how to extract more information from you data, including best practices, recommendations, etc.
+
+HOML: Focused on machine learning methods and models - random forest, clustering algos, gradient boosting machines, neural networks, stacking, more!
+
+---
+class: center
+
+# R Markdown
+
+.columns[
+
+.left-col[
+<a href="https://bookdown.org/yihui/rmarkdown/">
+  <img src="images/books/rmddg.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.middle-col[
+<a href="https://bookdown.org/yihui/rmarkdown-cookbook/">
+  <img src="images/books/rmdcb.png" width="100%" style="display: block; margin: auto;">
+</a>
+]
+
+.right-col[
+<a href="https://bookdown.org/yihui/bookdown/">
+  <img src="images/books/bookdown.jpg" width="100%" style="display: block; margin: auto;">
+</a>
+]
+]
+
+???
+
+RMD: Everything you could ever want to know about R Markdown. Includes chapters on extensions as well.
+
+cookbook: popular how-tos for how to do different things in rmarkdown
+
+bookdown: writing books, articles, dissertations, etc.
+
+---
+# Miscellaneous
+
+* Blogs
+
+  * [R posts you might have missed](https://postsyoumighthavemissed.com/)
+  
+  * [R Weekly](https://rweekly.org/)
+  
+  * [RStudio](https://blog.rstudio.com/)
+  
+  * [Tidyverse](https://www.tidyverse.org/blog/)
+  
+* Twitter `r icons::fontawesome$brands$twitter`
+
+  * My personal list of [R community members](https://twitter.com/i/lists/893667630351085568?s=20)
+  
+  * [Tidy Tuesday](https://twitter.com/hashtag/TidyTuesday?src=hashtag_click) via [Thomas Mock](https://twitter.com/thomas_mock)
+
+---
+class: your-turn center middle
+
+# .yellow[Thank you!]
+
+---
+class: middle
+
+.center.huger[[tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com)]
+
+.pull-left[
+```{r echo = FALSE, out.width="65%"}
+include_graphics("images/hex/wjakethompson.png")
+```
+]
+
+.pull-right[
+.contact-big[
+.blue[<i class="fas fa-globe"></i>] [wjakethompson.com](https://wjakethompson.com)
+
+.blue[<i class="fas fa-envelope"></i>] [wjakethompson@ku.edu](mailto:wjakethompson@ku.edu)
+
+.blue[<i class="fab fa-github"></i>] [@wjakethompson](https://github.com/wjakethompson)  
+
+.blue[<i class="fab fa-twitter"></i>] [@wjakethompson](https://twitter.com/wjakethompson)
 ]
 ]
