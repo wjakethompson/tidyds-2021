@@ -300,7 +300,7 @@ ex_data %>%
   rowwise() %>%
   mutate(total = sum(c_across(starts_with("skill")))) %>%
   ungroup() %>%
-  arrange(total, desc(everything()))
+  arrange(total, desc(starts_with("skill")))
 ```
 
 ---
@@ -412,13 +412,47 @@ class: center middle inverse
 # Demo
 
 ---
-# Where to get help
+# Answer
 
-* [RStudio Community](https://community.rstudio.com/)
+```{r}
+ex_data %>%
+  rowwise() %>%
+  mutate(total = sum(c_across(starts_with("skill")))) %>%
+  ungroup() %>%
+  arrange(total, across(starts_with("skill"), desc)) #<<
+```
 
-* [StackOverflow](https://stackoverflow.com/)
+???
 
-* GitHub (if there is a bug in a package)
+We need to use `across()` in the arrange function.
+
+---
+class: center bottom
+background-image: url(images/wrap-up/asking-for-help.png)
+background-position: center 40%
+background-size: 80%
+
+#### Shannon Pileggi for [@WeAreRLadies](https://twitter.com/WeAreRLadies/status/1362370580708790274)
+
+---
+# Useful resources
+
+.left-column[
+[**RStudio Community**](https://community.rstudio.com/)
+* [How to do a minimal reprex for beginners](https://community.rstudio.com/t/faq-how-to-do-a-minimal-reproducible-example-reprex-for-beginners/23061)
+
+[**StackOverflow**](https://stackoverflow.com/)
+* [How to make a great R reproducible example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
+
+[**Tidyverse**](https://www.tidyverse.org/)
+* [Getting help](https://www.tidyverse.org/help/)
+]
+
+.right-column[
+```{r echo = FALSE, out.width = "100%"}
+include_graphics("images/wrap-up/reprex2.png")
+```
+]
 
 ---
 class: center middle
