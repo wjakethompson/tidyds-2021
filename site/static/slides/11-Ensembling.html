@@ -4,7 +4,7 @@
     <title>Ensembling</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-05-30" />
+    <meta name="date" content="2021-06-17" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -91,7 +91,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_60b3b535" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb2e1" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -181,7 +181,7 @@ class: your-turn
 
 Fill in the blanks to return the accuracy and ROC AUC for this model.
 
-<div class="countdown" id="timer_60b3b768" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb363" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -467,7 +467,7 @@ Create a new classification tree model spec; call it `big_tree_spec`. Set the co
 
 Compare the metrics of the big tree to the vanilla tree. Which one predicts the test set better?
 
-<div class="countdown" id="timer_60b3b4bb" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb32d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -744,7 +744,7 @@ Compare the metrics of the random forest to your two single tree models (vanilla
 
 *Hint: you'll need https://www.tidymodels.org/find/parsnip/*
 
-<div class="countdown" id="timer_60b3b4c4" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb445" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -835,14 +835,13 @@ rand_forest(mtry = 4)
 **ranger** default = `floor(sqrt(num_predictors))`
 
 ---
----
 class: your-turn
 
 # Your turn 4
 
-.big[Challenge: make 4 more random forest model specs, ecah using 4, 8, 12, and 20 variables at each split. Which value maximizes the area under the ROC curve?]
+.big[Challenge: make 4 more random forest model specs, each using 4, 8, 12, and 20 variables at each split. Which value maximizes the area under the ROC curve?]
 
-<div class="countdown" id="timer_60b3b6e4" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb29e" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -953,16 +952,12 @@ fit_resamples(treebag_spec,
 ---
 # `.preds()`
 
-.big[The number of columns in the data set that are associated with the predictors prior to dummary variable creation.]
+.big[The number of columns in the data set that are associated with the predictors prior to dummy variable creation.]
 
 
 ```r
 rand_forest(mtry = .preds())
 ```
-
---
-
-https://parsnip.tidymodels.org/reference/descriptors.html
 
 ---
 .pull-left[
@@ -1155,7 +1150,7 @@ class: your-turn
 
 Make a new model spec called `treebag_imp_spec` to fit a bagged classification tree model. Set the variable `importance` mode to "permutation". Plot the variable importance- which variable was the most important?
 
-<div class="countdown" id="timer_60b3b46a" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb1fc" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

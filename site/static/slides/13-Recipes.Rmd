@@ -524,7 +524,7 @@ Converts nominal data into dummy variables which are numeric and suitable for li
 
 ```{r eval = FALSE}
 rec %>%
-  step_dummay(all_nominal()) #<<
+  step_dummy(all_nominal()) #<<
 ```
 
 .footnote[You don't need this for decision trees or ensembles of trees]
