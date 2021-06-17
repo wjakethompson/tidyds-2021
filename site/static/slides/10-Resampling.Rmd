@@ -1651,7 +1651,7 @@ class: center middle inverse
 # `fit_resamples()`
 
 ---
-# `fit_samples()`
+# `fit_resamples()`
 
 Trains and tests a model with cross-validation.
 
