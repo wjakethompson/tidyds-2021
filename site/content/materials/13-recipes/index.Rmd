@@ -21,6 +21,10 @@ links:
   icon_pack: far
   name: Solutions
   url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/solutions/13-recipes-solutions.Rmd
+- icon: video
+  icon_pack: fas
+  name: Recording
+  url: https://youtu.be/S9jVOoU1QDk?list=PLmEKpFueGKgIJpd7aNfsOdrX6r5VlsVpn&t=14155
 ---
 
 ```{r echo=FALSE}

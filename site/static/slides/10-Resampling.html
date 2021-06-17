@@ -4,7 +4,7 @@
     <title>Resampling</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-05-30" />
+    <meta name="date" content="2021-06-17" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -93,7 +93,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_60b3b5e2" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb2b9" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -406,7 +406,7 @@ Save the bootstrap samples as `penguin_boot`.
 Keep `set.seed(100)`!
 ]
 
-<div class="countdown" id="timer_60b3b868" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb2eb" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -576,7 +576,7 @@ Why is the assessment set a different size for each bootstrap resample?
 #&gt; # … with 90 more rows
 ```
 
-<div class="countdown" id="timer_60b3b672" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb3bc" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -615,7 +615,7 @@ class: your-turn
 
 &lt;code class ='r hljs remark-code'&gt;boot5 &lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;boot_sample &lt;- &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;(boot5)&lt;br&gt;&lt;br&gt;cor(boot_sample$&lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;, boot_sample$&lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;use = &lt;span style="background-color:#FED766"&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)&lt;/code&gt;
 
-<div class="countdown" id="timer_60b3b6f9" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb31a" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1125,7 +1125,7 @@ Use the mapping functions and `mutate()` to calculate the correlation between bi
 3\. Make a histogram of the bootstrapped correlations.
 ]
 
-<div class="countdown" id="timer_60b3b7ef" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb4a7" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1230,7 +1230,7 @@ class: your-turn
 3\. Use the testing data to calculate the RMSE.
 ]
 
-<div class="countdown" id="timer_60b3b6e6" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb45d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">06</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1273,7 +1273,7 @@ What would happen if you repeated this process? Would you get the same answers?
 Rerun the code chunk from the last exercise. Do you get the same answer?
 ]
 
-<div class="countdown" id="timer_60b3b664" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb137" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1505,7 +1505,7 @@ class: pop-quiz
 
 .big[If we use 10 folds, what percent of our data will end up in the training set and what percent in the testing set for each fold?]
 
-<div class="countdown" id="timer_60b3b665" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb22b" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1537,7 +1537,7 @@ cv_folds &lt;- vfold_cv(penguins, v = 10, strata = species)
 cv_folds
 ```
 
-<div class="countdown" id="timer_60b3b69b" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb230" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1573,7 +1573,7 @@ class: center middle inverse
 # `fit_resamples()`
 
 ---
-# `fit_samples()`
+# `fit_resamples()`
 
 Trains and tests a model with cross-validation.
 
@@ -1693,7 +1693,7 @@ fit(lm_spec,
     data = penguins)
 ```
 
-<div class="countdown" id="timer_60b3b893" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb2dd" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1733,7 +1733,7 @@ Use `fit_resamples()` and `cv_folds` to estimate to models two predict bill leng
 Compare the performance of each.
 ]
 
-<div class="countdown" id="timer_60b3b90a" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb4c5" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">06</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

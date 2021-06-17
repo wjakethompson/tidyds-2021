@@ -4,7 +4,7 @@
     <title>Feature Engineering</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-06-01" />
+    <meta name="date" content="2021-06-17" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -87,7 +87,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_60b6d6f0" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb494" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -867,7 +867,7 @@ Converts nominal data into dummy variables which are numeric and suitable for li
 
 ```r
 rec %&gt;%
-* step_dummay(all_nominal())
+* step_dummy(all_nominal())
 ```
 
 .footnote[You don't need this for decision trees or ensembles of trees]
@@ -974,7 +974,7 @@ Write a recipe for the `Sale_Price ~ .` variables that:
 
 Save the result as `pca_rec`
 
-<div class="countdown" id="timer_60b6d76a" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb28f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1051,7 +1051,7 @@ class: your-turn
 
 Make a workflow that combines `pca_rec` and with `lm_spec`.
 
-<div class="countdown" id="timer_60b6d540" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb500" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1133,7 +1133,7 @@ class: your-turn
 
 Try our PCA workflow on `ames_folds`. What is the estimated RMSE?
 
-<div class="countdown" id="timer_60b6d6ef" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb344" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1174,7 +1174,7 @@ Then update `pca_wf` to use the new recipe.
 
 *Hint: Guess. Use tab completion. Or visit https://recipes.tidymodels.org/reference/index.html.*
 
-<div class="countdown" id="timer_60b6d563" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb409" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1484,7 +1484,7 @@ class: your-turn
 
 Add a recipe step to downsample the remote variable majority class in the training set prior to model training. Edit your workflow, then re-fit the model and examine the metrics. Is the ROC AUC better than chance (.5)?
 
-<div class="countdown" id="timer_60b6d5df" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cbb426" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

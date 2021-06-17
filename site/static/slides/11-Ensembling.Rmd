@@ -954,12 +954,11 @@ rand_forest(mtry = 4)
 **ranger** default = `floor(sqrt(num_predictors))`
 
 ---
----
 class: your-turn
 
 # Your turn `r (yt_counter <- yt_counter + 1)`
 
-.big[Challenge: make 4 more random forest model specs, ecah using 4, 8, 12, and 20 variables at each split. Which value maximizes the area under the ROC curve?]
+.big[Challenge: make 4 more random forest model specs, each using 4, 8, 12, and 20 variables at each split. Which value maximizes the area under the ROC curve?]
 
 ```{r echo = FALSE}
 countdown(minutes = 5)
@@ -1067,15 +1066,11 @@ fit_resamples(treebag_spec,
 ---
 # `.preds()`
 
-.big[The number of columns in the data set that are associated with the predictors prior to dummary variable creation.]
+.big[The number of columns in the data set that are associated with the predictors prior to dummy variable creation.]
 
 ```{r eval = FALSE}
 rand_forest(mtry = .preds())
 ```
-
---
-
-https://parsnip.tidymodels.org/reference/descriptors.html
 
 ---
 .pull-left[
