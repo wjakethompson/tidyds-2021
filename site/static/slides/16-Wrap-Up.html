@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Wrap-Up</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="W. Jake Thompson" />
+    <meta name="date" content="2021-06-16" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#009FB7"],"pen_size":3,"eraser_size":30}) })</script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, center
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #ffffff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#009FB7;"&gt;16&lt;/strong&gt;
+&lt;/span&gt; 
+
+# Wrap-Up
+
+## Tidy Data Science with the Tidyverse and Tidymodels
+
+### W. Jake Thompson
+
+#### [https://tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com) &amp;#183; [https://bit.ly/tidyds-2021](https://bit.ly/tidyds-2021)
+
+.footer-license[*Tidy Data Science with the Tidyverse and Tidymodels* is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).]
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+  `$$\require{color}\definecolor{blue}{rgb}{0, 0.623529411764706, 0.717647058823529}$$`
+  `$$\require{color}\definecolor{light_blue}{rgb}{0.0392156862745098, 0.870588235294118, 1}$$`
+  `$$\require{color}\definecolor{yellow}{rgb}{0.996078431372549, 0.843137254901961, 0.4}$$`
+  `$$\require{color}\definecolor{dark_yellow}{rgb}{0.635294117647059, 0.47843137254902, 0.00392156862745098}$$`
+  `$$\require{color}\definecolor{pink}{rgb}{0.796078431372549, 0.16078431372549, 0.482352941176471}$$`
+  `$$\require{color}\definecolor{light_pink}{rgb}{1, 0.552941176470588, 0.776470588235294}$$`
+  `$$\require{color}\definecolor{grey}{rgb}{0.411764705882353, 0.403921568627451, 0.450980392156863}$$`
+&lt;/div&gt;
+  
+&lt;script type="text/x-mathjax-config"&gt;
+  MathJax.Hub.Config({
+    TeX: {
+      Macros: {
+        blue: ["{\\color{blue}{#1}}", 1],
+        light_blue: ["{\\color{light_blue}{#1}}", 1],
+        yellow: ["{\\color{yellow}{#1}}", 1],
+        dark_yellow: ["{\\color{dark_yellow}{#1}}", 1],
+        pink: ["{\\color{pink}{#1}}", 1],
+        light_pink: ["{\\color{light_pink}{#1}}", 1],
+        grey: ["{\\color{grey}{#1}}", 1]
+      },
+      loader: {load: ['[tex]/color']},
+      tex: {packages: {'[+]': ['color']}}
+    }
+  });
+&lt;/script&gt;
+
+---
+background-image: url(images/wrap-up/applied-ds.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/wrap-up/applied-ds-hex.png)
+background-position: center 60%
+background-size: 85%
+
+# .nobold[(Applied)] Data Science
+
+---
+background-image: url(images/wrap-up/tm.png)
+background-size: cover
+
+---
+background-image: url(images/wrap-up/tm-hex.png)
+background-size: cover
+
+---
+background-image: url(images/wrap-up/hex-wall.png)
+background-size: contain
+
+
+---
+background-image: url(images/wrap-up/hex-wall-reprex.png)
+background-size: contain
+
+---
+&lt;div class="hex-book"&gt;
+  &lt;a href="https://reprex.tidyverse.org/"&gt;
+    &lt;img class="hex" src="images/hex/reprex.png"&gt;
+  &lt;/a&gt;
+  &lt;a href="https://r4ds.had.co.nz/introduction.html#getting-help-and-learning-more"&gt;
+    &lt;img class="book" src="images/books/r4ds-reprex.png"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+---
+# Please help!
+
+.center[
+![](https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif)
+]
+
+--
+
+.center.big[
+Create a .display[repr]oducible .display[ex]ample (.display[reprex])
+]
+
+---
+# reprex
+
+**Goal**: create the *simplest example possible* to illustrate the problem/question, that anyone can run on their own machine
+
+* Can't use data stored on your computer (others won't have that)
+
+* Can't assume options or settings are the same across computers
+
+--
+
+.display[reprex] to the rescue!
+
+---
+# Example
+
+**Question**: How do I sort by a sum and then all component columns?
+
+--
+
+.center[
+![](https://media.giphy.com/media/t6WvtUluR8V2NSxLlk/giphy.gif)
+]
+
+---
+# My use case
+
+
+
+.pull-left[
+.small[
+
+```r
+dat3
+#&gt; # A tibble: 50 x 4
+#&gt;    student_id skill_1 skill_2 skill_3
+#&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt;  1       3462       0       0       1
+#&gt;  2       3510       1       1       1
+#&gt;  3       9717       1       0       1
+#&gt;  4       3985       0       1       0
+#&gt;  5       2841       1       0       1
+#&gt;  6       4370       1       0       1
+#&gt;  7       5760       0       0       1
+#&gt;  8       7745       0       0       0
+#&gt;  9       3756       0       0       1
+#&gt; 10       6106       1       0       1
+#&gt; # … with 40 more rows
+```
+]
+]
+
+.pull-right[
+.small[
+
+```r
+dat4
+#&gt; # A tibble: 50 x 5
+#&gt;    student_id skill_1 skill_2 skill_3 skill_4
+#&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt;  1       1472       0       1       1       1
+#&gt;  2       7097       0       1       0       1
+#&gt;  3       2148       0       1       1       0
+#&gt;  4       3036       0       1       0       1
+#&gt;  5       3312       1       1       1       1
+#&gt;  6       8740       0       1       0       0
+#&gt;  7       9649       0       1       1       1
+#&gt;  8       2077       0       0       0       1
+#&gt;  9       6014       0       1       0       0
+#&gt; 10       6657       1       0       0       1
+#&gt; # … with 40 more rows
+```
+]
+]
+
+???
+
+I have some data that shows which of 3 skills each student has mastered. I want to sort the data by the total number of skills mastered, and then by each skill. But the number of skills can change. How can I write a solution that will work for any number of skills?
+
+---
+# Include data
+
+**Question**: How do I sort a data frame by total skills and then each component skill?
+
+.pull-left[
+.smallish[
+
+```r
+dat3
+#&gt; # A tibble: 50 x 4
+#&gt;    student_id skill_1 skill_2 skill_3
+#&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt;  1       3462       0       0       1
+#&gt;  2       3510       1       1       1
+#&gt;  3       9717       1       0       1
+#&gt;  4       3985       0       1       0
+#&gt;  5       2841       1       0       1
+#&gt;  6       4370       1       0       1
+#&gt;  7       5760       0       0       1
+#&gt;  8       7745       0       0       0
+#&gt;  9       3756       0       0       1
+#&gt; 10       6106       1       0       1
+#&gt; # … with 40 more rows
+```
+]
+]
+
+--
+
+.pull-right[
+![](https://media.giphy.com/media/1QhmDy91F9veMRLpvK/giphy.gif)
+]
+
+???
+
+You can't do anything with this. You don't have `dat3` on your computer, and you can't copy/paste this df into an R object. Would have to build it by hand.
+
+---
+# Include .display[repr]oducible .display[ex]ample data
+
+
+```r
+library(tidyverse)
+
+ex_data &lt;- tibble(stu     = c(1, 2, 3, 4, 5),
+                  skill_1 = c(0, 0, 1, 1, 1),
+                  skill_2 = c(1, 1, 0, 0, 0),
+                  skill_3 = c(0, 1, 0, 1, 1))
+
+ex_data
+#&gt; # A tibble: 5 x 4
+#&gt;     stu skill_1 skill_2 skill_3
+#&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1     1       0       1       0
+#&gt; 2     2       0       1       1
+#&gt; 3     3       1       0       0
+#&gt; 4     4       1       0       1
+#&gt; 5     5       1       0       1
+```
+
+---
+# Asking questions
+
+**Bad**: How do I sort by a sum and then all component columns?
+
+--
+
+**Better**: How can I sort a data frame by total skills and then each component skill?
+
+--
+
+**Best**: Provide an example of what you want (including the **better** question), and solutions you've tried.
+
+---
+
+```r
+# What I want:
+ex_data %&gt;%
+  mutate(total = skill_1 + skill_2 + skill_3) %&gt;%
+  arrange(total, desc(skill_1, skill_2, skill_3))
+#&gt; # A tibble: 5 x 5
+#&gt;     stu skill_1 skill_2 skill_3 total
+#&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     3       1       0       0     1
+#&gt; 2     1       0       1       0     1
+#&gt; 3     4       1       0       1     2
+#&gt; 4     5       1       0       1     2
+#&gt; 5     2       0       1       1     2
+```
+
+But without specifying each skill individually, because the number of skills may change.
+
+---
+
+```r
+# What I've tried
+
+ex_data %&gt;%
+  rowwise() %&gt;%
+  mutate(total = sum(c_across(starts_with("skill")))) %&gt;%
+  ungroup() %&gt;%
+  arrange(total, desc(starts_with("skill")))
+#&gt; Error: arrange() failed at implicit mutate() step. 
+#&gt; * Problem with `mutate()` input `..2`.
+#&gt; x `starts_with()` must be used within a *selecting* function.
+#&gt; ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-selection-context.html&gt;.
+#&gt; ℹ Input `..2` is `starts_with("skill")`.
+```
+
+---
+# Anatomy of a good question
+
+* __*Brief*__ description of what you're doing
+
+* Reproducible data
+
+* What you've tried
+
+* What you've gotten
+
+* What you want to get
+
+---
+# Anatomy of a good question
+
+.fade[
+* __*Brief*__ description of what you're doing
+]
+
+* Reproducible data
+
+* What you've tried
+
+* What you've gotten
+
+.fade[
+* What you want to get
+]
+
+???
+
+reprex makes this part easier
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;reprex(x = NULL, venue, session_info, style)&lt;/code&gt;
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+
+&lt;code class ='r hljs remark-code'&gt;reprex(&lt;span style="background-color:#FED766;color:#009FB7"&gt;x = NULL&lt;/span&gt;, venue, session_info, style)&lt;/code&gt;
+
+???
+
+The reprex. Looks first on the clipboard.
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+
+&lt;code class ='r hljs remark-code'&gt;reprex(x = NULL, &lt;span style="background-color:#FED766;color:#009FB7"&gt;venue&lt;/span&gt;, session_info, style)&lt;/code&gt;
+
+???
+
+Where is the question being posted.
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+
+&lt;code class ='r hljs remark-code'&gt;reprex(x = NULL, venue, &lt;span style="background-color:#FED766;color:#009FB7"&gt;session_info&lt;/span&gt;, style)&lt;/code&gt;
+
+???
+
+Whether or not to include session information.
+
+---
+# `reprex()`
+
+The `reprex()` function from the reprex package will run code, format it nicely, and render the output to your clipboard.
+
+
+&lt;code class ='r hljs remark-code'&gt;reprex(x = NULL, venue, session_info, &lt;span style="background-color:#FED766;color:#009FB7"&gt;style&lt;/span&gt;)&lt;/code&gt;
+
+???
+
+Whether or not to format code in tidy style.
+
+---
+class: center middle inverse
+
+# Demo
+
+---
+# Answer
+
+
+```r
+ex_data %&gt;%
+  rowwise() %&gt;%
+  mutate(total = sum(c_across(starts_with("skill")))) %&gt;%
+  ungroup() %&gt;%
+* arrange(total, across(starts_with("skill"), desc))
+#&gt; # A tibble: 5 x 5
+#&gt;     stu skill_1 skill_2 skill_3 total
+#&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     3       1       0       0     1
+#&gt; 2     1       0       1       0     1
+#&gt; 3     4       1       0       1     2
+#&gt; 4     5       1       0       1     2
+#&gt; 5     2       0       1       1     2
+```
+
+???
+
+We need to use `across()` in the arrange function.
+
+---
+class: center bottom
+background-image: url(images/wrap-up/asking-for-help.png)
+background-position: center 40%
+background-size: 80%
+
+#### Shannon Pileggi for [@WeAreRLadies](https://twitter.com/WeAreRLadies/status/1362370580708790274)
+
+---
+# Useful resources
+
+.left-column[
+[**RStudio Community**](https://community.rstudio.com/)
+* [How to do a minimal reprex for beginners](https://community.rstudio.com/t/faq-how-to-do-a-minimal-reproducible-example-reprex-for-beginners/23061)
+
+[**StackOverflow**](https://stackoverflow.com/)
+* [How to make a great R reproducible example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
+
+[**Tidyverse**](https://www.tidyverse.org/)
+* [Getting help](https://www.tidyverse.org/help/)
+]
+
+.right-column[
+&lt;img src="images/wrap-up/reprex2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center middle
+
+&lt;a href="https://twitter.com/JohnHolbein1/status/1348646618501885952"&gt;
+    &lt;img src="images/wrap-up/google-tweet.png" width = "800px"&gt;
+&lt;/a&gt;
+
+---
+class: center middle inverse
+
+# What's Next
+
+---
+class: center
+
+# Data Science
+
+.columns[
+
+.left-col[
+&lt;a href="https://r4ds.had.co.nz/"&gt;
+  &lt;img src="images/books/r4ds.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.middle-col[
+&lt;a href="https://mdsr-book.github.io/mdsr2e/"&gt;
+  &lt;img src="images/books/mdsr.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.right-col[
+&lt;a href="https://moderndive.com/"&gt;
+  &lt;img src="images/books/md.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+]
+
+???
+
+R4DS: Expanding on this workshop. Much more to learn!
+
+MDSR: beginning to end- data management, programming, statistics, machine learning, special topics in DS
+
+MD: More statistics (more regression, hypothesis testing, confidence intervals, etc.)
+
+---
+class: center
+
+# R Programming
+
+.columns[
+
+.left-col[
+&lt;a href="https://adv-r.hadley.nz/"&gt;
+  &lt;img src="images/books/adv-r.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.middle-col[
+&lt;a href="https://r-pkgs.org/"&gt;
+  &lt;img src="images/books/r-pkg.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.right-col[
+&lt;a href="https://rstudio-education.github.io/hopr/"&gt;
+  &lt;img src="images/books/hopr.jpg" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+]
+
+???
+
+AdvR: How R works (environments, data structures, meta programming)
+
+R Packages: How to make your own package!
+2nd edition work in progress
+
+HOPR: Intro to R as a programming language, in the context of data science/data analysis
+
+---
+class: center
+
+# Data Visualization
+
+.columns[
+
+.left-col[
+&lt;a href="https://socviz.co/"&gt;
+  &lt;img src="images/books/dv-kh.jpg" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.middle-col[
+&lt;a href="https://r-graphics.org/"&gt;
+  &lt;img src="images/books/rgcb.jpg" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.right-col[
+&lt;a href="https://clauswilke.com/dataviz/"&gt;
+  &lt;img src="images/books/fdv.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+]
+
+???
+
+SocViz: Intro to good looking graphics with ggplot2
+
+Cookbook: Basic recipes for creating and customizing plots
+
+Fundamentals: Made with ggplot2 &amp; Rmd, but no code in book. Focus is on what makes a graphic informative, and appealing.
+
+---
+class: center
+
+# Machine Learning
+
+.columns[
+
+.left-col[
+&lt;a href="https://www.tmwr.org/"&gt;
+  &lt;img src="images/books/tmwr-template.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.middle-col[
+&lt;a href="http://www.feat.engineering/"&gt;
+  &lt;img src="images/books/feat-eng.jpg" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.right-col[
+&lt;a href="https://bradleyboehmke.github.io/HOML/"&gt;
+  &lt;img src="images/books/homlr.jpg" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+]
+
+???
+
+TMWR: How to use tidymodels, best practices, etc.
+
+FEATENG: Recipes -- how to extract more information from you data, including best practices, recommendations, etc.
+
+HOML: Focused on machine learning methods and models - random forest, clustering algos, gradient boosting machines, neural networks, stacking, more!
+
+---
+class: center
+
+# R Markdown
+
+.columns[
+
+.left-col[
+&lt;a href="https://bookdown.org/yihui/rmarkdown/"&gt;
+  &lt;img src="images/books/rmddg.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.middle-col[
+&lt;a href="https://bookdown.org/yihui/rmarkdown-cookbook/"&gt;
+  &lt;img src="images/books/rmdcb.png" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+
+.right-col[
+&lt;a href="https://bookdown.org/yihui/bookdown/"&gt;
+  &lt;img src="images/books/bookdown.jpg" width="100%" style="display: block; margin: auto;"&gt;
+&lt;/a&gt;
+]
+]
+
+???
+
+RMD: Everything you could ever want to know about R Markdown. Includes chapters on extensions as well.
+
+cookbook: popular how-tos for how to do different things in rmarkdown
+
+bookdown: writing books, articles, dissertations, etc.
+
+---
+# Miscellaneous
+
+* Blogs
+
+  * [R posts you might have missed](https://postsyoumighthavemissed.com/)
+  
+  * [R Weekly](https://rweekly.org/)
+  
+  * [RStudio](https://blog.rstudio.com/)
+  
+  * [Tidyverse](https://www.tidyverse.org/blog/)
+  
+* Twitter &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+  * My personal list of [R community members](https://twitter.com/i/lists/893667630351085568?s=20)
+  
+  * [Tidy Tuesday](https://twitter.com/hashtag/TidyTuesday?src=hashtag_click) via [Thomas Mock](https://twitter.com/thomas_mock)
+
+---
+class: your-turn center middle
+
+# .yellow[Thank you!]
+
+---
+class: middle
+
+.center.huger[[tidyds-2021.wjakethompson.com](https://tidyds-2021.wjakethompson.com)]
+
+.pull-left[
+&lt;img src="images/hex/wjakethompson.png" width="65%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.contact-big[
+.blue[&lt;i class="fas fa-globe"&gt;&lt;/i&gt;] [wjakethompson.com](https://wjakethompson.com)
+
+.blue[&lt;i class="fas fa-envelope"&gt;&lt;/i&gt;] [wjakethompson@ku.edu](mailto:wjakethompson@ku.edu)
+
+.blue[&lt;i class="fab fa-github"&gt;&lt;/i&gt;] [@wjakethompson](https://github.com/wjakethompson)  
+
+.blue[&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;] [@wjakethompson](https://twitter.com/wjakethompson)
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLanguage": ["r", "css", "yaml"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
