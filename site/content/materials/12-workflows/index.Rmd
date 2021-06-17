@@ -1,6 +1,6 @@
 ---
 title: 'Session 12: Workflows'
-draft: true
+draft: false
 date: 2021-06-13
 slug: 12-workflows
 categories: []
@@ -11,7 +11,7 @@ weight: 1
 links:
 - icon: images
   icon_pack: fas
-  name: slides
+  name: Slides
   url: /slides/12-Workflows.html
 - icon: dumbbell
   icon_pack: fas
