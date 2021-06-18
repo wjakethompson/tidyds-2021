@@ -612,7 +612,7 @@ We may want to choose a penalty value further along the x-axis, closer to where 
 lr_best <- lr_res %>%
   collect_metrics() %>%
   arrange(penalty) %>%
-  slice(13)
+  slice(14)
 
 lr_best
 ```
