@@ -21,6 +21,10 @@ links:
   icon_pack: far
   name: Solutions
   url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/solutions/15-case-study-2-solutions.Rmd
+- icon: video
+  icon_pack: fas
+  name: Recording
+  url: https://youtu.be/7TZZKvJ-aSw?list=PLmEKpFueGKgIJpd7aNfsOdrX6r5VlsVpn&t=7644
 ---
 
 ```{r echo=FALSE}

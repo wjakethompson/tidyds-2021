@@ -21,6 +21,10 @@ links:
   icon_pack: far
   name: Solutions
   url: https://github.com/wjakethompson/tidyds-2021/blob/main/materials/solutions/14-tuning-solutions.Rmd
+- icon: video
+  icon_pack: fas
+  name: Recording
+  url: https://youtu.be/7TZZKvJ-aSw?list=PLmEKpFueGKgIJpd7aNfsOdrX6r5VlsVpn&t=2981
 ---
 
 ```{r echo=FALSE}
