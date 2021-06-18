@@ -4,7 +4,7 @@
     <title>Case Study</title>
     <meta charset="utf-8" />
     <meta name="author" content="W. Jake Thompson" />
-    <meta name="date" content="2021-06-10" />
+    <meta name="date" content="2021-06-18" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <script src="libs/clipboard/clipboard.min.js"></script>
@@ -93,7 +93,7 @@ class: your-turn
 * Run the setup chunk
 ]
 
-<div class="countdown" id="timer_60c2c87a" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
+<div class="countdown" id="timer_60cd007f" style="right:0;bottom:0;font-size:2em;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -244,7 +244,7 @@ Look at our outcome variable, `children`.
 
 * What proportion of cases are in each level?
 
-<div class="countdown" id="timer_60c2c6ec" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cd007a" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -280,7 +280,7 @@ Extract the training data as `hotel_other` and the testing data as `hotel_test`.
 
 Keep `set.seed(123)` in your code!
 
-<div class="countdown" id="timer_60c2ca87" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfef8" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -331,7 +331,7 @@ How to choose a prediction model? Let's use resampling to evaluate our potential
 
 Create a 10-fold cross validation, stratified by `children`. Call it `folds`. 
 
-<div class="countdown" id="timer_60c2c985" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfeb8" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -385,7 +385,7 @@ Define the model so that the `penalty` for the model can be tuned.
 
 Use `glmnet` as the model engine.
 
-<div class="countdown" id="timer_60c2ca27" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfede" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -451,7 +451,7 @@ Using the provided list of holidays, create a recipe, called `lr_recipe`, for th
 5. Remove all variables have only one value.
 6. Center and scale all predictors.
 
-<div class="countdown" id="timer_60c2c910" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cd007d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -481,7 +481,7 @@ class: your-turn
 
 Create an `lr_workflow` from the model specification and recipe you just created.
 
-<div class="countdown" id="timer_60c2c725" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe5f" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -507,7 +507,7 @@ Which penalty value provides the best area under the ROC curve?
 
 Create a plot showing `penalty` on the x-axis and area under the ROC curve on the y-axis.
 
-<div class="countdown" id="timer_60c2c9cc" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cd0116" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -628,13 +628,13 @@ We may want to choose a penalty value further along the x-axis, closer to where 
 lr_best &lt;- lr_res %&gt;%
   collect_metrics() %&gt;%
   arrange(penalty) %&gt;%
-  slice(13)
+  slice(14)
 
 lr_best
 #&gt; # A tibble: 1 x 7
 #&gt;   penalty .metric .estimator  mean     n std_err .config              
 #&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-#&gt; 1 0.00174 roc_auc binary     0.875    10 0.00300 Preprocessor1_Model13
+#&gt; 1 0.00221 roc_auc binary     0.875    10 0.00299 Preprocessor1_Model14
 ```
 
 ---
@@ -652,7 +652,7 @@ Create an ROC curve for the selected `penalty` value.
 
 4. Plot the ROC curve.
 
-<div class="countdown" id="timer_60c2c7a3" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe89" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -679,7 +679,7 @@ autoplot(lr_auc)
 
 ???
 
-ROC of 0.8752802 is good, but maybe we can do better with a non-liner model. Let's try a random forest!
+ROC of 0.8747951 is good, but maybe we can do better with a non-liner model. Let's try a random forest!
 
 ---
 # Model 2: Random forest
@@ -703,7 +703,7 @@ Use `ranger` as the model engine.
 
 Remember to set the mode!
 
-<div class="countdown" id="timer_60c2c870" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe7b" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -736,7 +736,7 @@ Using the same list of holidays, create a recipe, called `rf_recipe`, for the ra
 2. Creates holiday indicators based on the `arrival_date`.
 3. Remove `arrival_date` (not necessary with other features).
 
-<div class="countdown" id="timer_60c2c795" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe89" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -760,7 +760,7 @@ class: your-turn
 
 Create an `rf_workflow` from the model sepcification and the recipe you just created.
 
-<div class="countdown" id="timer_60c2c898" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60cd00ae" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -816,7 +816,7 @@ class: your-turn
 
 Which `mtry` and `min_n` values provide the best area under the ROC curve?
 
-<div class="countdown" id="timer_60c2c6bd" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe24" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -896,7 +896,7 @@ Create an ROC curve for the selected `mtry` and `min_n` values.
 
 4. Plot the ROC curve.
 
-<div class="countdown" id="timer_60c2ca4e" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe13" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -935,7 +935,7 @@ Compare the area under the ROC curves for our selected logistic regression and r
 
 Which model should we select as our final model?
 
-<div class="countdown" id="timer_60c2c9da" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfff3" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -950,7 +950,7 @@ lr_best
 #&gt; # A tibble: 1 x 7
 #&gt;   penalty .metric .estimator  mean     n std_err .config              
 #&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-#&gt; 1 0.00174 roc_auc binary     0.875    10 0.00300 Preprocessor1_Model13
+#&gt; 1 0.00221 roc_auc binary     0.875    10 0.00299 Preprocessor1_Model14
 
 show_best(rf_res, n = 1)
 #&gt; # A tibble: 1 x 8
@@ -994,7 +994,7 @@ Create a new random forest model specification that uses our tuned values of `mt
 
 Create a new workflow, called `last_rf_workflow`, that is based on our original random forest workflow, but updated with the new model specification.
 
-<div class="countdown" id="timer_60c2c883" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccfe59" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1026,7 +1026,7 @@ class: your-turn
 
 Using our final workflow, fit the random forest model to our entire training set. Then using predictions from the test set, find the area under the ROC curve for our final model.
 
-<div class="countdown" id="timer_60c2c8ac" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60ccff2b" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
