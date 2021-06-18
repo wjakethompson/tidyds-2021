@@ -661,6 +661,8 @@ class: your-turn center middle
 
 # .yellow[Thank you!]
 
+### .yellow[[Post-workshop survey](https://docs.google.com/forms/d/e/1FAIpQLSdJ-xwpuw31jHqZH0uXVoGbCRvaacA5GneEwWDaF3lQ2qniYQ/viewform?usp=sf_link)]
+
 ---
 class: middle
 
